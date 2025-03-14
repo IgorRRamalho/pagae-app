@@ -195,6 +195,8 @@
         // Verifica e aplica o modo escuro
         if (localStorage.getItem('darkMode') === 'true') {
           document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
         }
 
         // Remove o loading screen após a detecção do tema
