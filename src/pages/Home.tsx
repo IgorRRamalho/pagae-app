@@ -72,58 +72,69 @@ export default function Home() {
     .filter((d) => d.status === 'pending')
     .reduce((sum, d) => sum + d.amount, 0);
 
+  // Cores da marca
+  const brandColors = {
+    primary: '#FF6B6B', // Vermelho divertido
+    secondary: '#6ECCAF', // Verde descontraído
+    accent: '#FFD93D', // Amarelo energético
+  };
+
+  // Novo componente de emojis animados
+  const StatusEmoji = ({ status }: { status: 'pending' | 'paid' }) => (
+    <span className="animate-bounce">
+      {status === 'paid' ? '🎉' : '💸'}
+    </span>
+  );
+
+  // Textos personalizados
+  const funnyMessages = {
+    emptyStates: {
+      all: ['Nada por aqui... Que tal uma pizza? 🍕', 'Cadê as dívidas? 🧐'],
+      pending: ['Tudo em dia! ✨', 'Ninguém te deve nada... por enquanto 😏'],
+      paid: ['Tudo quitado! Hora de comemorar! 🎉🍻', 'Pagamentos em dia! 🏆']
+    },
+    placeholders: {
+      friend: 'Quem tá devendo? 👀',
+      amount: 'Valor (em reais ou cervejas) 🍺',
+      reason: 'Motivo criativo... 🎨'
+    }
+  };
+
+  // Efeitos visuais aprimorados
+  const cardHoverEffects = 'transform transition-all hover:scale-105 hover:rotate-1';
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50/50 via-white to-gray-100/50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <Header />
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-rose-50/30 to-cyan-50/30 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <Header 
+      />
 
-      <main className="max-w-6xl mx-auto px-6 py-12">
-        {/* Seção de Controles Aprimorada */}
-        <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center mb-8">
-          <div className="flex-1">
-            <h2 className="text-2xl font-bold dark:text-white mb-2">
-              Contas Pendentes:{' '}
-              <span className="text-[#FF6B6B] ml-2">R${totalPending.toFixed(2).replace('.', ',')}</span>
-            </h2>
-            <div className="relative w-full md:w-80">
-              <input
-                type="text"
-                placeholder="🔍 Buscar por nome ou motivo..."
-                className="w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#9B5DE5] focus:border-transparent transition-all"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className="flex gap-2 flex-wrap">
-            {(['all', 'pending', 'paid'] as const).map((f) => (
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                className={`px-4 py-2 rounded-full capitalize transition-all
-                  ${filter === f
-                    ? 'bg-[#4A90E2] text-white shadow-lg'
-                    : 'bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-300'
-                  } flex items-center gap-2`}
-              >
-                {f === 'all' ? 'Todos' : f === 'pending' ? 'Pendentes' : 'Pagos'}
-                {f === 'pending' && <Frown className="w-4 h-4" />}
-                {f === 'paid' && <Check className="w-4 h-4" />}
-              </button>
-            ))}
-          </div>
+      {/* Seção de Totalizador com Personalidade */}
+      <div className="max-w-6xl mx-auto px-6 pt-8">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg mb-8 border-4 border-dashed border-rose-100 dark:border-gray-700">
+          <h2 className="text-3xl font-bold text-center dark:text-white">
+            <span className="text-gray-500">Galera tá devendo:</span>{' '}
+            <span className="text-[#FF6B6B] animate-pulse">
+              R${totalPending.toFixed(2).replace('.', ',')}
+            </span>
+            <div className="mt-2 text-sm text-gray-500">(Isso dá {Math.round(totalPending/5)} cervejas 🍻)</div>
+          </h2>
         </div>
+      </div>
 
-        {/* Formulário Interativo */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md mb-8 transition-all hover:shadow-lg">
-          <h3 className="text-xl font-bold mb-4 dark:text-white flex items-center gap-2">
-            <Smile className="text-[#6ECCAF]" /> Nova Dívida
+      {/* Formulário com Personalidade */}
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl mb-8 border-4 border-rose-50 dark:border-gray-700">
+          <h3 className="text-2xl font-bold mb-4 dark:text-white flex items-center gap-2">
+            <Smile className="text-[#6ECCAF]" /> 
+            Nova Dívida Criativa
+            <span className="text-sm text-gray-500 ml-2">(sem culpa, só diversão!)</span>
           </h3>
+          
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <input
               type="text"
-              placeholder="Amigo"
-              className="px-4 py-2 rounded-lg border bg-transparent focus:ring-2 focus:ring-[#9B5DE5] transition-all"
+              placeholder={funnyMessages.placeholders.friend}
+              className="px-4 py-3 rounded-xl border-2 bg-transparent focus:ring-2 focus:ring-[#FF6B6B] transition-all"
               value={newDebt.friend}
               onChange={(e) => setNewDebt({ ...newDebt, friend: e.target.value })}
             />
@@ -131,8 +142,8 @@ export default function Home() {
             <div className="relative">
               <input
                 type="number"
-                placeholder="Valor"
-                className="w-full px-4 py-2 rounded-lg border bg-transparent focus:ring-2 focus:ring-[#9B5DE5] transition-all"
+                placeholder={funnyMessages.placeholders.amount}
+                className="w-full px-4 py-3 rounded-xl border-2 bg-transparent focus:ring-2 focus:ring-[#FF6B6B] transition-all"
                 value={newDebt.amount}
                 onChange={(e) => setNewDebt({ ...newDebt, amount: e.target.value })}
               />
@@ -141,97 +152,119 @@ export default function Home() {
 
             <input
               type="text"
-              placeholder="Motivo (opcional)"
-              className="px-4 py-2 rounded-lg border bg-transparent focus:ring-2 focus:ring-[#9B5DE5] transition-all"
+              placeholder={funnyMessages.placeholders.reason}
+              className="px-4 py-3 rounded-xl border-2 bg-transparent focus:ring-2 focus:ring-[#FF6B6B] transition-all"
               value={newDebt.reason}
               onChange={(e) => setNewDebt({ ...newDebt, reason: e.target.value })}
             />
 
             <button
               onClick={addDebt}
-              className="bg-[#9B5DE5] text-white px-6 py-2 rounded-lg hover:bg-[#8247c4] transform transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 active:scale-95"
+              className={`bg-[#FF6B6B] text-white px-6 py-3 rounded-xl hover:bg-[#ff5252] ${cardHoverEffects} flex items-center justify-center gap-2`}
             >
               <DollarSign className="w-5 h-5" />
-              Adicionar
+              Registrar Dívida 🚨
             </button>
           </div>
         </div>
 
-        {/* Grid de Dívidas Aprimorado */}
+        {/* Cards de Dívida Aprimorados */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredDebts.map((debt, index) => (
             <div
               key={index}
-              className="group relative bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition-all cursor-pointer border-2 border-transparent hover:border-[#9B5DE5]"
+              className={`group relative bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-xl ${cardHoverEffects} border-4 ${
+                debt.status === 'paid' ? 'border-[#6ECCAF]/30' : 'border-[#FF6B6B]/30'
+              }`}
             >
-              {/* Menu de Ações */}
-              <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button
-                  onClick={() => toggleStatus(index)}
-                  className="p-1.5 rounded-full bg-green-100 dark:bg-green-900 hover:bg-green-200 dark:hover:bg-green-800 text-green-600 dark:text-green-300"
-                >
-                  {debt.status === 'paid' ? <X className="w-4 h-4" /> : <Check className="w-4 h-4" />}
-                </button>
-
+              {/* Canto Interativo */}
+              <div className="absolute -top-4 -right-4">
                 <button
                   onClick={() => deleteDebt(index)}
-                  className="p-1.5 rounded-full bg-red-100 dark:bg-red-900 hover:bg-red-200 dark:hover:bg-red-800 text-red-600 dark:text-red-300"
+                  className="p-2 rounded-full bg-white dark:bg-gray-900 shadow-lg hover:scale-110 transition-transform"
                 >
-                  <Trash className="w-4 h-4" />
+                  <Trash className="w-5 h-5 text-[#FF6B6B]" />
                 </button>
               </div>
 
+              {/* Conteúdo Principal */}
               <div className="flex justify-between items-center mb-4">
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl animate-bounce">{debt.icon}</span>
-                  <h3 className="font-bold dark:text-white">{debt.friend}</h3>
+                  <span className="text-3xl animate-wiggle">
+                    {debt.icon || '💸'}
+                  </span>
+                  <h3 className="font-bold dark:text-white text-xl">
+                    {debt.friend}
+                  </h3>
                 </div>
-                <span
-                  className={`px-3 py-1 rounded-full text-sm font-semibold 
-                    ${debt.status === 'paid'
-                      ? 'bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300'
-                      : 'bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-300'
-                    } transition-colors`}
-                >
-                  {debt.status === 'paid' ? '✨ Pago' : '⏳ Pendente'}
-                </span>
+                <StatusEmoji status={debt.status} />
               </div>
 
-              <p className="text-2xl font-bold dark:text-white mb-2">
+              {/* Valor com Destaque */}
+              <p className="text-3xl font-bold dark:text-white mb-2 text-center">
                 R${debt.amount.toFixed(2).replace('.', ',')}
               </p>
 
-              <p className="text-gray-600 dark:text-gray-300">{debt.reason}</p>
+              {/* Motivo Criativo */}
+              <div className="bg-rose-50 dark:bg-gray-700 p-4 rounded-xl mb-4">
+                <p className="text-gray-600 dark:text-gray-300 italic">
+                  "{debt.reason}"
+                </p>
+              </div>
 
-              {/* Botão de Lembrete */}
+              {/* Botão de Ação Principal */}
               <button
-                onClick={() => toast.info(`📩 Lembrete enviado para ${debt.friend}!`)}
-                className="mt-4 w-full py-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center gap-2 justify-center text-sm"
+                onClick={() => toggleStatus(index)}
+                className={`w-full py-3 rounded-xl font-bold ${
+                  debt.status === 'paid' 
+                    ? 'bg-[#6ECCAF] hover:bg-[#5ab897] text-white'
+                    : 'bg-[#FF6B6B] hover:bg-[#ff5252] text-white'
+                } transition-all flex items-center justify-center gap-2`}
               >
-                <Bell className="w-4 h-4" />
-                Enviar Lembrete Amigável
+                {debt.status === 'paid' ? (
+                  <>
+                    <X className="w-5 h-5" />
+                    Marcar como Pendente
+                  </>
+                ) : (
+                  <>
+                    <Check className="w-5 h-5" />
+                    Marcar como Pago
+                  </>
+                )}
               </button>
+
+              {/* Lembrete Divertido */}
+              <div className="mt-4 text-center">
+                <button
+                  onClick={() => toast.info(`📩 Enviamos um meme para ${debt.friend}!`)}
+                  className="text-sm text-[#FF6B6B] hover:text-[#ff5252] flex items-center justify-center gap-1"
+                >
+                  <Bell className="w-4 h-4" />
+                  Mandar um Zap! 💬
+                </button>
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Estado Vazio */}
+        {/* Estado Vazio com Humor */}
         {filteredDebts.length === 0 && (
           <div className="text-center py-12 animate-fade-in">
-            <div className="text-6xl mb-4">🎉</div>
+            <div className="text-6xl mb-4">🎭</div>
             <h3 className="text-xl font-bold dark:text-white">
               {filter === 'paid'
-                ? 'Todas as dívidas foram pagas!'
-                : 'Nenhuma dívida encontrada!'}
+                ? funnyMessages.emptyStates.paid[Math.floor(Math.random() * 2)]
+                : funnyMessages.emptyStates.all[Math.floor(Math.random() * 2)]}
             </h3>
             <p className="text-gray-600 dark:text-gray-300 mt-2">
               {filter === 'paid'
-                ? 'Parabéns, você é um ótimo cobrador!'
-                : 'Que tal adicionar uma nova dívida?'}
+                ? 'Agora pode chamar todo mundo pra happy hour! 🍻'
+                : 'Primeira rodada de cervejas é por sua conta? 😜'}
             </p>
           </div>
         )}
-      </main>
+      </div>
     </div>
   );
 }
