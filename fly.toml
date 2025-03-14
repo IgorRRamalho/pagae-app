@@ -1,0 +1,44 @@
+# fly.toml
+
+# Nome da aplicação no Fly.io
+app = "pagae-app"
+
+# Arquitetura da aplicação
+kill_signal = "SIGINT"
+kill_timeout = 5
+
+# Configuração de build
+[build]
+  builder = "heroku/buildpacks:nodejs"  # Usando buildpack do Node.js
+
+# Configuração do ambiente
+[env]
+  NODE_ENV = "production"
+  
+# Configuração do volume de dados (se precisar)
+[[mounts]]
+  source = "data"
+  destination = "/data"
+
+# Definição da porta da aplicação
+[http_service]
+  internal_port = 3000  # Porta interna da aplicação
+  force_https = true    # Forçar HTTPS para a aplicação
+
+# Configuração de rede
+[services]
+  [[services.http]]
+    internal_port = 3000
+    force_https = true
+    [services.http.tcp_checks]
+      grace_period = "5s"
+      interval = "10s"
+      timeout = "2s"
+      http_path = "/health"   # Caminho para verificação de saúde
+
+# Conexões e escalabilidade
+[scale]
+  [scale.vm]
+    cpu = "shared-cpu-1x"  # Exemplo de uma configuração de CPU para o container
+    memory = "512mb"        # Memória que a aplicação pode usar
+    count = 1               # Número de instâncias da aplicação
