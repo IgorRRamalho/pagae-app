@@ -35,6 +35,20 @@
   animation: float 3s ease-in-out infinite;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Para Firefox */
+body {
+  scrollbar-width: none;
+}
+
+/* Para IE e Edge */
+body {
+  -ms-overflow-style: none;
+}
+
 @keyframes shuffle {
   0% { transform: rotate(0deg) scale(1); }
   25% { transform: rotate(180deg) scale(0.8); }

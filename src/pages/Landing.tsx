@@ -1,18 +1,17 @@
 import { Sparkles, UserPlus } from 'lucide-react';
 
-import { Footer } from '../components/Footer';
-import Header from '../components/Header';
-import PagaeMemoryGame from '../components/LandingGame';
-import screencapture from '../public/screencapture.png';
-import { SocialProof } from '../components/SocialProof';
 import { Typewriter } from 'react-simple-typewriter';
+import { Footer } from '../components/Footer';
+import PagaeMemoryGame from '../components/LandingGame';
+import { SocialProof } from '../components/SocialProof';
+import screencapture from '../public/screencapture.png';
+import HeaderLanding from '../components/HeaderLanding';
 
 
 function Landing() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50/50 via-white to-gray-100/50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <Header />
-
+    <div className="min-h-screen transform transition-all duration-300 bg-gradient-to-br from-gray-50/50 via-white to-gray-100/50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <HeaderLanding />
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center space-y-6">
         <div className="animate-fade-in-up">
@@ -61,7 +60,7 @@ function Landing() {
         {/* Botão com Microinteração */}
         <div className="animate-fade-in-up delay-100">
           <button className="group relative bg-gradient-to-r from-[#FF6B6B] to-[#9B5DE5] text-white px-8 py-4 rounded-full text-lg font-semibold 
-            hover:shadow-xl transform transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 shadow-lg
+            hover:shadow-xl transform transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 shadow-lg
             flex items-center gap-3 mx-auto hover:gap-4">
             <UserPlus className="w-5 h-5 transition-all group-hover:w-6 group-hover:h-6" />
             <span>💸 Resolve a treta agora - É grátis!</span>

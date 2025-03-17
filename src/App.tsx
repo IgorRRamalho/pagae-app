@@ -1,13 +1,22 @@
 import { useEffect } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AnimatedRoutes from './components/AnimatedRoutes';
+import Header from './components/Header';
 import Landing from './pages/Landing';
-import Home from './pages/Home';
+
+const pageVariants = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -20 }
+};
+
+
 
 export default function App() {
   useEffect(() => {
-    // Recupera a preferência de tema do localStorage
     const storedTheme = localStorage.getItem('darkMode');
-    // Se estiver definido e for true, adiciona a classe "dark" ao <html>
     if (storedTheme && JSON.parse(storedTheme)) {
       document.documentElement.classList.add('dark');
     } else {
@@ -17,9 +26,18 @@ export default function App() {
 
   return (
     <Router>
+      <ToastContainer />
+      
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/app" element={<Home />} />
+        
+        {/* Rota pai para todas as páginas do app com header */}
+        <Route path="/app/*" element={
+          <div className="min-h-screen bg-gradient-to-br from-gray-50 via-rose-50/30 to-cyan-50/30 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+            <Header />
+            <AnimatedRoutes />
+          </div>
+        } />
       </Routes>
     </Router>
   );
