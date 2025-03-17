@@ -1,15 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@600&family=Exo+2:wght@800&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@600&family=Exo+2:wght@800&display=swap"
+      rel="stylesheet"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PagAê!</title>
     <style>
       /* Incluindo o CSS da animação de loading */
+      #loading-screen {
+        background-color: #111827; /* bg-gray-900 */
+      }
+
       .🤚 {
-        --skin-color: #E4C560;
+        --skin-color: #e4c560;
         --tap-speed: 0.6s;
         --tap-stagger: 0.1s;
         position: relative;
@@ -19,7 +26,7 @@
       }
 
       .🤚:before {
-        content: '';
+        content: "";
         display: block;
         width: 180%;
         height: 75%;
@@ -60,7 +67,7 @@
       .👍:after {
         width: 20%;
         height: 60%;
-        content: '';
+        content: "";
         background-color: rgba(255, 255, 255, 0.3);
         position: absolute;
         bottom: -8%;
@@ -84,7 +91,7 @@
       }
 
       .👉:before {
-        content: '';
+        content: "";
         position: absolute;
         width: 140%;
         height: 30px;
@@ -121,7 +128,9 @@
       }
 
       @keyframes tap-upper-1 {
-        0%, 50%, 100% {
+        0%,
+        50%,
+        100% {
           transform: rotate(10deg) scale(0.4);
         }
 
@@ -131,7 +140,9 @@
       }
 
       @keyframes tap-upper-2 {
-        0%, 50%, 100% {
+        0%,
+        50%,
+        100% {
           transform: rotate(10deg) scale(0.6);
         }
 
@@ -141,7 +152,9 @@
       }
 
       @keyframes tap-upper-3 {
-        0%, 50%, 100% {
+        0%,
+        50%,
+        100% {
           transform: rotate(10deg) scale(0.8);
         }
 
@@ -151,7 +164,9 @@
       }
 
       @keyframes tap-upper-4 {
-        0%, 50%, 100% {
+        0%,
+        50%,
+        100% {
           transform: rotate(10deg) scale(1);
         }
 
@@ -183,26 +198,26 @@
         <div class="👉"></div>
         <div class="👉"></div>
         <div class="👉"></div>
-        <div class="🌴"></div>		
+        <div class="🌴"></div>
         <div class="👍"></div>
       </div>
     </div>
 
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    
+
     <script>
       window.onload = () => {
         // Verifica e aplica o modo escuro
-        if (localStorage.getItem('darkMode') === 'true') {
-          document.documentElement.classList.add('dark');
+        if (localStorage.getItem("darkMode") === "true") {
+          document.documentElement.classList.add("dark");
         } else {
-          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.remove("dark");
         }
 
         // Remove o loading screen após a detecção do tema
-        const loadingScreen = document.getElementById('loading-screen');
-        loadingScreen.style.display = 'none';
+        const loadingScreen = document.getElementById("loading-screen");
+        loadingScreen.style.display = "none";
       };
     </script>
   </body>

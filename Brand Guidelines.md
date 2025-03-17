@@ -15,7 +15,7 @@ Este manual define os elementos visuais e conceituais do **PagAê!**, plataforma
 
 ### **2. Sobre o Produto**  
 **O que é o PagAê!?**  
-Uma plataforma web que ajuda amigos a controlarem dívidas cotidianas (como pizza, Uber ou cervejas) sem constrangimentos. Combina funcionalidades práticas com uma abordagem humorada, usando elementos lúdicos para tornar a cobrança menos séria e mais humana.  
+Uma plataforma web que ajuda amigos a controlarem dívidas cotidianas (como pizza, Uber ou cervejas) sem constrangimentos, todo mundo tem aquele amigo que fica te devendo. Combina funcionalidades práticas com uma abordagem humorada, usando elementos lúdicos para tornar a cobrança menos séria e mais humana.  
 
 **Missão:**  
 *"Transformar cobranças em brincadeiras, mantendo a amizade em primeiro lugar."*  
