@@ -18,6 +18,11 @@ export default {
           purple: '#9B5DE5',
         },
       },
+      fontFamily: {
+        montserrat: ['Montserrat', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
+        exo: ['Exo 2', 'sans-serif']
+      }
     },
   },
   plugins: [],

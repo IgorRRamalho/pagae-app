@@ -1,6 +1,7 @@
 import { Moon, Sun, Wallet, LogIn } from "lucide-react";
 import { Link } from "react-router-dom";
 import useDarkMode from "../hook/useDarkMode";
+import Logo from "./Logo";
 
 export default function Header() {
   const [isDarkMode, setIsDarkMode] = useDarkMode();
@@ -9,10 +10,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 backdrop-blur-lg bg-white/70 dark:bg-gray-900/70 shadow-md py-6 px-8 flex justify-between items-center transition-colors duration-300">
       <div className="flex items-center gap-4">
         <Link to="/app" className="flex items-center gap-2 hover:scale-105 transition-transform duration-300">
-          <Wallet className="w-10 h-10 text-[#9B5DE5]" />
-          <h1 className="text-3xl font-extrabold bg-gradient-to-r from-[#9B5DE5] to-[#6ECCAF] bg-clip-text text-transparent">
-            PagAê!
-          </h1>
+         <Logo/>
         </Link>
       </div>
       <div className="flex items-center gap-6">
