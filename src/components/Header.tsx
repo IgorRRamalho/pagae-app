@@ -15,7 +15,6 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-gradient-to-r from-purple-50/90 to-blue-100/90 dark:from-gray-800/95 dark:to-gray-900/95 backdrop-blur-lg shadow-xl py-4 px-6 flex items-center justify-between border-b-2 border-purple-300/30 dark:border-gray-700">
-      {/* Layout de 3 colunas para centralização perfeita */}
       <div className="flex-1 flex justify-start">
         <Link 
           to="/" 
