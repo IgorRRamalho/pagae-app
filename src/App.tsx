@@ -16,7 +16,6 @@ const routeConfig = [
   {
     path: '/',
     element: <Landing />,
-    public: true,
   },
   {
     path: '/auth',
@@ -63,11 +62,14 @@ export default function App() {
 
       <Routes>
         {routeConfig.map((route, index) => {
-          let element = (
-            <PageTransition>
-              {route.element}
-            </PageTransition>
-          );
+          // Não aplicar PageTransition para a rota /app/*
+          const shouldTransition = !route.path?.includes('/app/*');
+
+          let element = route.element;
+
+          if (shouldTransition) {
+            element = <PageTransition>{element}</PageTransition>;
+          }
 
           if (route.public) {
             element = <PublicRoute>{element}</PublicRoute>;

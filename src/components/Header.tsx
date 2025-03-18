@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
-import { Moon, Smile, Sun } from "lucide-react";
-import { Link, NavLink } from "react-router-dom";
-
+import { Moon, Sun, LogOut, Smile } from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
 import Logo from "./Logo";
 import useDarkMode from '@hook/useDarkMode';
 
@@ -13,18 +15,30 @@ const navLinks = [
 
 export default function Header() {
   const [isDarkMode, setIsDarkMode] = useDarkMode();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsLoggedIn(!!user);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/");
+    } catch (error) {
+      console.error("Erro ao fazer logout:", error);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-gradient-to-r from-purple-50/90 to-blue-100/90 dark:from-gray-800/95 dark:to-gray-900/95 backdrop-blur-lg shadow-xl py-4 px-6 flex items-center justify-between border-b-2 border-purple-300/30 dark:border-gray-700">
       <div className="flex-1 flex justify-start">
-        <Link 
-          to="/" 
-          className="hover:animate-float transition-transform duration-300 z-10"
-        >
-          <Logo/>
-        </Link>
+        <Logo/>
       </div>
-
 
       <div className="flex-1 flex justify-center">
         <nav className="bg-purple-100/50 dark:bg-gray-800/80 p-2 rounded-full shadow-inner">
@@ -104,12 +118,23 @@ export default function Header() {
             </motion.div>
           </motion.button>
           
-          <motion.div 
-            className="h-10 w-10 rounded-full bg-gradient-to-br from-purple-400 to-blue-400 flex items-center justify-center shadow-lg"
-            whileHover={{ rotate: 15 }}
-          >
-            <Smile className="w-6 h-6 text-white" />
-          </motion.div>
+          {isLoggedIn ? (
+            <motion.button
+              onClick={handleLogout}
+              className="p-3 rounded-full bg-red-500 hover:bg-red-600 transition-colors duration-300 relative"
+              whileHover={{ scale: 1.1 }}
+              title="Sair"
+            >
+              <LogOut className="w-6 h-6 text-white" />
+            </motion.button>
+          ) : (
+            <motion.div 
+              className="h-10 w-10 rounded-full bg-gradient-to-br from-purple-400 to-blue-400 flex items-center justify-center shadow-lg"
+              whileHover={{ rotate: 15 }}
+            >
+              <Smile className="w-6 h-6 text-white" />
+            </motion.div>
+          )}
         </div>
       </div>
     </header>
