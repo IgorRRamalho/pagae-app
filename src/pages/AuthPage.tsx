@@ -9,21 +9,44 @@ import { motion } from 'framer-motion';
 import { Eye, EyeOff, Loader2, LockKeyhole, Mail, Sparkles, User } from 'lucide-react';
 import React from 'react';
 import { toast } from 'react-toastify';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Logo from '../components/Logo';
 import { auth } from '../../firebaseConfig';
-import { useNavigate } from 'react-router-dom';
+
 const googleProvider = new GoogleAuthProvider();
 
 const Auth = () => {
-    const [isLogin, setIsLogin] = React.useState(true);
+    const [isLogin, setIsLogin] = React.useState();
     const [isLoading, setIsLoading] = React.useState(false);
     const [showPassword, setShowPassword] = React.useState(false);
+    const [checkingAuth, setCheckingAuth] = React.useState(true);
     const [formData, setFormData] = React.useState({
         name: '',
         email: '',
         password: ''
     });
+    const location = useLocation();
     const navigate = useNavigate();
+    const from = location.state?.from?.pathname || '/app';
+
+    // Verifica se o usuário já está autenticado
+    React.useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            if (user) {
+                navigate(from, { replace: true });
+            } else {
+                setCheckingAuth(false);
+            }
+        });
+
+        return () => unsubscribe();
+    }, [navigate, from]);
+
+    React.useEffect(() => {
+        const initialIsLogin = location.state?.isLogin ?? true; 
+        setIsLogin(initialIsLogin);
+    }, [location.state]);
+    
 
     const handleAuth = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -33,7 +56,7 @@ const Auth = () => {
             if (isLogin) {
                 await signInWithEmailAndPassword(auth, formData.email, formData.password);
                 toast.success('Login realizado com sucesso!');
-                navigate('/app'); // Adicione esta linha
+                navigate(from, { replace: true });
             } else {
                 const userCredential = await createUserWithEmailAndPassword(
                     auth,
@@ -45,7 +68,7 @@ const Auth = () => {
                 });
 
                 toast.success(`Bem-vindo, ${formData.name}!`);
-                navigate('/app'); // Adicione esta linha
+                navigate(from, { replace: true });
             }
         } catch (error) {
             handleAuthError(error);
@@ -59,7 +82,7 @@ const Auth = () => {
             setIsLoading(true);
             await signInWithPopup(auth, googleProvider);
             toast.success('Login com Google realizado!');
-            navigate('/app');
+            navigate(from, { replace: true });
         } catch (error) {
             handleAuthError(error);
         } finally {
@@ -87,11 +110,17 @@ const Auth = () => {
             'Erro na autenticação';
     };
 
+    if (checkingAuth) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <Loader2 className="h-8 w-8 animate-spin text-purple-500" />
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-            <Logo
-                onClick={() => window.location.href = '/'}
-                className="absolute top-6 left-6 h-10 w-10 cursor-pointer"
+            <Logo className="absolute top-6 left-6 h-10 w-10 cursor-pointer"
             />
 
             <motion.div

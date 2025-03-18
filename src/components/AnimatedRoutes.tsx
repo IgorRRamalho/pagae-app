@@ -1,8 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from '../pages/Home';
-import Configuracoes from '../pages/Settings';
-import DivisaoContas from '../pages/BillSplit';
+import DivisaoContas from '@pages/BillSplit';
+import Configuracoes from '@pages/Settings';
+
 
 const pageVariants = {
   initial: { 

@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import { Moon, Smile, Sun } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
-import useDarkMode from "../hook/useDarkMode";
+
 import Logo from "./Logo";
+import useDarkMode from '@hook/useDarkMode';
 
 const navLinks = [
   { path: "/app/configuracoes", label: "⚙️ Configurações", icon: "⚙️" },

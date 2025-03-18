@@ -1,11 +1,12 @@
+import { Footer } from '@components/Footer';
+import HeaderLanding from '@components/HeaderLanding';
+import PagaeMemoryGame from '@components/LandingGame';
+import { SocialProof } from '@components/SocialProof';
 import { Sparkles, UserPlus } from 'lucide-react';
-
 import { Typewriter } from 'react-simple-typewriter';
-import { Footer } from '../components/Footer';
-import PagaeMemoryGame from '../components/LandingGame';
-import { SocialProof } from '../components/SocialProof';
-import screencapture from '../public/screencapture.png';
-import HeaderLanding from '../components/HeaderLanding';
+
+
+
 
 
 function Landing() {
@@ -107,7 +108,7 @@ function Landing() {
           {/* Image Container */}
           <div className="relative aspect-[16/9] bg-gray-100/50 dark:bg-gray-600/20">
             <img
-              src={screencapture}
+              src="/screencapture.png"
               alt="Interface intuitiva do PagAê mostrando lista de dívidas, gráficos de resumo e ações rápidas"
               className="w-full h-full object-contain object-left-top p-4 md:p-8"
             />
