@@ -24,7 +24,7 @@ export default function Header() {
         </Link>
       </div>
 
-      {/* Navegação centralizada com cálculo preciso */}
+
       <div className="flex-1 flex justify-center">
         <nav className="bg-purple-100/50 dark:bg-gray-800/80 p-2 rounded-full shadow-inner">
           <div className="flex gap-2">
