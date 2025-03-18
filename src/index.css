@@ -61,3 +61,38 @@ body {
   animation: shuffle 0.8s ease-in-out;
 }
 
+
+
+/* src/styles/global.css */
+
+/* Estilo base para os toasts */
+.Toastify__toast {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  font-family: 'Inter', sans-serif !important; /* Use a fonte do seu projeto */
+  padding: 16px !important;
+}
+
+/* Estilo para o tema "colored" */
+.Toastify__toast--success {
+  background-color: #6ECCAF !important; /* Verde da sua paleta */
+  color: #FFFFFF !important; /* Texto branco */
+}
+
+.Toastify__toast--error {
+  background-color: #FF6B6B !important; /* Vermelho da sua paleta */
+  color: #FFFFFF !important; /* Texto branco */
+}
+
+
+
+/* Botão de fechar */
+.Toastify__close-button {
+  color: #FFFFFF !important; /* Texto branco */
+  opacity: 0.8 !important;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1 !important;
+}
