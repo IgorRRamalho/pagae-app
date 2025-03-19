@@ -1,16 +1,17 @@
+import AnimatedRoutes from '@components/AnimatedRoutes';
+import PrivateRoute from '@components/Auth/PrivateRoute';
+import PublicRoute from '@components/Auth/PublicRoute';
+import Header from '@components/Header';
+import PageTransition from '@components/PageTransition';
 import AccessRequired from '@pages/AccessRequired ';
+import Auth from '@pages/AuthPage';
+import Landing from '@pages/Landing';
 import NotFound from '@pages/NotFound';
 import { useEffect } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import AnimatedRoutes from './components/AnimatedRoutes';
-import PrivateRoute from './components/Auth/PrivateRoute';
-import PublicRoute from './components/Auth/PublicRoute';
-import Header from './components/Header';
-import PageTransition from './components/PageTransition';
-import Auth from './pages/AuthPage';
-import Landing from './pages/Landing';
+
 
 const routeConfig = [
   {
