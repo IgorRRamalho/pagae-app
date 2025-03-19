@@ -29,7 +29,8 @@
       "@hook/*": ["hook/*"],
       "@pages/*": ["pages/*"],
       "@public/*": ["public/*"],
-      "@template/*": ["template/*"]
+      "@template/*": ["template/*"],
+      "@assets/*": ["assets/*"]
     }
   },
   "include": ["src", "firebaseConfig.ts"]

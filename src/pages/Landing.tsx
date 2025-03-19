@@ -4,6 +4,7 @@ import PagaeMemoryGame from '@components/LandingGame';
 import { SocialProof } from '@components/SocialProof';
 import { Sparkles, UserPlus } from 'lucide-react';
 import { Typewriter } from 'react-simple-typewriter';
+import screencapture from '@assets/screencapture.png';
 
 function Landing() {
   return (
@@ -19,14 +20,14 @@ function Landing() {
           </div>
 
           <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 dark:text-white">
-            <span 
+            <span
               className="bg-gradient-to-r from-[#DC2626] to-[#7C3AED] bg-clip-text text-transparent"
               style={{ textShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
               Chega de ser banco de amigos! 💪
             </span>
             <br />
             <span className="text-gray-800 dark:text-gray-100">
-              O PagAê controla quem te deve e <span 
+              O PagAê controla quem te deve e <span
                 className="underline decoration-wavy decoration-teal-500 dark:decoration-teal-300"
                 style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)' }}>
                 cobra por você
@@ -59,7 +60,7 @@ function Landing() {
         </div>
 
         <div className="animate-fade-in-up delay-100">
-          <button 
+          <button
             className="group relative bg-gradient-to-r from-[#DC2626] to-[#7C3AED] dark:from-[#B91C1C] dark:to-[#6D28D9] 
             text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transform transition-all 
             duration-500 hover:scale-[1.02] hover:-translate-y-1 shadow-lg flex items-center gap-3 mx-auto hover:gap-4"
@@ -74,8 +75,8 @@ function Landing() {
 
           <div className="flex justify-center space-x-4 mt-8">
             {['🤙 100% Gratuito', '🎉 Cadastro fácil', '📱 Funciona no celular'].map((item, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="flex items-center gap-2 px-4 text-gray-900 dark:text-white py-2 bg-white/90 dark:bg-gray-800/90 
                 border border-gray-200 dark:border-gray-700 rounded-full shadow-sm">
                 <span className="text-xl">{item.split(' ')[0]}</span>
@@ -87,57 +88,62 @@ function Landing() {
       </section>
 
       {/* Seção Demonstração */}
-      <section id="demo" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative group">
-        <div className="relative bg-white dark:bg-gray-800 rounded-[2rem] shadow-2xl overflow-hidden transition-all duration-500 
-          hover:shadow-3xl hover:-translate-y-2 border-8 border-white dark:border-gray-900">
+      <section id="demo" className="max-w-[60vw] mx-auto px-4 sm:px-6 lg:px-8 py-12 relative group">
+  <div className="relative bg-white dark:bg-gray-800 rounded-[2rem] shadow-2xl overflow-hidden transition-all duration-500 
+    hover:shadow-3xl hover:-translate-y-2 border-8 border-white dark:border-gray-900">
 
-          <div className="flex items-center px-6 py-4 bg-gray-50 dark:bg-gray-700/50 border-b border-gray-100 dark:border-gray-600">
-            <div className="flex space-x-2">
-              {['#FF5F56', '#FFBD2E', '#27C93F'].map((color, i) => (
-                <div
-                  key={i}
-                  className="w-3 h-3 rounded-full"
-                  style={{ backgroundColor: color }}
-                />
-              ))}
-            </div>
-          </div>
+    {/* Cabeçalho com botões de controle */}
+    <div className="flex items-center px-6 py-4 bg-gray-50 dark:bg-gray-700/50 border-b border-gray-100 dark:border-gray-600">
+      <div className="flex space-x-2">
+        {['#FF5F56', '#FFBD2E', '#27C93F'].map((color, i) => (
+          <div
+            key={i}
+            className="w-3 h-3 rounded-full"
+            style={{ backgroundColor: color }}
+            role="presentation"
+          />
+        ))}
+      </div>
+    </div>
 
-          <div className="relative aspect-[16/9] bg-gray-100/50 dark:bg-gray-600/20">
-            <img
-              src="/screencapture.png"
-              alt="Interface do PagAê"
-              className="w-full h-full object-contain object-left-top p-4 md:p-8"
-            />
-
-            <div className="absolute bottom-8 right-8 bg-white dark:bg-gray-900 p-5 rounded-xl shadow-lg max-w-xs 
-              border border-gray-100 dark:border-gray-700 hidden md:block transform transition-transform 
-              group-hover:translate-x-0 translate-x-16">
-              <h3 className="font-bold text-lg mb-3 dark:text-white flex items-center gap-2">
-                <span className="text-[#7C3AED] dark:text-[#9B5DE5]">✨</span>
-                Destaques
-              </h3>
-              <ul className="space-y-3 text-sm">
-                {[
-                  { icon: '✅', text: 'Status claro de cada dívida' },
-                  { icon: '📅', text: 'Lembretes automáticos' },
-                  { icon: '🔒', text: 'Pagamentos seguros' }
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 dark:text-gray-300">
-                    <span className="text-xl">{item.icon}</span>
-                    {item.text}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+    {/* Container principal da demonstração */}
+    <div className="relative aspect-[16/9] bg-gray-100/50 dark:bg-gray-600/20">
+      <img
+        src={screencapture}
+        alt="Demonstração da interface do aplicativo"
+        className="w-full h-full object-center"
+        loading="lazy"
+      />
+      
+      {/* Tooltip de destaques */}
+      <div className="absolute bottom-8 right-8 bg-white dark:bg-gray-900 p-5 rounded-xl shadow-lg max-w-xs 
+        border border-gray-100 dark:border-gray-700 hidden md:block transform transition-transform 
+        group-hover:translate-x-0 translate-x-16">
+        <h3 className="font-bold text-lg mb-3 dark:text-white flex items-center gap-2">
+          <span className="text-[#7C3AED] dark:text-[#9B5DE5]" aria-hidden="true">✨</span>
+          Destaques
+        </h3>
+        <ul className="space-y-3 text-sm">
+          {[
+            { icon: '✅', text: 'Status claro de cada dívida' },
+            { icon: '📅', text: 'Lembretes automáticos' },
+            { icon: '🔒', text: 'Pagamentos seguros' }
+          ].map((item, i) => (
+            <li key={i} className="flex items-center gap-3 dark:text-gray-300">
+              <span className="text-xl" aria-hidden="true">{item.icon}</span>
+              {item.text}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Seção Funcionalidades */}
       <section id="vantagens" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-20">
         <h2 className="text-4xl font-bold text-center mb-16 dark:text-white">
-          <span 
+          <span
             className="bg-gradient-to-r from-[#DC2626] to-[#7C3AED] dark:from-[#B91C1C] dark:to-[#6D28D9] 
             bg-clip-text text-transparent"
             style={{ textShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
@@ -192,7 +198,7 @@ function Landing() {
           O que tão falando
           <div className="mt-2 text-2xl text-teal-600 dark:text-teal-300">Quem usa recomenda</div>
         </h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             {

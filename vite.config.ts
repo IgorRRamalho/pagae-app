@@ -13,7 +13,8 @@ export default defineConfig({
       '@hook': path.resolve(__dirname, 'src/hook'),
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@public': path.resolve(__dirname, 'src/public'),
-      '@template': path.resolve(__dirname, 'src/template')
+      '@template': path.resolve(__dirname, 'src/template'),
+      '@assets': path.resolve(__dirname, 'src/assets')
     }
   },
   optimizeDeps: {
