@@ -3,7 +3,9 @@ import PrivateRoute from '@components/Auth/PrivateRoute';
 import PublicRoute from '@components/Auth/PublicRoute';
 import Header from '@components/Header';
 import PageTransition from '@components/PageTransition';
-import AccessRequired from '@pages/AccessRequired ';
+import PWAInstall from '@components/PWAInstaller';
+import UpdateNotification from '@components/UpdateNotification';
+import AccessRequired from '@pages/AccessRequired';
 import Auth from '@pages/AuthPage';
 import Landing from '@pages/Landing';
 import NotFound from '@pages/NotFound';
@@ -60,6 +62,8 @@ export default function App() {
         closeOnClick
         pauseOnHover
       />
+       <PWAInstall />
+       <UpdateNotification /> 
 
       <Routes>
         {routeConfig.map((route, index) => {

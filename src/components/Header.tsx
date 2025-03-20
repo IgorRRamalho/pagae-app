@@ -9,6 +9,11 @@ import useDarkMode from '@hook/useDarkMode';
 
 const navLinks = [
   {
+    path: "/app/amigos",
+    label: "Amigos",
+    icon: "🤝"
+  },
+  {
     path: "/app/configuracoes",
     label: "Configurações",
     icon: "⚙️"
@@ -57,12 +62,12 @@ export default function Header() {
       </div>
 
       <nav
-        className="flex-1 flex justify-center"
-        aria-label="Navegação principal"
-      >
-        <div className="bg-purple-100/50 dark:bg-gray-800/80 p-2 rounded-full shadow-inner">
-          <ul className="flex gap-2 list-none">
-            {navLinks.map((link) => (
+  className="flex-1 flex justify-center"
+  aria-label="Navegação principal"
+>
+  <div className="bg-purple-100/50 dark:bg-gray-800/80 rounded-full shadow-inner w-full max-w-2xl">
+    <ul className="flex gap-2 list-none justify-center">
+      {navLinks.map((link) => (
               <li key={link.path}>
                 <NavLink
                   to={link.path}

@@ -192,7 +192,7 @@ export default function Home() {
 
   return (
 
-    <div className="max-w-6xl pt-40 mx-auto px-4 py-8">
+    <div className="max-w-6xl mx-auto px-4 py-8">
       {/* Seção de Total Pendente */}
       <div className="bg-white/80 dark:bg-gray-800 backdrop-blur-lg p-8 rounded-3xl shadow-2xl border-4 border-red-500/20 mb-10">
         <div className="text-center space-y-3">

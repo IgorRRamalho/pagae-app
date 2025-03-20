@@ -25,7 +25,7 @@ export default function Configuracoes() {
   };
 
   return (
-    <div className="min-h-screen pt-20 px-6">
+    <div className="min-h-screen px-6">
       <div className="max-w-4xl mx-auto py-12">
         <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-8 bg-gradient-to-r from-[#FF6B6B] to-[#9B5DE5] bg-clip-text text-transparent">
           Configurações ⚙️
