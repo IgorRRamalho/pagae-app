@@ -4,6 +4,7 @@ import Home from '../pages/Home';
 import DivisaoContas from '@pages/BillSplit';
 import Configuracoes from '@pages/Settings';
 import Friends from '@pages/Friends';
+import GroupScreen from '@pages/Group';
 
 
 const pageVariants = {
@@ -98,6 +99,20 @@ export default function AnimatedRoutes() {
               <Friends />
             </motion.div>
           } />
+           <Route path="grupos" element={
+            <motion.div
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="absolute inset-0 overflow-y-auto"
+            >
+              <GroupScreen />
+            </motion.div>
+          } />
+          
+          
+          
         </Routes>
       </AnimatePresence>
     </div>

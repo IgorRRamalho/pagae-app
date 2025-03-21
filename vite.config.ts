@@ -13,26 +13,59 @@ export default defineConfig({
         short_name: "PagAê!",
         description:
           "Transforme cobranças em brincadeiras entre amigos com nosso gerenciador descontraído de dívidas",
-        start_url: "/app",
+        start_url: "/",
         display: "standalone",
         orientation: "portrait",
-        theme_color: "#7C3AED",
+        theme_color: "#111827",
         background_color: "#F5F3FF",
         icons: [
+          // Ícones maskable
           {
-            src: "/pwa-256x256.png",
-            sizes: "256x256",
+            src: "/icons/maskable_icon_x48.png",
+            sizes: "48x48",
             type: "image/png",
+            purpose: "maskable"
           },
           {
-            src: "/pwa-512x512.png",
+            src: "/icons/maskable_icon_x72.png",
+            sizes: "72x72",
+            type: "image/png",
+            purpose: "maskable"
+          },
+          {
+            src: "/icons/maskable_icon_x96.png",
+            sizes: "96x96",
+            type: "image/png",
+            purpose: "maskable"
+          },
+          {
+            src: "/icons/maskable_icon_x128.png",
+            sizes: "128x128",
+            type: "image/png",
+            purpose: "maskable"
+          },
+          {
+            src: "/icons/maskable_icon_x192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "any maskable" // Combinado
+          },
+          {
+            src: "/icons/maskable_icon_x384.png",
+            sizes: "384x384",
+            type: "image/png",
+            purpose: "maskable"
+          },
+          {
+            src: "/icons/maskable_icon_x512.png",
             sizes: "512x512",
             type: "image/png",
-          },
+            purpose: "any maskable" // Combinado
+          }
         ],
       },
       workbox: {
-        navigateFallback: '/offline', 
+        navigateFallback: "/offline",
         globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
         runtimeCaching: [
           {

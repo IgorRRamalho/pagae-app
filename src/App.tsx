@@ -4,7 +4,6 @@ import PublicRoute from '@components/Auth/PublicRoute';
 import Header from '@components/Header';
 import PageTransition from '@components/PageTransition';
 import PWAInstall from '@components/PWAInstaller';
-import UpdateNotification from '@components/UpdateNotification';
 import AccessRequired from '@pages/AccessRequired';
 import Auth from '@pages/AuthPage';
 import Landing from '@pages/Landing';
@@ -13,6 +12,7 @@ import { useEffect } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const routeConfig = [
@@ -34,7 +34,7 @@ const routeConfig = [
     path: '/app/*',
     private: true,
     element: (
-      <div className="min-h-screen transform transition-all duration-300 bg-gradient-to-br from-gray-50/50 via-white to-gray-100/50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <div className="min-h-screen transform transition-all duration-300 bg-gradient-to-b from-purple-50 to-blue-50  dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <Header />
         <AnimatedRoutes />
       </div>
@@ -62,8 +62,7 @@ export default function App() {
         closeOnClick
         pauseOnHover
       />
-       <PWAInstall />
-       <UpdateNotification /> 
+      <PWAInstall />
 
       <Routes>
         {routeConfig.map((route, index) => {

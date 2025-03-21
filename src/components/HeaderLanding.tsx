@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Moon, Sun, LogIn, User, LogOut } from 'lucide-react';
+import { Moon, Sun, LogIn, User, LogOut, Menu, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import useDarkMode from '../hook/useDarkMode';
 import Logo from './Logo';
@@ -16,8 +16,10 @@ const navLinks = [
 export default function HeaderLanding() {
   const [isDarkMode, setIsDarkMode] = useDarkMode();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
+  // Monitora o estado de autenticação
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setIsLoggedIn(!!user);
@@ -25,13 +27,16 @@ export default function HeaderLanding() {
     return () => unsubscribe();
   }, []);
 
+  // Função para rolar suavemente até uma seção
   const handleScrollTo = (id) => {
+    setIsMenuOpen(false); // Fecha o menu mobile ao clicar
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
+  // Função para logout
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -41,29 +46,47 @@ export default function HeaderLanding() {
     }
   };
 
+  // Função para redirecionar para autenticação ou dashboard
   const handleAuth = () => {
     navigate(isLoggedIn ? '/app' : '/auth');
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-gradient-to-r from-purple-50/90 to-blue-100/90 dark:from-gray-800/95 dark:to-gray-900/95 backdrop-blur-lg shadow-xl py-4 px-6 flex items-center justify-between border-b-2 border-purple-300/30 dark:border-gray-700">
-      <div className="flex-1 flex justify-start">
+    <header className="sticky top-0 z-50 bg-gradient-to-r from-purple-50/90 to-blue-100/90 dark:from-gray-800/95 dark:to-gray-900/95 backdrop-blur-lg shadow-xl py-3 px-4 sm:py-4 sm:px-6 flex flex-wrap items-center justify-between border-b-2 border-purple-300/30 dark:border-gray-700">
+      
+      {/* Logo e Botão Menu Mobile */}
+      <div className="flex items-center justify-between w-full md:w-auto">
         <Logo />
+        
+        {/* Botão Menu Mobile */}
+        <motion.button
+          className="p-2 md:hidden rounded-lg hover:bg-purple-100 dark:hover:bg-gray-700 transition-colors"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          whileTap={{ scale: 0.95 }}
+          aria-label="Abrir menu"
+        >
+          {isMenuOpen ? (
+            <X className="w-6 h-6 text-purple-800 dark:text-purple-300" />
+          ) : (
+            <Menu className="w-6 h-6 text-purple-800 dark:text-purple-300" />
+          )}
+        </motion.button>
       </div>
 
-      <div className="flex-1 flex justify-center">
-        <nav className="bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-gray-800 dark:to-gray-900 p-2 rounded-full shadow-xl backdrop-blur-md">
-          <div className="flex gap-4">
+      {/* Navegação Desktop */}
+      <nav className="hidden md:flex flex-1 justify-center mx-4">
+        <div className="bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-gray-800 dark:to-gray-900 p-2 rounded-full shadow-xl backdrop-blur-md">
+          <div className="flex gap-2 lg:gap-4">
             {navLinks.map((link) => (
               <motion.button
                 key={link.id}
                 onClick={() => handleScrollTo(link.id)}
-                className="relative px-6 py-3 font-bold text-gray-900 dark:text-gray-100 transition-all 
+                className="relative px-4 py-2 lg:px-6 lg:py-3 font-bold text-gray-900 dark:text-gray-100 transition-all 
                            duration-300 flex items-center gap-2 group"
                 whileHover={{ y: -2 }}
                 aria-label={`Ir para ${link.label.split(' ')[1]}`}
               >
-                <span className="text-md font-semibold tracking-wide transition-colors group-hover:text-purple-800 dark:group-hover:text-purple-300">
+                <span className="text-sm lg:text-md font-semibold tracking-wide transition-colors group-hover:text-purple-800 dark:group-hover:text-purple-300">
                   {link.label}
                 </span>
 
@@ -89,69 +112,95 @@ export default function HeaderLanding() {
               </motion.button>
             ))}
           </div>
-        </nav>
-      </div>
-
-      <div className="flex-1 flex justify-end">
-        <div className="flex items-center gap-3 z-10">
-          <motion.button
-            onClick={handleAuth}
-            className="flex items-center gap-2 px-5 py-2 rounded-full bg-purple-700 text-white 
-                      hover:bg-purple-800 dark:bg-purple-600 dark:hover:bg-purple-500 transition-colors 
-                      duration-300 shadow-lg"
-            whileHover={{ scale: 1.05 }}
-            aria-label={isLoggedIn ? "Acessar conta" : "Fazer login"}
-          >
-            {isLoggedIn ? (
-              <>
-                <User className="w-5 h-5" />
-                <span className="text-sm font-medium">Acessar</span>
-              </>
-            ) : (
-              <>
-                <LogIn className="w-5 h-5" />
-                <span className="text-sm font-medium">Entrar</span>
-              </>
-            )}
-          </motion.button>
-
-          {isLoggedIn && (
-            <motion.button
-              onClick={handleLogout}
-              className="p-2.5 rounded-full bg-red-100 text-red-700 hover:bg-red-200 
-                        dark:bg-red-900/50 dark:text-red-300 dark:hover:bg-red-800/50"
-              whileHover={{ scale: 1.1 }}
-              title="Sair"
-              aria-label="Sair da conta"
-            >
-              <LogOut className="w-5 h-5" />
-            </motion.button>
-          )}
-
-          <motion.button
-            onClick={() => setIsDarkMode(!isDarkMode)}
-            className="p-2 rounded-full bg-purple-100 text-purple-700 hover:bg-purple-200 
-                      dark:bg-gray-700 dark:text-purple-300 dark:hover:bg-gray-600"
-            whileHover={{ scale: 1.1 }}
-            aria-label={`Alternar para modo ${isDarkMode ? 'claro' : 'escuro'}`}
-          >
-            <motion.div
-              className="relative w-6 h-6"
-              animate={isDarkMode ? "day" : "night"}
-              variants={{
-                night: { rotate: 360 },
-                day: { rotate: 0 }
-              }}
-              transition={{ duration: 0.8, type: 'spring' }}
-            >
-              {isDarkMode ? (
-                <Sun className="absolute inset-0 text-amber-500" />
-              ) : (
-                <Moon className="absolute inset-0 text-purple-700" />
-              )}
-            </motion.div>
-          </motion.button>
         </div>
+      </nav>
+
+      {/* Menu Mobile */}
+      {isMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.2 }}
+          className="w-full md:hidden mt-4"
+        >
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-2 space-y-2">
+            {navLinks.map((link) => (
+              <motion.button
+                key={link.id}
+                onClick={() => handleScrollTo(link.id)}
+                className="w-full px-4 py-3 text-left rounded-lg hover:bg-purple-50 dark:hover:bg-gray-700 
+                          text-gray-900 dark:text-gray-100 flex items-center gap-2 text-sm"
+                whileTap={{ scale: 0.98 }}
+              >
+                <span>{link.label}</span>
+              </motion.button>
+            ))}
+          </div>
+        </motion.div>
+      )}
+
+      {/* Controles Direitos */}
+      <div className="flex items-center gap-2 sm:gap-3 w-full md:w-auto mt-4 md:mt-0 justify-end">
+        {/* Botão Login/Acesso */}
+        <motion.button
+          onClick={handleAuth}
+          className="flex items-center gap-2 px-4 py-2 md:px-5 md:py-2 rounded-full bg-purple-700 text-white 
+                    hover:bg-purple-800 dark:bg-purple-600 dark:hover:bg-purple-500 transition-colors 
+                    duration-300 shadow-lg text-sm"
+          whileHover={{ scale: 1.05 }}
+          aria-label={isLoggedIn ? "Acessar conta" : "Fazer login"}
+        >
+          {isLoggedIn ? (
+            <>
+              <User className="w-4 h-4 md:w-5 md:h-5" />
+              <span className="hidden sm:inline">Acessar</span>
+            </>
+          ) : (
+            <>
+              <LogIn className="w-4 h-4 md:w-5" />
+              <span className="hidden sm:inline">Entrar</span>
+            </>
+          )}
+        </motion.button>
+
+        {/* Botão Logout (se logado) */}
+        {isLoggedIn && (
+          <motion.button
+            onClick={handleLogout}
+            className="p-2 rounded-full bg-red-100 text-red-700 hover:bg-red-200 
+                      dark:bg-red-900/50 dark:text-red-300 dark:hover:bg-red-800/50"
+            whileHover={{ scale: 1.1 }}
+            aria-label="Sair da conta"
+          >
+            <LogOut className="w-5 h-5" />
+          </motion.button>
+        )}
+
+        {/* Botão Tema Escuro */}
+        <motion.button
+          onClick={() => setIsDarkMode(!isDarkMode)}
+          className="p-2 rounded-full bg-purple-100 text-purple-700 hover:bg-purple-200 
+                    dark:bg-gray-700 dark:text-purple-300 dark:hover:bg-gray-600"
+          whileHover={{ scale: 1.1 }}
+          aria-label={`Alternar para modo ${isDarkMode ? 'claro' : 'escuro'}`}
+        >
+          <motion.div
+            className="relative w-5 h-5"
+            animate={isDarkMode ? "day" : "night"}
+            variants={{
+              night: { rotate: 360 },
+              day: { rotate: 0 }
+            }}
+            transition={{ duration: 0.8, type: 'spring' }}
+          >
+            {isDarkMode ? (
+              <Sun className="absolute inset-0 text-amber-500" />
+            ) : (
+              <Moon className="absolute inset-0 text-purple-700" />
+            )}
+          </motion.div>
+        </motion.button>
       </div>
     </header>
   );

@@ -8,45 +8,39 @@ import screencapture from '@assets/screencapture.png';
 
 function Landing() {
   return (
-    <div id="hero" className="min-h-screen transform transition-all duration-300 bg-gradient-to-br from-gray-50/50 via-white to-gray-100/50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50/50 via-white to-gray-100/50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <HeaderLanding />
 
       {/* Seção Hero */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center space-y-6">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 text-center space-y-6">
         <div className="animate-fade-in-up">
-          <div className="inline-flex items-center bg-red-100 dark:bg-red-900/80 px-6 py-2 rounded-full mb-6 border border-red-200 dark:border-red-800">
-            <Sparkles className="w-5 h-5 mr-2 text-red-600 dark:text-red-300" />
-            <span className="text-red-700 dark:text-red-300 font-medium">🚨 Beta aberto</span>
+          <div className="inline-flex items-center bg-red-100 dark:bg-red-900/80 px-4 py-1.5 md:px-6 md:py-2 rounded-full mb-4 md:mb-6">
+            <Sparkles className="w-4 h-4 md:w-5 md:h-5 mr-2 text-red-600 dark:text-red-300" />
+            <span className="text-sm md:text-base text-red-700 dark:text-red-300 font-medium">🚨 Beta aberto</span>
           </div>
 
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 dark:text-white">
-            <span
-              className="bg-gradient-to-r from-[#DC2626] to-[#7C3AED] bg-clip-text text-transparent"
-              style={{ textShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 md:mb-6 px-2 dark:text-white">
+            <span className="bg-gradient-to-r from-[#DC2626] to-[#7C3AED] bg-clip-text text-transparent">
               Chega de ser banco de amigos! 💪
             </span>
             <br />
-            <span className="text-gray-800 dark:text-gray-100">
-              O PagAê controla quem te deve e <span
-                className="underline decoration-wavy decoration-teal-500 dark:decoration-teal-300"
-                style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)' }}>
+            <span className="text-2xl md:text-4xl text-gray-800 dark:text-gray-100 mt-4 inline-block">
+              O PagAê controla quem te deve e{' '}
+              <span className="underline decoration-wavy decoration-teal-500 dark:decoration-teal-300">
                 cobra por você
               </span>.
             </span>
           </h1>
 
-          <p className="text-xl text-gray-800 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            O jeito <span className="font-semibold text-[#7C3AED] dark:text-[#9B5DE5]">descomplicado</span> de gerenciar
-            <span className="px-2 py-1 mx-1 bg-red-100/50 dark:bg-red-900/20 rounded-lg">
+          <p className="text-base md:text-xl text-gray-800 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
+            O jeito{' '}
+            <span className="font-semibold text-[#7C3AED] dark:text-[#9B5DE5]">
+              descomplicado
+            </span>{' '}
+            de gerenciar
+            <div className="px-2 py-1 mx-1 bg-red-100/50 dark:bg-red-900/20 rounded-lg mt-2 md:mt-0 md:inline-block">
               <Typewriter
-                words={[
-                  '💰 dinheiro entre amigos',
-                  '🍕 conta da pizza',
-                  '🍻 rodada do bar',
-                  '🚗 gasolina da viagem',
-                  '🎉 festa da galera',
-                  '💰 cerveja do churrasco',
-                ]}
+                words={['💰 dinheiro entre amigos', '🍕 conta da pizza', '🍻 rodada do bar']}
                 loop={true}
                 cursor
                 cursorStyle='_'
@@ -54,33 +48,37 @@ function Landing() {
                 deleteSpeed={50}
                 delaySpeed={5000}
               />
+            </div>
+            <span className="block md:inline mt-2 md:mt-0">
+              sem perder a{' '}
+              <span className="border-b-2 border-teal-500 dark:border-teal-300">
+                ✌️ paz
+              </span>
             </span>
-            sem perder a <span className="border-b-2 border-teal-500 dark:border-teal-300">✌️ paz</span>
           </p>
         </div>
 
         <div className="animate-fade-in-up delay-100">
           <button
-            className="group relative bg-gradient-to-r from-[#DC2626] to-[#7C3AED] dark:from-[#B91C1C] dark:to-[#6D28D9] 
-            text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transform transition-all 
-            duration-500 hover:scale-[1.02] hover:-translate-y-1 shadow-lg flex items-center gap-3 mx-auto hover:gap-4"
-            style={{ textShadow: '0 1px 2px rgba(0,0,0,0.2)' }}>
-            <UserPlus className="w-5 h-5 transition-all group-hover:w-6 group-hover:h-6" />
-            <span>💸 Resolve a treta agora - É grátis!</span>
-            <span className="ml-2 opacity-0 group-hover:opacity-100 transition-all">🤑</span>
-            <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 rounded-full transition-opacity" />
+            className="group relative bg-gradient-to-r from-[#DC2626] to-[#7C3AED] text-white 
+            px-6 py-3 md:px-8 md:py-4 rounded-full text-sm md:text-lg font-semibold 
+            hover:shadow-xl transition-all duration-300 flex items-center gap-2 mx-auto"
+          >
+            <UserPlus className="w-4 h-4 md:w-5 md:h-5" />
+            <span>💸 Resolve a treta agora - Grátis!</span>
           </button>
 
           <SocialProof />
 
-          <div className="flex justify-center space-x-4 mt-8">
-            {['🤙 100% Gratuito', '🎉 Cadastro fácil', '📱 Funciona no celular'].map((item, i) => (
+          <div className="flex flex-col  md:flex-row justify-center gap-3 md:gap-4 mt-8 px-4 dark:text-white">
+            {['🤙 100% Grátis', '🎉 Cadastro fácil', '📱 No celular'].map((item, i) => (
               <div
                 key={i}
-                className="flex items-center gap-2 px-4 text-gray-900 dark:text-white py-2 bg-white/90 dark:bg-gray-800/90 
-                border border-gray-200 dark:border-gray-700 rounded-full shadow-sm">
+                className="flex items-center gap-2 px-4 py-2 bg-white/90 dark:bg-gray-800/90 
+                border border-gray-200 dark:border-gray-700 rounded-full text-sm md:text-base"
+              >
                 <span className="text-xl">{item.split(' ')[0]}</span>
-                <span className="text-sm font-medium">{item.split(' ').slice(1).join(' ')}</span>
+                <span>{item.split(' ').slice(1).join(' ')}</span>
               </div>
             ))}
           </div>
@@ -88,57 +86,29 @@ function Landing() {
       </section>
 
       {/* Seção Demonstração */}
-      <section id="demo" className="max-w-[60vw] mx-auto px-4 sm:px-6 lg:px-8 py-12 relative group">
-  <div className="relative bg-white dark:bg-gray-800 rounded-[2rem] shadow-2xl overflow-hidden transition-all duration-500 
-    hover:shadow-3xl hover:-translate-y-2 border-8 border-white dark:border-gray-900">
+      <section id="demo" className="max-w-full md:max-w-[90vw] lg:max-w-[80vw] xl:max-w-[70vw] mx-auto px-4 py-8 md:py-12">
+        <div className="relative bg-white dark:bg-gray-800 rounded-2xl md:rounded-[2rem] shadow-xl 
+          overflow-hidden border-4 md:border-8 border-gray-800 dark:border-gray-900">
 
-    {/* Cabeçalho com botões de controle */}
-    <div className="flex items-center px-6 py-4 bg-gray-50 dark:bg-gray-700/50 border-b border-gray-100 dark:border-gray-600">
-      <div className="flex space-x-2">
-        {['#FF5F56', '#FFBD2E', '#27C93F'].map((color, i) => (
-          <div
-            key={i}
-            className="w-3 h-3 rounded-full"
-            style={{ backgroundColor: color }}
-            role="presentation"
-          />
-        ))}
-      </div>
-    </div>
+          {/* Cabeçalho simplificado para mobile */}
+          <div className="flex items-center px-4 py-2 md:px-6 md:py-4 bg-gray-50 dark:bg-gray-700/50">
+            <div className="flex space-x-1 md:space-x-2">
+              {['#FF5F56', '#FFBD2E', '#27C93F'].map((color, i) => (
+                <div key={i} className="w-2 h-2 md:w-3 md:h-3 rounded-full" style={{ backgroundColor: color }} />
+              ))}
+            </div>
+          </div>
 
-    {/* Container principal da demonstração */}
-    <div className="relative aspect-[16/9] bg-gray-100/50 dark:bg-gray-600/20">
-      <img
-        src={screencapture}
-        alt="Demonstração da interface do aplicativo"
-        className="w-full h-full object-center"
-        loading="lazy"
-      />
-      
-      {/* Tooltip de destaques */}
-      <div className="absolute bottom-8 right-8 bg-white dark:bg-gray-900 p-5 rounded-xl shadow-lg max-w-xs 
-        border border-gray-100 dark:border-gray-700 hidden md:block transform transition-transform 
-        group-hover:translate-x-0 translate-x-16">
-        <h3 className="font-bold text-lg mb-3 dark:text-white flex items-center gap-2">
-          <span className="text-[#7C3AED] dark:text-[#9B5DE5]" aria-hidden="true">✨</span>
-          Destaques
-        </h3>
-        <ul className="space-y-3 text-sm">
-          {[
-            { icon: '✅', text: 'Status claro de cada dívida' },
-            { icon: '📅', text: 'Lembretes automáticos' },
-            { icon: '🔒', text: 'Pagamentos seguros' }
-          ].map((item, i) => (
-            <li key={i} className="flex items-center gap-3 dark:text-gray-300">
-              <span className="text-xl" aria-hidden="true">{item.icon}</span>
-              {item.text}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+          <div className="relative aspect-[16/9] bg-gray-100/50 dark:bg-gray-600/20">
+            <img
+              src={screencapture}
+              alt="Demonstração da interface do aplicativo"
+              className="w-full h-full object-center"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Seção Funcionalidades */}
       <section id="vantagens" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-20">

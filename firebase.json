@@ -26,7 +26,7 @@
   },
   "emulators": {
     "apphosting": {
-      "port": 5002,
+      "port": 5004,
       "rootDirectory": "./",
       "startCommand": "npm run dev"
     },
