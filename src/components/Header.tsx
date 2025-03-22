@@ -131,7 +131,6 @@ export default function Header() {
             {navLinks.map((link) => (
               <li
                 key={link.path}
-                // Se o link for "Início", adiciona mx-auto para centralizá-lo na lista
                 className={link.label === "Início" ? "mx-auto" : ""}
               >
                 <NavLink

@@ -6,6 +6,7 @@ import PageTransition from '@components/PageTransition';
 import PWAInstall from '@components/PWAInstaller';
 import AccessRequired from '@pages/AccessRequired';
 import Auth from '@pages/AuthPage';
+import CreateAccountViaToken from '@pages/CreateAccountViaToken';
 import Landing from '@pages/Landing';
 import NotFound from '@pages/NotFound';
 import { useEffect } from 'react';
@@ -29,6 +30,10 @@ const routeConfig = [
     path: '/access-required',
     public: true,
     element: <AccessRequired />,
+  },
+  {
+    path: '/link-criar-conta/:token',
+    element: <CreateAccountViaToken />
   },
   {
     path: '/app/*',
@@ -66,11 +71,8 @@ export default function App() {
 
       <Routes>
         {routeConfig.map((route, index) => {
-          // Não aplicar PageTransition para a rota /app/*
           const shouldTransition = !route.path?.includes('/app/*');
-
           let element = route.element;
-
           if (shouldTransition) {
             element = <PageTransition>{element}</PageTransition>;
           }

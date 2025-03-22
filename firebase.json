@@ -1,11 +1,7 @@
 {
   "hosting": {
     "public": "dist",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "headers": [
       {
         "source": "/sw.js",
@@ -28,7 +24,7 @@
     "apphosting": {
       "port": 5004,
       "rootDirectory": "./",
-      "startCommand": "npm run dev"
+      "startCommand": "npm run dev -- --port 5004 --host 0.0.0.0"
     },
     "auth": {
       "host": "localhost",
