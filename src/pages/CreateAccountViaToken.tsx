@@ -12,29 +12,44 @@ function CreateAccountViaToken() {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const handleAccountCreation = async () => {
       try {
-        // Simular chamada à API
-        const response = await fetch(`/api/create-account/${token}`);
-        
+        setStatus('loading');
+
+        const response = await fetch(`/api/create-account/${token}`, {
+          signal: controller.signal,
+          method: 'POST'
+        });
+
         if (!response.ok) {
           throw new Error('Token inválido ou expirado');
         }
 
-        // Se sucesso
-        setStatus('success');
+        const data = await response.json();
+
+        if (data.success) {
+          setStatus('success');
+        } else {
+          throw new Error(data.message || 'Erro ao criar conta');
+        }
 
       } catch (error) {
-        setStatus('error');
-        setErrorMessage(error instanceof Error ? error.message : 'Erro desconhecido');
+        if (error.name !== 'AbortError') {
+          setStatus('error');
+          setErrorMessage(error instanceof Error ? error.message : 'Erro desconhecido');
+        }
       }
     };
 
     handleAccountCreation();
+
+    return () => controller.abort();
   }, [token, navigate]);
 
   return (
-    <div className="min-h-screen transform transition-all duration-300 bg-gradient-to-br from-gray-50/50 via-white to-gray-100/50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className=" transform transition-all duration-300 bg-gradient-to-br from-gray-50/50 via-white to-gray-100/50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center space-y-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -43,33 +58,36 @@ function CreateAccountViaToken() {
         >
           {status === 'loading' && (
             <>
-              <div className="animate-pulse inline-block">
-                <Loader2 className="w-24 h-24 text-[#9B5DE5] mx-auto animate-spin" />
-              </div>
-              
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                <Loader2 className="w-24 h-24 text-[#9B5DE5] mx-auto" />
+              </motion.div>
+
               <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 dark:text-white">
                 <span className="bg-gradient-to-r from-[#7C3AED] to-[#6ECCAF] bg-clip-text text-transparent">
                   <Typewriter
-                    words={['Criando sua conta...', 'Preparando tudo...', 'Quase lá!']}
+                    words={['Validando convite...', 'Criando sua conta...', 'Quase lá!']}
                     loop={true}
                     cursor
-                    typeSpeed={80}
+                    typeSpeed={70}
                     deleteSpeed={50}
                     delaySpeed={2000}
                   />
                 </span>
               </h1>
-              
+
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                Estamos configurando seu espaço seguro no PagAê
-                <span className="ml-2">🚀</span>
+                Estamos preparando tudo para você
+                <span className="ml-2">✨</span>
               </p>
             </>
           )}
 
           {status === 'success' && (
             <>
-              <motion.div 
+              <motion.div
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
               >
@@ -165,7 +183,6 @@ function CreateAccountViaToken() {
           </div>
         </motion.div>
       </div>
-
       <Footer />
     </div>
   );
