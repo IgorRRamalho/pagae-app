@@ -19,7 +19,7 @@ export default function HeaderLanding() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-  // Monitora o estado de autenticação
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setIsLoggedIn(!!user);
@@ -27,16 +27,16 @@ export default function HeaderLanding() {
     return () => unsubscribe();
   }, []);
 
-  // Função para rolar suavemente até uma seção
+
   const handleScrollTo = (id) => {
-    setIsMenuOpen(false); // Fecha o menu mobile ao clicar
+    setIsMenuOpen(false);
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  // Função para logout
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -46,18 +46,18 @@ export default function HeaderLanding() {
     }
   };
 
-  // Função para redirecionar para autenticação ou dashboard
+
   const handleAuth = () => {
     navigate(isLoggedIn ? '/app' : '/auth');
   };
 
   return (
     <header className="sticky top-0 z-50 bg-gradient-to-r from-purple-50/90 to-blue-100/90 dark:from-gray-800/95 dark:to-gray-900/95 backdrop-blur-lg shadow-xl py-3 px-4 sm:py-4 sm:px-6 flex flex-wrap items-center justify-between border-b-2 border-purple-300/30 dark:border-gray-700">
-      
+
       {/* Logo e Botão Menu Mobile */}
       <div className="flex items-center justify-between w-full md:w-auto">
         <Logo />
-        
+
         {/* Botão Menu Mobile */}
         <motion.button
           className="p-2 md:hidden rounded-lg hover:bg-purple-100 dark:hover:bg-gray-700 transition-colors"
@@ -82,7 +82,7 @@ export default function HeaderLanding() {
                 key={link.id}
                 onClick={() => handleScrollTo(link.id)}
                 className="relative px-4 py-2 lg:px-6 lg:py-3 font-bold text-gray-900 dark:text-gray-100 transition-all 
-                           duration-300 flex items-center gap-2 group"
+                            flex items-center gap-2 group"
                 whileHover={{ y: -2 }}
                 aria-label={`Ir para ${link.label.split(' ')[1]}`}
               >

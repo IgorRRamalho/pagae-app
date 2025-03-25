@@ -13,7 +13,6 @@ function CreateAccountViaToken() {
 
   useEffect(() => {
     const controller = new AbortController();
-
     const handleAccountCreation = async () => {
       try {
         setStatus('loading');
@@ -26,15 +25,12 @@ function CreateAccountViaToken() {
         if (!response.ok) {
           throw new Error('Token inválido ou expirado');
         }
-
         const data = await response.json();
-
         if (data.success) {
           setStatus('success');
         } else {
           throw new Error(data.message || 'Erro ao criar conta');
         }
-
       } catch (error) {
         if (error.name !== 'AbortError') {
           setStatus('error');
@@ -42,9 +38,7 @@ function CreateAccountViaToken() {
         }
       }
     };
-
     handleAccountCreation();
-
     return () => controller.abort();
   }, [token, navigate]);
 
@@ -109,8 +103,7 @@ function CreateAccountViaToken() {
               <motion.button
                 onClick={() => navigate('/app')}
                 className="group relative inline-block bg-gradient-to-r from-[#7C3AED] to-[#6ECCAF] text-white px-8 py-4 rounded-full text-lg font-semibold 
-                  hover:shadow-xl transform transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 shadow-lg
-                  flex items-center gap-3 mx-auto hover:gap-4"
+                  hover:shadow-xl transform transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 shadow-lg items-center gap-3 mx-auto hover:gap-4"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -156,8 +149,7 @@ function CreateAccountViaToken() {
                 <Link
                   to="/"
                   className="group relative inline-block bg-gradient-to-r from-[#FF6B6B] to-[#9B5DE5] text-white px-8 py-4 rounded-full text-lg font-semibold 
-                    hover:shadow-xl transform transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 shadow-lg
-                    flex items-center gap-3 mx-auto hover:gap-4"
+                    hover:shadow-xl transform transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 shadow-lg items-center gap-3 mx-auto hover:gap-4"
                 >
                   <Rocket className="w-5 h-5 transition-all group-hover:rotate-45" />
                   <span>Voltar para o início</span>
@@ -166,8 +158,7 @@ function CreateAccountViaToken() {
                 <button
                   onClick={() => window.location.reload()}
                   className="group relative inline-block bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white px-8 py-4 rounded-full text-lg font-semibold 
-                    hover:shadow-xl transform transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 shadow-lg
-                    flex items-center gap-3 mx-auto hover:gap-4"
+                    hover:shadow-xl transform transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 shadow-lg items-center gap-3 mx-auto hover:gap-4"
                 >
                   <Sparkles className="w-5 h-5 transition-all group-hover:text-[#9B5DE5]" />
                   <span>Tentar novamente</span>

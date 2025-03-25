@@ -8,7 +8,7 @@ import screencapture from '@assets/screencapture.png';
 
 function Landing() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50/50 via-white to-gray-100/50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen transition-all duration-700 bg-gradient-to-br from-gray-50/50 via-white to-gray-100/50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <HeaderLanding />
 
       {/* Seção Hero */}
@@ -61,8 +61,11 @@ function Landing() {
         <div className="animate-fade-in-up delay-100">
           <button
             className="group relative bg-gradient-to-r from-[#DC2626] to-[#7C3AED] text-white 
-            px-6 py-3 md:px-8 md:py-4 rounded-full text-sm md:text-lg font-semibold 
-            hover:shadow-xl transition-all duration-300 flex items-center gap-2 mx-auto"
+  px-6 py-3 md:px-8 md:py-4 rounded-full text-sm md:text-lg font-semibold 
+  hover:shadow-2xl transition-all duration-300 flex items-center gap-2 mx-auto
+  hover:scale-105 hover:bg-[length:400%_100%] bg-[length:200%_100%]
+  hover:bg-gradient-to-r hover:from-[#7C3AED] hover:to-[#DC2626]
+  hover:ring-8 hover:ring-purple-500/50"
           >
             <UserPlus className="w-4 h-4 md:w-5 md:h-5" />
             <span>💸 Resolve a treta agora - Grátis!</span>

@@ -54,8 +54,7 @@ function NotFound() {
           <Link 
             to="/" 
             className="group relative inline-block bg-gradient-to-r from-[#FF6B6B] to-[#9B5DE5] text-white px-8 py-4 rounded-full text-lg font-semibold 
-              hover:shadow-xl transform transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 shadow-lg
-              flex items-center gap-3 mx-auto hover:gap-4"
+              hover:shadow-xl transform transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 shadow-lg items-center gap-3 mx-auto hover:gap-4"
           >
             <Sparkles className="w-5 h-5 transition-all group-hover:rotate-180 group-hover:text-yellow-300" />
             <span>✨ Leve-me de volta à segurança</span>

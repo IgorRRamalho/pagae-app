@@ -59,7 +59,7 @@ export default function Header() {
 
   return (
     <header
-      className="relative sticky top-0 z-50 bg-gradient-to-r from-purple-50/90 to-blue-100/90 dark:from-gray-800/95 dark:to-gray-900/95 backdrop-blur-lg shadow-xl py-4 px-6 border-b-2 border-purple-300/30 dark:border-gray-700"
+      className="sticky top-0 z-50 bg-gradient-to-r from-purple-50/90 to-blue-100/90 dark:from-gray-800/95 dark:to-gray-900/95 backdrop-blur-lg shadow-xl py-4 px-6 border-b-2 border-purple-300/30 dark:border-gray-700"
       role="banner"
     >
       <div className="flex justify-between items-center">
