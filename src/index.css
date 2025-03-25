@@ -91,6 +91,18 @@ html {
   animation: float 3s ease-in-out infinite;
 }
 
+.perspective-3000 {
+  perspective: 3000px;
+}
+
+.rotate-x-3 {
+  transform: rotateX(3deg);
+}
+
+.group:hover .rotate-x-3 {
+  transform: rotateX(0);
+}
+
 /* Custom Animations */
 @keyframes float {
   0% { transform: translateY(0px); }
@@ -126,6 +138,25 @@ body {
 
 .animate-shuffle {
   animation: shuffle 0.8s ease-in-out;
+}
+
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pulse-scale {
+  0%, 100% { transform: scaleX(1); opacity: 1; }
+  50% { transform: scaleX(1.05); opacity: 0.8; }
+}
+
+.animate-pulse-scale {
+  animation: pulse-scale 2s ease-in-out infinite;
 }
 
 

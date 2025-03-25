@@ -608,6 +608,7 @@ export default function DivisaoContas() {
           </div>
         </main>
 
+        {/* Footer */}
         <footer className="mt-6 text-center text-gray-600 dark:text-gray-400">
           <p className="flex items-center justify-center gap-2">
             <ShieldAlert className="w-5 h-5" />

@@ -89,111 +89,163 @@ function Landing() {
       </section>
 
       {/* Seção Demonstração */}
-      <section id="demo" className="max-w-full md:max-w-[90vw] lg:max-w-[80vw] xl:max-w-[70vw] mx-auto px-4 py-8 md:py-12">
-        <div className="relative bg-white dark:bg-gray-800 rounded-2xl md:rounded-[2rem] shadow-xl 
-          overflow-hidden border-4 md:border-8 border-gray-800 dark:border-gray-900">
-
-          {/* Cabeçalho simplificado para mobile */}
-          <div className="flex items-center px-4 py-2 md:px-6 md:py-4 bg-gray-50 dark:bg-gray-700/50">
-            <div className="flex space-x-1 md:space-x-2">
-              {['#FF5F56', '#FFBD2E', '#27C93F'].map((color, i) => (
-                <div key={i} className="w-2 h-2 md:w-3 md:h-3 rounded-full" style={{ backgroundColor: color }} />
-              ))}
-            </div>
+      <section id="demo" className="relative py-24 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-gray-900 dark:to-purple-900/10 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Título adicionado */}
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold mb-4 dark:text-white">
+              <span className="bg-gradient-to-r from-[#7C3AED] to-[#DC2626] dark:from-[#6D28D9] dark:to-[#B91C1C] 
+          bg-clip-text text-transparent">
+                Na Prática
+              </span>
+              <div className="mt-4 text-2xl text-gray-600 dark:text-gray-300">✨ Veja como funciona</div>
+            </h2>
           </div>
 
-          <div className="relative aspect-[16/9] bg-gray-100/50 dark:bg-gray-600/20">
-            <img
-              src={screencapture}
-              alt="Demonstração da interface do aplicativo"
-              className="w-full h-full object-center"
-              loading="lazy"
-            />
+          {/* Container externo estilizado */}
+          <div className="relative group perspective-3000 transform transition-all duration-700 hover:rotate-x-3">
+            {/* Efeitos de fundo */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] 
+        bg-[size:24px_24px] opacity-20 dark:opacity-10" />
+
+            {/* Mockup original preservado */}
+            <div className="max-w-full md:max-w-[90vw] lg:max-w-[80vw] xl:max-w-[70vw] mx-auto">
+              <div className="relative bg-white dark:bg-gray-800 rounded-2xl md:rounded-[2rem] shadow-2xl hover:shadow-3xl 
+          transition-all duration-500 border-4 md:border-8 border-gray-800 dark:border-gray-900 overflow-hidden">
+
+                {/* Cabeçalho original */}
+                <div className="flex items-center px-4 py-2 md:px-6 md:py-4 bg-gray-50 dark:bg-gray-700/50">
+                  <div className="flex space-x-1 md:space-x-2">
+                    {['#FF5F56', '#FFBD2E', '#27C93F'].map((color, i) => (
+                      <div key={i} className="w-2 h-2 md:w-3 md:h-3 rounded-full" style={{ backgroundColor: color }} />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Conteúdo da imagem */}
+                <div className="relative aspect-[16/9] bg-gray-100/50 dark:bg-gray-600/20">
+                  <img
+                    src={screencapture}
+                    alt="Demonstração da interface do aplicativo"
+                    className="w-full h-full object-center"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Elementos decorativos externos */}
+            <div className="absolute -top-24 -left-24 w-64 h-64 bg-purple-400/20 rounded-full blur-3xl 
+        dark:bg-purple-600/30 -z-10" />
+            <div className="absolute -bottom-16 -right-24 w-64 h-64 bg-blue-400/20 rounded-full blur-3xl 
+        dark:bg-blue-600/30 -z-10" />
+          </div>
+
+          {/* Rodapé explicativo novo */}
+          <div className="mt-12 text-center max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-400">
+              Interface <span className="font-bold text-purple-600 dark:text-purple-400">limpa</span> que qualquer um domina em segundos
+            </p>
+            <div className="mt-6">
+              <button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 
+          text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                Experimentar Agora
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Seção Funcionalidades */}
-      <section id="vantagens" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-20">
-        <h2 className="text-4xl font-bold text-center mb-16 dark:text-white">
-          <span
-            className="bg-gradient-to-r from-[#DC2626] to-[#7C3AED] dark:from-[#B91C1C] dark:to-[#6D28D9] 
-            bg-clip-text text-transparent"
-            style={{ textShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-            Vantagens sem firula
-          </span>
-          <div className="mt-4 text-2xl text-gray-700 dark:text-gray-300">🚀 Pra você não se enrolar</div>
-        </h2>
+      <section id="vantagens" className="relative overflow-hidden py-24 bg-gradient-to-br from-gray-50 to-purple-50 dark:from-gray-900 dark:to-purple-900/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Titulo com sublinhado animado */}
+          <div className="text-center mb-20">
+            <h2 className="text-5xl font-bold mb-4 dark:text-white relative inline-block">
+              <span className="bg-gradient-to-r from-[#DC2626] to-[#7C3AED] dark:from-[#B91C1C] dark:to-[#6D28D9] bg-clip-text text-transparent">
+                Vantagens sem Firula
+              </span>
+              <div className="absolute -bottom-4 left-0 w-full h-2 bg-gradient-to-r from-red-500 to-purple-600 rounded-full animate-pulse-scale" />
+            </h2>
+            <p className="text-2xl text-gray-600 dark:text-gray-300 mt-8">🚀 Tecnologia que resolve de verdade</p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {[
-            {
-              icon: '👀',
-              bg: 'bg-blue-600 dark:bg-blue-300',
-              textColor: 'text-blue-50 dark:text-blue-900',
-              title: 'Controle Total',
-              text: 'Saiba exatamente quem deve e quanto'
-            },
-            {
-              icon: '📅',
-              bg: 'bg-teal-600 dark:bg-teal-300',
-              textColor: 'text-teal-50 dark:text-teal-900',
-              title: 'Lembretes Automáticos',
-              text: 'Configure uma vez e esqueça'
-            },
-            {
-              icon: '💸',
-              bg: 'bg-red-600 dark:bg-red-300',
-              textColor: 'text-red-50 dark:text-red-900',
-              title: 'Pagamento Fácil',
-              text: 'Integração com principais carteiras digitais'
-            }
-          ].map((feature, i) => (
-            <div
-              key={i}
-              className="group relative p-8 rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl 
-                transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-transparent"
-            >
-              <div className={`${feature.bg} ${feature.textColor} w-16 h-16 rounded-2xl mb-6 flex items-center 
-                justify-center transform group-hover:rotate-12 transition-all`}>
-                <span className="text-2xl">{feature.icon}</span>
+          {/* Cards em layout dinâmico */}
+          <div className="grid gap-8 md:grid-cols-3 transform md:-rotate-1 hover:rotate-0 transition-transform duration-500">
+            {[
+              {
+                icon: '👀',
+                title: 'Controle Total',
+                text: 'Saiba exatamente quem deve e quanto',
+                color: 'from-red-500 to-purple-600'
+              },
+              {
+                icon: '👥',
+                title: 'Grupos de Amigos',
+                text: 'Crie grupos para gerenciar as dívidas de todos de forma organizada.',
+                color: 'from-teal-500 to-indigo-600'
+              },
+              {
+                icon: '🧹',
+                title: 'Interface Limpa e Objetiva',
+                text: 'A interface foi projetada para ser direta ao ponto, sem enrolação e de fácil navegação.',
+                color: 'from-purple-500 to-pink-600'
+              }
+            ].map((item, i) => (
+              <div key={i} className="relative group bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 hover:-translate-y-2">
+                <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-10 transition-opacity rounded-3xl`} />
+                <div className="text-6xl mb-6 animate-float">{item.icon}</div>
+                <h3 className="text-2xl font-bold mb-4 dark:text-white">{item.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{item.text}</p>
               </div>
-              <h3 className="text-2xl font-bold mb-4 dark:text-white">{feature.title}</h3>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{feature.text}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Seção Depoimentos */}
-      <section id="depoimentos" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h2 className="text-4xl font-bold text-center mb-16 dark:text-white">
-          O que tão falando
-          <div className="mt-2 text-2xl text-teal-600 dark:text-teal-300">Quem usa recomenda</div>
-        </h2>
+      <section id="depoimentos" className="py-24 bg-gray-50 dark:bg-gray-900 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl font-bold mb-4 dark:text-white">
+              <span className="bg-gradient-to-r from-teal-500 to-blue-600 bg-clip-text text-transparent">
+                Quem usa aprova
+              </span>
+              <div className="mt-4 text-2xl text-gray-600 dark:text-gray-300">💬 A galera fala por experiência</div>
+            </h2>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            {
-              text: 'Finalmente parei de ser o chato que cobra! O app faz isso por mim',
-              author: 'Julinho da Van 🚐'
-            },
-            {
-              text: 'Uso até pra dividir as compras do mercado!',
-              author: 'Maria do Bairro 🛒'
-            },
-            {
-              text: 'O grupo de amigos nunca mais discutiu por dinheiro',
-              author: 'Zé do Churrasco 🍖'
-            }
-          ].map((depoimento, i) => (
-            <div key={i} className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
-              <p className="text-lg italic mb-4 dark:text-gray-300">"{depoimento.text}"</p>
-              <div className="border-t-2 border-teal-500/20 dark:border-teal-300/20 pt-4">
-                <span className="font-bold dark:text-white">{depoimento.author}</span>
+          <div className="grid md:grid-cols-3 gap-8 transform hover:skew-y-1 transition-transform duration-500">
+            {[
+              {
+                text: 'O app salvou nossa amizade! Nunca mais briguei por dinheiro',
+                author: 'Julinho da Van',
+                role: '🚐 Motorista Profissional',
+                emoji: '🚐'
+              },
+              {
+                text: 'Uso até pra dividir as comprinhas do mês! Simplesmente mágico',
+                author: 'Maria do Bairro',
+                role: '🛒 Especialista em Economia',
+                emoji: '🛒'
+              },
+              {
+                text: 'Finalmente uma app que entende como funciona a vida real',
+                author: 'Zé do Churrasco',
+                role: '🍖 Mestre do Churras',
+                emoji: '🍖'
+              }
+            ].map((depo, i) => (
+              <div key={i} className="relative group bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300">
+                <div className="text-4xl mb-4 absolute -top-6 right-6 opacity-20 dark:opacity-30">{depo.emoji}</div>
+                <p className="text-xl italic mb-6 dark:text-gray-300 relative z-10">"{depo.text}"</p>
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+                  <div className="font-bold text-lg dark:text-white">{depo.author}</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">{depo.role}</div>
+                </div>
+                <div className="absolute inset-0 border-2 border-transparent group-hover:border-teal-400 rounded-2xl transition-all duration-500 pointer-events-none" />
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
