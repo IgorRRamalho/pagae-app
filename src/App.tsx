@@ -7,7 +7,7 @@ import PWAInstall from '@components/PWAInstaller';
 import AccessRequired from '@pages/AccessRequired';
 import Auth from '@pages/AuthPage';
 import CreateAccountViaToken from '@pages/CreateAccountViaToken';
-import Landing from '@pages/Landing';
+import Landing from '@pages/Landing/Landing';
 import NotFound from '@pages/NotFound';
 import { useEffect } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';

@@ -4,9 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============ BASE STYLES ============ */
 @layer base {
   html {
     font-family: 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -15,7 +17,8 @@
   }
 }
 
-/* Scrollbar personalizada para TODOS os elementos com scroll */
+/* ============ SCROLLBAR STYLES ============ */
+/* WebKit Browsers */
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
@@ -29,10 +32,9 @@
 
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(45deg, #8b5cf6, #ec4899);
-  border-radius: 20px;
   border: 3px solid #f8fafc;
+  border-radius: 20px;
   background-size: 200% 200%;
-  animation: gradient 3s ease infinite;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -43,15 +45,15 @@
   background: transparent;
 }
 
-/* Animações */
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #8b5cf6 #f8fafc;
 }
 
-/* Dark Mode */
+/* ============ DARK MODE STYLES ============ */
 @media (prefers-color-scheme: dark) {
+  /* Scrollbar */
   ::-webkit-scrollbar-track {
     background: #0f172a;
   }
@@ -60,26 +62,17 @@
     background: linear-gradient(45deg, #7c3aed, #db2777);
     border-color: #0f172a;
   }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(45deg, #6d28d9, #be185d);
-  }
-}
 
-/* Suporte para Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #8b5cf6 #f8fafc;
-}
-
-@media (prefers-color-scheme: dark) {
   * {
     scrollbar-color: #7c3aed #0f172a;
   }
 }
 
-html {
-  scroll-behavior: smooth;
+/* ============ ANIMATIONS ============ */
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 @keyframes float {
@@ -87,8 +80,45 @@ html {
   50% { transform: translateY(-20px); }
 }
 
+@keyframes pulse-scale {
+  0%, 100% { transform: scaleX(1); opacity: 1; }
+  50% { transform: scaleX(1.05); opacity: 0.8; }
+}
+
+@keyframes shuffle {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(180deg) scale(0.8); }
+  50% { transform: rotate(90deg) scale(1.2); }
+  75% { transform: rotate(270deg) scale(0.9); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============ UTILITY CLASSES ============ */
 .animate-float {
   animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-scale {
+  animation: pulse-scale 2s ease-in-out infinite;
+}
+
+.animate-shuffle {
+  animation: shuffle 0.8s ease-in-out;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.3s ease-out;
 }
 
 .perspective-3000 {
@@ -103,91 +133,33 @@ html {
   transform: rotateX(0);
 }
 
-/* Custom Animations */
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+/* ============ THIRD-PARTY OVERRIDES ============ */
+/* Swiper Pagination */
+.swiper-pagination-bullet {
+  @apply bg-gray-400 dark:bg-gray-600;
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-::-webkit-scrollbar {
-  display: none;
-}
-
-/* Para Firefox */
-body {
-  scrollbar-width: none;
-}
-
-/* Para IE e Edge */
-body {
-  -ms-overflow-style: none;
-}
-
-@keyframes shuffle {
-  0% { transform: rotate(0deg) scale(1); }
-  25% { transform: rotate(180deg) scale(0.8); }
-  50% { transform: rotate(90deg) scale(1.2); }
-  75% { transform: rotate(270deg) scale(0.9); }
-  100% { transform: rotate(360deg) scale(1); }
-}
-
-.animate-shuffle {
-  animation: shuffle 0.8s ease-in-out;
-}
-
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes pulse-scale {
-  0%, 100% { transform: scaleX(1); opacity: 1; }
-  50% { transform: scaleX(1.05); opacity: 0.8; }
-}
-
-.animate-pulse-scale {
-  animation: pulse-scale 2s ease-in-out infinite;
-}
-
-
-
-/* src/styles/global.css */
-
-/* Estilo base para os toasts */
+/* Toastify Customization */
 .Toastify__toast {
   border-radius: 12px !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  font-family: 'Inter', sans-serif !important; /* Use a fonte do seu projeto */
+  font-family: 'Inter', sans-serif !important;
   padding: 16px !important;
 }
 
-/* Estilo para o tema "colored" */
 .Toastify__toast--success {
-  background-color: #6ECCAF !important; /* Verde da sua paleta */
-  color: #FFFFFF !important; /* Texto branco */
+  background-color: #6ECCAF !important;
+  color: #FFFFFF !important;
 }
 
 .Toastify__toast--error {
-  background-color: #FF6B6B !important; /* Vermelho da sua paleta */
-  color: #FFFFFF !important; /* Texto branco */
+  background-color: #FF6B6B !important;
+  color: #FFFFFF !important;
 }
 
-
-
-/* Botão de fechar */
 .Toastify__close-button {
-  color: #FFFFFF !important; /* Texto branco */
+  color: #FFFFFF !important;
   opacity: 0.8 !important;
 }
 
@@ -195,19 +167,14 @@ body {
   opacity: 1 !important;
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.3s ease-out;
+/* ============ HIDE SCROLLBAR (OPTIONAL) ============ */
+/* Uncomment if needed
+::-webkit-scrollbar {
+  display: none;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-
-
+*/
