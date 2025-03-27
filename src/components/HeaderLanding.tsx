@@ -52,8 +52,7 @@ export default function HeaderLanding() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-gradient-to-r from-purple-50/90 to-blue-100/90 dark:from-gray-800/95 dark:to-gray-900/95 backdrop-blur-lg shadow-xl py-3 px-4 sm:py-4 sm:px-6 flex flex-wrap items-center justify-between border-b-2 border-purple-300/30 dark:border-gray-700">
-
+    <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-purple-50/90 to-blue-100/90 dark:from-gray-800/95 dark:to-gray-900/95 backdrop-blur-lg shadow-xl py-3 px-4 sm:py-4 sm:px-6 flex flex-wrap items-center justify-between border-b-2 border-purple-300/30 dark:border-gray-700">
       {/* Logo e Botão Menu Mobile */}
       <div className="flex items-center justify-between w-full md:w-auto">
         <Logo />

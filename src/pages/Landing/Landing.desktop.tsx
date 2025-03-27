@@ -8,12 +8,12 @@ import screencapture from '@assets/screencapture.png';
 
 function LandingDesktop() {
     return (
-        <div className="min-h-screen transition-all duration-700 bg-gradient-to-br from-gray-50/50 via-white to-gray-100/50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        <div className="min-h-screen overflow-x-hidden transition-all duration-700 bg-gradient-to-br from-gray-50/50 via-white to-gray-100/50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
             <HeaderLanding />
 
             {/* Seção Hero */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 text-center space-y-6">
-                <div className="animate-fade-in-up">
+            <section className="max-w-7xl min-h-screen mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 text-center flex flex-col justify-center items-center">
+                <div className="animate-fade-in-up w-full max-w-3xl">
                     <div className="inline-flex items-center bg-red-100 dark:bg-red-900/80 px-4 py-1.5 md:px-6 md:py-2 rounded-full mb-4 md:mb-6">
                         <Sparkles className="w-4 h-4 md:w-5 md:h-5 mr-2 text-red-600 dark:text-red-300" />
                         <span className="text-sm md:text-base text-red-700 dark:text-red-300 font-medium">🚨 Beta aberto</span>
@@ -32,7 +32,7 @@ function LandingDesktop() {
                         </span>
                     </h1>
 
-                    <p className="text-base md:text-xl text-gray-800 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
+                    <p className="text-base mb-6 md:text-xl text-gray-800 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
                         O jeito{' '}
                         <span className="font-semibold text-[#7C3AED] dark:text-[#9B5DE5]">
                             descomplicado
@@ -342,7 +342,7 @@ function LandingDesktop() {
 
             {/* Jogo */}
 
-            <div className="relative py-16 bg-gradient-to-br from-purple-50/60 to-blue-50/60 dark:from-gray-800/50 dark:to-purple-900/10 rounded-b-[2.5rem] shadow-2xl w-full backdrop-blur-sm transition-all duration-500 hover:shadow-3xl group/game">
+            <div className="relative bg-gradient-to-br from-purple-50/60 to-blue-50/60 dark:from-gray-800/50 dark:to-purple-900/10 shadow-2xl w-full backdrop-blur-sm transition-all duration-500 hover:shadow-3xl group/game pt-16 pb-0">
                 {/* Elementos decorativos */}
                 <div className="absolute -top-20 -left-20 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-float -z-10" />
                 <div className="absolute -bottom-28 -right-20 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl animate-float delay-1000 -z-10" />
