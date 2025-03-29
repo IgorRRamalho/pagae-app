@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from '../pages/Home';
-import DivisaoContas from '@pages/BillSplit';
+import DivisaoContas from '@pages/DivisaoContas/DivisaoContas';
 import Configuracoes from '@pages/Settings';
 import Friends from '@pages/Friends';
 import GroupScreen from '@pages/Group';

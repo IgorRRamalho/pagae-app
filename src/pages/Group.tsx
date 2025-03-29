@@ -1,12 +1,15 @@
 import { motion } from 'framer-motion';
-import { BarChart, Crown, Plus, Skull, Users } from 'lucide-react';
+import { BarChart, Crown, Plus, Skull, Users, Zap } from 'lucide-react';
 import { useState } from 'react';
 
 const Group = () => {
   const [showCreateGroup, setShowCreateGroup] = useState(false);
+  const [isRichMode, setIsRichMode] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState('👥');
   const [selectedColor, setSelectedColor] = useState('purple');
   const [groupName, setGroupName] = useState('');
+  const [participants, setParticipants] = useState([{ name: '', salary: '' }]);
+  const [totalExpenses, setTotalExpenses] = useState('');
 
   // Cores e ícones disponíveis
   const groupColors = [
@@ -18,6 +21,34 @@ const Group = () => {
 
   const groupIcons = ['🍕', '🍻', '🎮', '🚗', '🎉', '🏖️', '🎲', '📽️'];
 
+  // Funções para gerenciar participantes
+  const addParticipant = () => {
+    setParticipants([...participants, { name: '', salary: '' }]);
+  };
+
+  const removeParticipant = (index: number) => {
+    const newParticipants = participants.filter((_, i) => i !== index);
+    setParticipants(newParticipants);
+  };
+
+  const updateParticipant = (index: number, field: string, value: string) => {
+    const newParticipants = [...participants];
+    newParticipants[index] = { ...newParticipants[index], [field]: value };
+    setParticipants(newParticipants);
+  };
+
+  // Calcular divisão proporcional
+  const calculateDivision = () => {
+    const total = parseFloat(totalExpenses.replace(/[^0-9,]/g, '').replace(',', '.'));
+    const salaries = participants.map(p => parseFloat(p.salary) || 0);
+    const totalSalaries = salaries.reduce((a, b) => a + b, 0);
+    
+    return participants.map(p => ({
+      name: p.name,
+      share: total * (parseFloat(p.salary) / totalSalaries) || 0
+    }));
+  };
+
   // Dados de exemplo
   const groups = [
     {
@@ -25,25 +56,19 @@ const Group = () => {
       icon: '🍕',
       color: 'purple',
       total: 'R$ 320,00',
+      participants: [
+        { name: 'Maria', salary: '8000' },
+        { name: 'João', salary: '5000' }
+      ],
       stats: {
         topDividers: { name: 'Maria', count: 8 },
         biggestDebt: { name: 'João', amount: 'R$ 47,00' }
-      }
-    },
-    {
-      name: 'Time do Churras',
-      icon: '🔥',
-      color: 'orange',
-      total: 'R$ 185,00',
-      stats: {
-        topDividers: { name: 'Carlos', count: 5 },
-        biggestDebt: { name: 'Ana', amount: 'R$ 32,00' }
       }
     }
   ];
 
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen">
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -59,15 +84,30 @@ const Group = () => {
             </h1>
           </div>
           
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            onClick={() => setShowCreateGroup(!showCreateGroup)}
-            className="bg-gradient-to-r from-purple-700 to-pink-600 text-white px-6 py-3 rounded-full 
-                      flex items-center gap-2 hover:shadow-lg focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
-          >
-            <Plus className="w-5 h-5" />
-            <span>Criar Tribo</span>
-          </motion.button>
+          <div className="flex gap-3">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              onClick={() => setIsRichMode(!isRichMode)}
+              className={`px-4 py-2 rounded-full flex items-center gap-2 ${
+                isRichMode 
+                  ? 'bg-amber-500 text-white'
+                  : 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
+              }`}
+            >
+              <Zap className="w-5 h-5" />
+              <span>{isRichMode ? 'Modo Ricaço' : 'Ativar Modo Ricaço'}</span>
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              onClick={() => setShowCreateGroup(!showCreateGroup)}
+              className="bg-gradient-to-r from-purple-700 to-pink-600 text-white px-6 py-3 rounded-full 
+                        flex items-center gap-2 hover:shadow-lg focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+            >
+              <Plus className="w-5 h-5" />
+              <span>Criar Tribo</span>
+            </motion.button>
+          </div>
         </div>
 
         {/* Formulário de Criação */}
@@ -93,6 +133,62 @@ const Group = () => {
                             text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500"
                 />
               </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                  Participantes
+                </label>
+                {participants.map((participant, index) => (
+                  <div key={index} className="flex gap-2 mb-2">
+                    <input
+                      type="text"
+                      placeholder="Nome"
+                      value={participant.name}
+                      onChange={(e) => updateParticipant(index, 'name', e.target.value)}
+                      className="flex-1 p-2 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600"
+                    />
+                    {isRichMode && (
+                      <input
+                        type="number"
+                        placeholder="Salário"
+                        value={participant.salary}
+                        onChange={(e) => updateParticipant(index, 'salary', e.target.value)}
+                        className="flex-1 p-2 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600"
+                      />
+                    )}
+                    <button
+                      onClick={() => removeParticipant(index)}
+                      className="px-3 py-2 bg-red-100 dark:bg-red-900/50 text-red-600 dark:text-red-400 rounded-lg hover:bg-red-200 dark:hover:bg-red-800/50"
+                    >
+                      Remover
+                    </button>
+                  </div>
+                ))}
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  onClick={addParticipant}
+                  className="mt-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  Adicionar Participante
+                </motion.button>
+              </div>
+
+              {isRichMode && (
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                    Despesas Totais
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Ex: R$ 1.500,00"
+                    value={totalExpenses}
+                    onChange={(e) => setTotalExpenses(e.target.value)}
+                    className="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 
+                              text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500"
+                  />
+                </div>
+              )}
 
               <div>
                 <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
@@ -146,73 +242,90 @@ const Group = () => {
 
         {/* Lista de Grupos */}
         <div className="grid md:grid-cols-2 gap-4">
-          {groups.map((group, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className={`p-4 rounded-xl shadow-lg ${
-                group.color === 'purple' ? 'bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/50 dark:to-pink-900/50' :
-                group.color === 'green' ? 'bg-gradient-to-br from-green-50 to-cyan-50 dark:from-green-900/50 dark:to-cyan-900/50' :
-                group.color === 'orange' ? 'bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/50 dark:to-red-900/50' :
-                'bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/50 dark:to-indigo-900/50'
-              }`}
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <div className={`text-2xl p-2 rounded-lg ${
-                  group.color === 'purple' ? 'bg-purple-100 dark:bg-purple-900/50' :
-                  group.color === 'green' ? 'bg-green-100 dark:bg-green-900/50' :
-                  group.color === 'orange' ? 'bg-orange-100 dark:bg-orange-900/50' :
-                  'bg-blue-100 dark:bg-blue-900/50'
-                }`}>
-                  {group.icon}
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{group.name}</h3>
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg">
-                  <span className="text-gray-700 dark:text-gray-300">Total do Mês</span>
-                  <span className="font-bold text-purple-700 dark:text-purple-400">{group.total}</span>
+          {groups.map((group, index) => {
+            const division = calculateDivision();
+            
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`p-4 rounded-xl shadow-lg ${
+                  group.color === 'purple' ? 'bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/50 dark:to-pink-900/50' :
+                  group.color === 'green' ? 'bg-gradient-to-br from-green-50 to-cyan-50 dark:from-green-900/50 dark:to-cyan-900/50' :
+                  group.color === 'orange' ? 'bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/50 dark:to-red-900/50' :
+                  'bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/50 dark:to-indigo-900/50'
+                }`}
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div className={`text-2xl p-2 rounded-lg ${
+                    group.color === 'purple' ? 'bg-purple-100 dark:bg-purple-900/50' :
+                    group.color === 'green' ? 'bg-green-100 dark:bg-green-900/50' :
+                    group.color === 'orange' ? 'bg-orange-100 dark:bg-orange-900/50' :
+                    'bg-blue-100 dark:bg-blue-900/50'
+                  }`}>
+                    {group.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{group.name}</h3>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="p-3 bg-white dark:bg-gray-800 rounded-lg flex items-center gap-2">
-                    <Crown className="text-yellow-600 dark:text-yellow-400" />
-                    <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Top Divider</p>
-                      <p className="font-medium text-gray-900 dark:text-gray-100">
-                        {group.stats.topDividers.name} ({group.stats.topDividers.count}x)
-                      </p>
+                <div className="space-y-4">
+                  {isRichMode ? (
+                    <div className="space-y-3">
+                      {division.map((participant, i) => (
+                        <div key={i} className="p-3 bg-white dark:bg-gray-800 rounded-lg flex justify-between items-center">
+                          <span className="text-gray-900 dark:text-gray-100">{participant.name}</span>
+                          <span className="font-mono text-purple-700 dark:text-purple-400">
+                            R$ {participant.share.toFixed(2).replace('.', ',')}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg">
+                      <span className="text-gray-700 dark:text-gray-300">Total do Mês</span>
+                      <span className="font-bold text-purple-700 dark:text-purple-400">{group.total}</span>
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="p-3 bg-white dark:bg-gray-800 rounded-lg flex items-center gap-2">
+                      <Crown className="text-yellow-600 dark:text-yellow-400" />
+                      <div>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Top Divider</p>
+                        <p className="font-medium text-gray-900 dark:text-gray-100">
+                          {group.stats.topDividers.name} ({group.stats.topDividers.count}x)
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="p-3 bg-white dark:bg-gray-800 rounded-lg flex items-center gap-2">
+                      <Skull className="text-red-600 dark:text-red-400" />
+                      <div>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Maior Dívida</p>
+                        <p className="font-medium text-gray-900 dark:text-gray-100">
+                          {group.stats.biggestDebt.name} ({group.stats.biggestDebt.amount})
+                        </p>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="p-3 bg-white dark:bg-gray-800 rounded-lg flex items-center gap-2">
-                    <Skull className="text-red-600 dark:text-red-400" />
-                    <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Maior Dívida</p>
-                      <p className="font-medium text-gray-900 dark:text-gray-100">
-                        {group.stats.biggestDebt.name} ({group.stats.biggestDebt.amount})
-                      </p>
-                    </div>
-                  </div>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    className={`w-full ${
+                      group.color === 'purple' ? 'bg-purple-700 hover:bg-purple-800' :
+                      group.color === 'green' ? 'bg-green-700 hover:bg-green-800' :
+                      group.color === 'orange' ? 'bg-orange-700 hover:bg-orange-800' :
+                      'bg-blue-700 hover:bg-blue-800'
+                    } text-white py-2 rounded-lg flex items-center justify-center gap-2 focus:ring-2 focus:ring-purple-500`}
+                  >
+                    <BarChart className="w-4 h-4" />
+                    Ver Histórico Completo
+                  </motion.button>
                 </div>
-
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  className={`w-full ${
-                    group.color === 'purple' ? 'bg-purple-700 hover:bg-purple-800' :
-                    group.color === 'green' ? 'bg-green-700 hover:bg-green-800' :
-                    group.color === 'orange' ? 'bg-orange-700 hover:bg-orange-800' :
-                    'bg-blue-700 hover:bg-blue-800'
-                  } text-white py-2 rounded-lg flex items-center justify-center gap-2 focus:ring-2 focus:ring-purple-500`}
-                >
-                  <BarChart className="w-4 h-4" />
-                  Ver Histórico Completo
-                </motion.button>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Empty State */}

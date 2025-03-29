@@ -1,169 +1,198 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { Calculator, Wallet, Laugh, Coins, UserPlus, Zap, PartyPopper, ShieldAlert, Users, X, Ghost, Check, Plus, Search, ArrowLeft } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
+import { motion, AnimatePresence } from 'framer-motion'
+import { Search, ArrowLeft, X, Ghost, Wallet, Coins, Users, Check, Plus, UserPlus, Laugh, Zap, Calculator, PartyPopper, ShieldAlert } from 'lucide-react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
+import { toast } from 'react-toastify'
 
+// Tipos e constantes
 type Participant = {
-  id: string;
-  nome: string;
-  isGhost?: boolean;
-  emoji?: string;
-};
+  id: string
+  nome: string
+  isGhost?: boolean
+  emoji?: string
+  salario?: number
+  valor?: number
+}
 
 type Friend = {
-  id: string;
-  nome: string;
-};
+  id: string
+  nome: string
+}
 
 type Group = {
-  id: string;
-  nome: string;
-  membros: Friend[];
-};
+  id: string
+  nome: string
+  membros: Friend[]
+}
 
-const ghostEmojis = ['👻', '💀', '🎃', '👾', '🦇', '🕷️', '🕸️', '😈'];
+type DivisaoMode = 'igual' | 'rico'
 
-const getInitials = (name: string) => {
-  return name.split(' ')
-    .map(part => part[0])
-    .join('')
-    .toUpperCase()
-    .substring(0, 2);
-};
+const ghostEmojis = ['👻', '💀', '🎃', '👾', '🦇', '🕷️', '🕸️', '😈']
+const currencyFormatter = new Intl.NumberFormat('pt-BR', {
+  style: 'currency',
+  currency: 'BRL',
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})
 
-const generateColor = (str: string) => {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const hue = hash % 360;
-  return `hsl(${hue}, 70%, 40%)`;
-};
+// Utilitários
+const parseCurrency = (value: string): number =>
+  parseFloat(value.replace(/\D/g, '')) / 100 || 0
 
+const formatCurrency = (value?: number): string =>
+  value ? currencyFormatter.format(value) : ''
+
+const generateColor = (str: string): string => {
+  let hash = 0
+  for (let i = 0; i < str.length; i++)
+    hash = str.charCodeAt(i) + ((hash << 5) - hash)
+  return `hsl(${hash % 360}, 70%, 40%)`
+}
+
+// Componente principal
 export default function DivisaoContas() {
-  const [modoDivisao, setModoDivisao] = useState<'igual' | 'rico'>('igual');
-  const [participantes, setParticipantes] = useState<Participant[]>([]);
-  const [valorTotal, setValorTotal] = useState('');
-  const [showResult, setShowResult] = useState(false);
-  const [showFriendSelector, setShowFriendSelector] = useState(false);
-  const [showGroupSelector, setShowGroupSelector] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedFriends, setSelectedFriends] = useState<string[]>([]);
-  const [ghostName, setGhostName] = useState('');
-  const [showGhostInput, setShowGhostInput] = useState(false);
+  // Estados
+  const [modoDivisao, setModoDivisao] = useState<DivisaoMode>('igual')
+  const [participantes, setParticipantes] = useState<Participant[]>([])
+  const [valorTotal, setValorTotal] = useState('')
+  const [showResult, setShowResult] = useState(false)
+  const [showFriendSelector, setShowFriendSelector] = useState(false)
+  const [showGroupSelector, setShowGroupSelector] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedFriends, setSelectedFriends] = useState<string[]>([])
+  const [ghostName, setGhostName] = useState('')
+  const [showGhostInput, setShowGhostInput] = useState(false)
 
-  const [existingFriends] = useState<Friend[]>([
-    { id: '1', nome: 'João Pizza' },
-    { id: '2', nome: 'Maria Churras' },
-    { id: '3', nome: 'Zé da Bola' },
-    { id: '4', nome: 'Ana Cartão' },
-  ]);
+  // Dados mockados
+  const existingFriends = useMemo(() => [
+    { id: '1', nome: 'João Pizza' }, { id: '2', nome: 'Maria Churras' },
+    { id: '3', nome: 'Zé da Bola' }, { id: '4', nome: 'Ana Cartão' }
+  ], [])
 
-  const [groups] = useState<Group[]>([
+  const groups = useMemo(() => [
     {
       id: '1',
       nome: 'Churrasco Semanal',
-      membros: [
-        { id: '1', nome: 'João Pizza' },
-        { id: '2', nome: 'Maria Churras' },
-      ]
+      membros: [existingFriends[0], existingFriends[1]]
     },
     {
       id: '2',
       nome: 'Futebol',
-      membros: [
-        { id: '3', nome: 'Zé da Bola' },
-        { id: '4', nome: 'Ana Cartão' }
-      ]
+      membros: [existingFriends[2], existingFriends[3]]
     }
-  ]);
+  ], [existingFriends])
 
+  // Efeitos
   useEffect(() => {
-    document.body.style.overflow = showFriendSelector || showGroupSelector ? 'hidden' : 'auto';
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [showFriendSelector, showGroupSelector]);
+    document.body.style.overflow = showFriendSelector || showGroupSelector ? 'hidden' : 'auto'
+    return () => { document.body.style.overflow = 'auto' }
+  }, [showFriendSelector, showGroupSelector])
 
-  const calcularDivisao = () => {
-    if (!valorTotal || participantes.length === 0) {
-      toast.error('Adicione participantes e informe o valor total!');
-      return;
+  // Memoizações
+  const totalNumerico = useMemo(() => parseCurrency(valorTotal), [valorTotal])
+  const participantesIds = useMemo(() =>
+    new Set(participantes.map(p => p.id)), [participantes])
+  const filteredFriends = useMemo(() =>
+    existingFriends.filter(f =>
+      f.nome.toLowerCase().includes(searchQuery.toLowerCase())
+    ), [existingFriends, searchQuery])
+
+  // Handlers
+  const handleValorTotalChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '')
+    setValorTotal(value)
+  }, [])
+
+  const validateInputs = useCallback(() => {
+    if (!totalNumerico || totalNumerico <= 0) {
+      toast.error('Valor total inválido!')
+      return false
     }
-    setShowResult(true);
-  };
+    if (participantes.length === 0) {
+      toast.error('Adicione pelo menos um participante!')
+      return false
+    }
+    if (modoDivisao === 'rico' &&
+      participantes.some(p => !p.salario || p.salario <= 0)) {
+      toast.error('Preencha os salários de todos os participantes!')
+      return false
+    }
+    return true
+  }, [totalNumerico, participantes, modoDivisao])
 
-  const toggleFriendSelection = (friendId: string) => {
+  const calcularDivisao = useCallback(() => {
+    if (!validateInputs()) return
+    setShowResult(true)
+  }, [validateInputs])
+
+  // Lógica de participantes
+  const toggleFriendSelection = useCallback((friendId: string) => {
     setSelectedFriends(prev =>
-      prev.includes(friendId)
-        ? prev.filter(id => id !== friendId)
-        : [...prev, friendId]
-    );
-  };
+      prev.includes(friendId) ? prev.filter(id => id !== friendId) : [...prev, friendId]
+    )
+  }, [])
 
-  const addSelectedParticipants = () => {
+  const addSelectedParticipants = useCallback(() => {
     const newParticipants = existingFriends
-      .filter(friend => selectedFriends.includes(friend.id))
-      .map(friend => ({
-        id: friend.id,
-        nome: friend.nome,
+      .filter(f => selectedFriends.includes(f.id))
+      .map(f => ({
+        id: f.id,
+        nome: f.nome,
         isGhost: false
-      }));
+      }))
 
-    setParticipantes(prev => [...prev, ...newParticipants]);
-    setSelectedFriends([]);
-    setShowFriendSelector(false);
-  };
+    setParticipantes(prev => [...prev, ...newParticipants])
+    setSelectedFriends([])
+    setShowFriendSelector(false)
+  }, [existingFriends, selectedFriends])
 
-  const importGroupMembers = (group: Group) => {
+  const importGroupMembers = useCallback((group: Group) => {
     const newMembers = group.membros
-      .filter(member =>
-        !participantes.some(participant => participant.id === member.id)
-      )
-      .map(member => ({
-        id: member.id,
-        nome: member.nome,
-        isGhost: false
-      }));
+      .filter(m => !participantesIds.has(m.id))
+      .map(m => ({ id: m.id, nome: m.nome, isGhost: false }))
 
     if (newMembers.length === 0) {
-      toast.error('Todos os membros deste grupo já foram adicionados!');
-      return;
+      toast.error('Todos os membros já foram adicionados!')
+      return
     }
 
-    setParticipantes(prev => [...prev, ...newMembers]);
-    setShowGroupSelector(false);
+    setParticipantes(prev => [...prev, ...newMembers])
+    setShowGroupSelector(false)
 
     if (newMembers.length < group.membros.length) {
-      toast.info(`Adicionados ${newMembers.length} membros. 
-        ${group.membros.length - newMembers.length} já estavam na lista.`);
+      toast.info(`${newMembers.length} membros adicionados. 
+        ${group.membros.length - newMembers.length} já estavam na lista.`)
     }
-  };
+  }, [participantesIds])
 
-  const addGhostParticipant = () => {
-    if (!ghostName.trim()) return;
+  const addGhostParticipant = useCallback(() => {
+    if (!ghostName.trim()) return
 
     const newGhost = {
       id: crypto.randomUUID(),
       nome: ghostName.trim(),
       isGhost: true,
       emoji: ghostEmojis[Math.floor(Math.random() * ghostEmojis.length)]
-    };
+    }
 
-    setParticipantes(prev => [...prev, newGhost]);
-    setGhostName('');
-    setShowGhostInput(false);
-  };
+    setParticipantes(prev => [...prev, newGhost])
+    setGhostName('')
+    setShowGhostInput(false)
+  }, [ghostName])
 
-  const removeParticipant = (id: string) => {
-    setParticipantes(prev => prev.filter(p => p.id !== id));
-  };
+  const removeParticipant = useCallback((id: string) => {
+    setParticipantes(prev => prev.filter(p => p.id !== id))
+  }, [])
 
-  const filteredFriends = existingFriends.filter(friend =>
-    friend.nome.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const ParticipantAvatar = ({ name, isGhost, emoji }: { name: string; isGhost?: boolean; emoji?: string }) => (
+  // Componentes internos
+  const ParticipantAvatar = useCallback(({
+    name,
+    isGhost,
+    emoji
+  }: {
+    name: string;
+    isGhost?: boolean;
+    emoji?: string
+  }) => (
     isGhost ? (
       <span className="text-3xl">{emoji}</span>
     ) : (
@@ -171,46 +200,116 @@ export default function DivisaoContas() {
         className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold shadow-sm"
         style={{ backgroundColor: generateColor(name) }}
       >
-        {getInitials(name)}
+        {name.split(' ')
+          .map(p => p[0])
+          .join('')
+          .toUpperCase()
+          .substring(0, 2)}
       </div>
     )
-  );
+  ), [])
 
-  const ParticipantCard = ({ participant }: { participant: Participant }) => (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.8 }}
-      className={`group relative p-4 rounded-2xl shadow-lg ${participant.isGhost
-        ? 'bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/50 dark:to-pink-900/50'
-        : 'bg-gradient-to-br from-blue-100 to-green-100 dark:from-blue-900/50 dark:to-green-900/50'
-        }`}
-    >
-      <div className="flex items-center gap-4">
-        <ParticipantAvatar name={participant.nome} isGhost={participant.isGhost} emoji={participant.emoji} />
+  const ParticipantCard = useCallback(({ participant }: { participant: Participant }) => {
+    const [localSalary, setLocalSalary] = useState('')
 
-        <div className="flex-1">
-          <h3 className="text-lg font-medium dark:text-white">{participant.nome}</h3>
-          {participant.isGhost && (
-            <div className="flex items-center gap-2 text-purple-600 dark:text-purple-300">
-              <Ghost className="w-4 h-4" />
-              <span className="text-sm">Fantasma VIP</span>
+    const handleSalaryChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+      const rawValue = e.target.value.replace(/\D/g, '')
+      setLocalSalary(rawValue)
+      const numericValue = parseFloat(rawValue) / 100 || 0
+      setParticipantes(prev =>
+        prev.map(p =>
+          p.id === participant.id ? { ...p, salario: numericValue } : p
+        )
+      )
+    }, [participant.id])
+
+    const displayValue = useMemo(() =>
+      localSalary ?
+        (parseFloat(localSalary) / 100).toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL'
+        }) : '',
+      [localSalary])
+
+    return (
+      <div className={`group relative p-4 rounded-2xl shadow-sm transition-all
+        ${participant.isGhost ?
+          'bg-gradient-to-br from-purple-50/80 to-pink-50/80 dark:from-purple-900/30 dark:to-pink-900/30 hover:shadow-purple-100/30' :
+          'bg-gradient-to-br from-blue-50/80 to-green-50/80 dark:from-blue-900/30 dark:to-green-900/30 hover:shadow-blue-100/30'}`}
+      >
+        <div className="flex items-start gap-3">
+          <ParticipantAvatar name={participant.nome} isGhost={participant.isGhost} emoji={participant.emoji} />
+          <div className="flex-1 min-w-0 space-y-2">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 truncate">
+                  {participant.nome}
+                </h3>
+                {participant.isGhost && (
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    <Ghost className="w-4 h-4 text-purple-600/80 dark:text-purple-300/80" />
+                    <span className="text-xs font-medium text-purple-600/90 dark:text-purple-300/90">
+                      Fantasma VIP
+                    </span>
+                  </div>
+                )}
+              </div>
+              <button
+                onClick={() => removeParticipant(participant.id)}
+                className="p-1 -m-1 text-gray-400 hover:text-red-500 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
-          )}
+
+            {modoDivisao === 'rico' && (
+              <div className="pt-2">
+                <div className="relative">
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2">
+                    <Coins className="w-5 h-5 text-amber-500/90 dark:text-amber-400/80" />
+                  </div>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={displayValue}
+                    onChange={handleSalaryChange}
+                    className="w-full pl-10 pr-12 py-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-purple-500 dark:text-white"
+                    placeholder="Salário..."
+                  />
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+                    BRL
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-
-        <button
-          onClick={() => removeParticipant(participant.id)}
-          className="text-red-500 hover:text-red-700 transition-colors opacity-70 hover:opacity-100"
-        >
-          <X className="w-5 h-5" />
-        </button>
       </div>
-    </motion.div>
-  );
+    )
+  }, [ParticipantAvatar, modoDivisao, removeParticipant])
 
+  const calcularResultado = useCallback(() => {
+    if (modoDivisao === 'igual') {
+      const valorPorPessoa = totalNumerico / participantes.length
+      return participantes.map(p => ({
+        ...p,
+        valor: valorPorPessoa
+      }))
+    }
+
+    const salarios = participantes.map(p => p.salario || 0)
+    const maiorSalario = Math.max(...salarios)
+    const ricos = participantes.filter(p => p.salario === maiorSalario)
+
+    return participantes.map(p => ({
+      ...p,
+      valor: ricos.includes(p) ? totalNumerico / ricos.length : 0
+    }))
+  }, [modoDivisao, participantes, totalNumerico])
+
+  // Renderização
   return (
-    <div className="min-h-screen px-6 ">
+    <div className="min-h-screen px-6">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -218,16 +317,14 @@ export default function DivisaoContas() {
       >
         {/* Cabeçalho */}
         <header className="flex items-center gap-4 mb-8">
-          <div className="p-3 bg-purple-100 dark:bg-purple-900 rounded-xl">
-            <Coins className="text-purple-700 dark:text-purple-300 w-8 h-8" />
-          </div>
+          <Coins className="text-purple-700 dark:text-purple-300 w-8 h-8" />
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
             Divisor de Contas
             <span className="ml-2 text-2xl" role="img" aria-label="Celebração">🎉</span>
           </h1>
         </header>
 
-        {/* Seletor de Amigos e Grupos */}
+        {/* Modais de seleção */}
         <AnimatePresence>
           {(showFriendSelector || showGroupSelector) && (
             <motion.div
@@ -235,25 +332,22 @@ export default function DivisaoContas() {
               animate={{ opacity: 1, backdropFilter: 'blur(4px)' }}
               exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
               className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 backdrop-blur-sm"
-              role="dialog"
-              aria-modal="true"
             >
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -20, opacity: 0 }}
-                className="bg-white dark:bg-gray-800 p-6 rounded-2xl w-full max-w-md mx-4 shadow-2xl
-                  border border-gray-100 dark:border-gray-700 flex flex-col"
+                className="bg-white dark:bg-gray-800 p-6 rounded-2xl w-full max-w-md mx-4 shadow-2xl border border-gray-100 dark:border-gray-700 flex flex-col"
                 style={{ maxHeight: '90vh' }}
               >
-                {/* Header com navegação */}
+                {/* Cabeçalho do modal */}
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-3">
                     {showGroupSelector ? (
                       <button
                         onClick={() => {
-                          setShowGroupSelector(false);
-                          setShowFriendSelector(true);
+                          setShowGroupSelector(false)
+                          setShowFriendSelector(true)
                         }}
                         className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
                       >
@@ -262,8 +356,8 @@ export default function DivisaoContas() {
                     ) : (
                       <button
                         onClick={() => {
-                          setShowFriendSelector(false);
-                          setShowGroupSelector(true);
+                          setShowFriendSelector(false)
+                          setShowGroupSelector(true)
                         }}
                         className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
                       >
@@ -276,8 +370,8 @@ export default function DivisaoContas() {
                   </div>
                   <button
                     onClick={() => {
-                      setShowFriendSelector(false);
-                      setShowGroupSelector(false);
+                      setShowFriendSelector(false)
+                      setShowGroupSelector(false)
                     }}
                     className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full text-gray-500 dark:text-gray-400"
                   >
@@ -285,7 +379,7 @@ export default function DivisaoContas() {
                   </button>
                 </div>
 
-                {/* Conteúdo principal */}
+                {/* Conteúdo do modal */}
                 <div className="flex-1 overflow-hidden">
                   {showGroupSelector ? (
                     <div className="h-full flex flex-col">
@@ -293,8 +387,7 @@ export default function DivisaoContas() {
                         <input
                           type="text"
                           placeholder="🔍 Buscar grupo..."
-                          className="w-full p-3 pl-10 rounded-lg bg-gray-100 dark:bg-gray-700
-                           text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-purple-500"
+                          className="w-full p-3 pl-10 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-purple-500"
                         />
                         <Search className="absolute left-3 top-3.5 text-gray-400 w-4 h-4" />
                       </div>
@@ -306,9 +399,7 @@ export default function DivisaoContas() {
                               key={group.id}
                               whileHover={{ scale: 1.01 }}
                               onClick={() => importGroupMembers(group)}
-                              className="w-full p-4 text-left rounded-xl bg-gray-50 dark:bg-gray-700
-                               hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors
-                               border border-gray-200 dark:border-gray-600"
+                              className="w-full p-4 text-left rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors border border-gray-200 dark:border-gray-600"
                             >
                               <div className="flex items-center gap-4">
                                 <div className="p-2 bg-purple-100 dark:bg-purple-900 rounded-lg">
@@ -334,8 +425,7 @@ export default function DivisaoContas() {
                           placeholder="🔍 Buscar amigos..."
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
-                          className="w-full p-3 pl-10 rounded-lg bg-gray-100 dark:bg-gray-700
-                           text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-purple-500"
+                          className="w-full p-3 pl-10 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-purple-500"
                         />
                         <Search className="absolute left-3 top-3.5 text-gray-400 w-4 h-4" />
                       </div>
@@ -537,23 +627,24 @@ export default function DivisaoContas() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <AnimatePresence>
-                  {participantes.length === 0 ? (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="col-span-2 p-8 text-center bg-gray-50 dark:bg-gray-700 rounded-xl"
-                    >
-                      <p className="text-gray-500 dark:text-gray-400">
-                        Nenhum participante adicionado ainda. Convide seus amigos!
-                      </p>
-                    </motion.div>
-                  ) : (
-                    participantes.map(participant => (
-                      <ParticipantCard key={participant.id} participant={participant} />
-                    ))
-                  )}
-                </AnimatePresence>
+                {participantes.length === 0 ? (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="col-span-2 p-8 text-center bg-gray-50 dark:bg-gray-700 rounded-xl"
+                  >
+                    <p className="text-gray-500 dark:text-gray-400">
+                      Nenhum participante adicionado ainda. Convide seus amigos!
+                    </p>
+                  </motion.div>
+                ) : (
+                  participantes.map(participant => (
+                    <ParticipantCard
+                      key={participant.id}
+                      participant={participant}
+                    />
+                  ))
+                )}
               </div>
             </section>
 
@@ -585,20 +676,20 @@ export default function DivisaoContas() {
                   </div>
 
                   <div className="space-y-3">
-                    {participantes.map((participant, index) => (
+                    {calcularResultado().map((participant, index) => (
                       <div key={index} className="p-3 bg-white dark:bg-gray-700 rounded-lg flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <ParticipantAvatar name={participant.nome} isGhost={participant.isGhost} emoji={participant.emoji} />
                           <span className="font-medium dark:text-white">{participant.nome}</span>
                         </div>
-                        <span className="text-green-600 font-bold">
-                          R$ {(parseFloat(valorTotal) / participantes.length).toFixed(2).replace('.', ',')}
+                        <span className={`${participant.valor > 0 ? 'text-green-600' : 'text-gray-500'} font-bold`}>
+                          {formatCurrency(participant.valor)}
                         </span>
                       </div>
                     ))}
 
                     <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-300">
-                      Total: R$ {parseFloat(valorTotal).toFixed(2).replace('.', ',')} • {participantes.length} {participantes.length === 1 ? 'pessoa' : 'pessoas'} •
+                      Total: {formatCurrency(parseFloat(valorTotal))} • {participantes.length} {participantes.length === 1 ? 'pessoa' : 'pessoas'} •
                       <span className="ml-2">🎉 Sua turma está pronta pra próxima! 🎉</span>
                     </div>
                   </div>
