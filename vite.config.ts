@@ -13,103 +13,76 @@ export default defineConfig({
         short_name: "PagAê!",
         description:
           "Transforme cobranças em brincadeiras entre amigos com nosso gerenciador descontraído de dívidas",
-        start_url: "/",
+        start_url: "/?source=pwa",
         display: "standalone",
         orientation: "portrait",
         theme_color: "#111827",
-        background_color: "#F5F3FF",
+        background_color: "#111827",
+        categories: ["finance", "social"],
         icons: [
-          // Ícones maskable
           {
-            src: "/icons/maskable_icon_x48.png",
-            sizes: "48x48",
-            type: "image/png",
-            purpose: "maskable"
-          },
-          {
-            src: "/icons/maskable_icon_x72.png",
-            sizes: "72x72",
-            type: "image/png",
-            purpose: "maskable"
-          },
-          {
-            src: "/icons/maskable_icon_x96.png",
-            sizes: "96x96",
-            type: "image/png",
-            purpose: "maskable"
-          },
-          {
-            src: "/icons/maskable_icon_x128.png",
-            sizes: "128x128",
-            type: "image/png",
-            purpose: "maskable"
-          },
-          {
-            src: "/icons/maskable_icon_x192.png",
+            src: "/pwa-assets/manifest-icon-192.maskable.png",
             sizes: "192x192",
             type: "image/png",
-            purpose: "any maskable" // Combinado
+            purpose: "any maskable",
           },
           {
-            src: "/icons/maskable_icon_x384.png",
-            sizes: "384x384",
-            type: "image/png",
-            purpose: "maskable"
-          },
-          {
-            src: "/icons/maskable_icon_x512.png",
+            src: "/pwa-assets/manifest-icon-512.maskable.png",
             sizes: "512x512",
             type: "image/png",
-            purpose: "any maskable" // Combinado
-          }
+            purpose: "any maskable",
+          },
         ],
       },
+
       workbox: {
-        navigateFallback: "/offline",
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
+        navigateFallback: "/offline.html",
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        skipWaiting: true,
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2,woff,ttf}"],
         runtimeCaching: [
           {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            urlPattern: /^https:\/\/fonts\.(gstatic|googleapis)\.com\/.*/i,
             handler: "CacheFirst",
             options: {
-              cacheName: "google-fonts-cache",
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365,
-              },
+              cacheName: "google-fonts",
+              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
             },
           },
           {
             urlPattern: /^https:\/\/firestore\.googleapis\.com\/.*/i,
-            handler: "NetworkFirst",
+            handler: "NetworkOnly",
             options: {
-              cacheName: "firestore-cache",
-              networkTimeoutSeconds: 10,
-            },
-          },
-          {
-            urlPattern: /^https:\/\/assets\.pagaê\.com\/emojis\/.*/i,
-            handler: "CacheFirst",
-            options: {
-              cacheName: "emojis-cache",
-              expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24 * 30,
+              backgroundSync: {
+                name: "firestore-queue",
+                options: { maxRetentionTime: 24 * 60 },
               },
             },
           },
           {
-            urlPattern: /\/app.*/,
+            urlPattern: /^https:\/\/assets\.pagaê\.com\/.*/i,
+            handler: "StaleWhileRevalidate",
+            options: {
+              cacheName: "assets-cache",
+              expiration: { maxEntries: 100, maxAgeSeconds: 60 * 60 * 24 * 30 },
+            },
+          },
+          {
+            urlPattern: /\/api\/.*/i,
             handler: "NetworkFirst",
             options: {
-              cacheName: "app-routes-cache",
+              cacheName: "api-cache",
               networkTimeoutSeconds: 3,
+              expiration: { maxEntries: 50, maxAgeSeconds: 60 * 5 },
             },
           },
         ],
       },
       devOptions: {
-        enabled: true,
+        enabled: false,
+        type: "module",
+        navigateFallback: "index.html",
       },
     }),
   ],
