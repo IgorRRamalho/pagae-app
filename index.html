@@ -1,39 +1,45 @@
-
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
 
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@600&family=Exo+2:wght@800&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="/pwa-assets/favicon-196.png" sizes="196x196">
+    <link rel="icon" href="/pwa-assets/favicon-196.png" sizes="196x196" />
 
     <!-- Meta Tags Essenciais -->
     <meta name="theme-color" content="#111827" />
-    
+
     <meta name="mobile-web-app-capable" content="yes" />
 
     <!-- Configurações iOS Aprimoradas -->
-    <link rel="apple-touch-icon" href="/ios-assets/apple-icon-180.png">
-    
+    <link rel="apple-touch-icon" href="/ios-assets/apple-icon-180.png" />
+
     <!-- Splash Screens reais -->
-    <link rel="apple-touch-startup-image" 
-    href="/ios-assets/apple-splash-1125-2436.png"
-    media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link
+      rel="apple-touch-startup-image"
+      href="/ios-assets/apple-splash-1125-2436.png"
+      media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="PagAê!" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
-    <link href="/ios-assets/apple-splash-1125-2436.png" 
+    <link
+      href="/ios-assets/apple-splash-1125-2436.png"
       media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
-      rel="apple-touch-startup-image">
+      rel="apple-touch-startup-image"
+    />
 
     <!-- Ícones Apple Touch com Placeholders -->
     <link
@@ -284,6 +290,15 @@
         const loadingScreen = document.getElementById("loading-screen");
         loadingScreen.style.display = "none";
       };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const emulatorWarning = document.querySelector(
+          ".firebase-emulator-warning"
+        );
+        if (emulatorWarning) {
+          emulatorWarning.remove();
+        }
+      });
     </script>
   </body>
 </html>

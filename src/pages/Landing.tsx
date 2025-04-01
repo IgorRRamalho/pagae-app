@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import LandingDesktop from "./Landing.desktop";
-import LandingMobile from "./Landing.mobile";
+import LandingMobile from "./Landing/Landing.mobile";
+import LandingDesktop from "./Landing/Landing.desktop";
+
 
 
 const Landing = () => {

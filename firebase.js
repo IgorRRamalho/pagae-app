@@ -24,6 +24,7 @@ const auth = getAuth(app);
 // Conecte ao Emulator de Auth em desenvolvimento
 if (process.env.NODE_ENV === "development") {
   connectAuthEmulator(auth, "http://localhost:9099");
+  
 }
 
 export { app, analytics, auth };
