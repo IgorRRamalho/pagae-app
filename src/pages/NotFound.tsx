@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Sparkles, Ghost } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
-import { Footer } from '@components/Footer';
+import Footer from '@components/Footer';
 
 
 

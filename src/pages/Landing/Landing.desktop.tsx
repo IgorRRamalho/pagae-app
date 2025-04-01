@@ -1,5 +1,5 @@
-import { Footer } from '@components/Footer';
-import HeaderLanding from '@components/HeaderLanding';
+import Footer from '@components/Footer';
+import HeaderLanding from '@components/NavLanding';
 import PagaeMemoryGame from '@components/LandingGame';
 import { SocialProof } from '@components/SocialProof';
 import { Sparkles, UserPlus } from 'lucide-react';

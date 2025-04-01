@@ -1,6 +1,6 @@
 import { Sparkles, UserPlus, Bell } from "lucide-react";
 
-export function MobileFooter() {
+export function FooterMobile() {
     return (
         <footer className="border-t border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-lg">
             <div className="px-4 py-8">

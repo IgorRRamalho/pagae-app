@@ -1,9 +1,10 @@
-import { MobileFooter } from "@components/Mobile/MobileFooter";
-import { MobileHeader } from "@components/Mobile/MobileHeader";
+
 import { SocialProof } from "@components/SocialProof";
 import { Sparkles, UserPlus } from "lucide-react";
 import { Typewriter } from "react-simple-typewriter";
 import screencapture from '@assets/screencapture.png';
+import Footer from "@components/Footer";
+import NavLanding from "@components/NavLanding";
 
 function LandingMobile() {
     return (
@@ -293,8 +294,8 @@ function LandingMobile() {
                     <div className="absolute -bottom-40 -left-20 w-72 h-72 bg-blue-400/10 rounded-full blur-2xl animate-float delay-1000" />
                 </div>
             </section>
-            <MobileHeader />
-            <MobileFooter />
+            <NavLanding />
+            <Footer/>            
         </div>
     );
 }

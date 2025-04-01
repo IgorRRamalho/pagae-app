@@ -1,4 +1,5 @@
-import { Footer } from '@components/Footer';
+
+import Footer from '@components/Footer';
 import { motion } from 'framer-motion';
 import { AlertTriangle, CheckCircle2, Loader2, Rocket, Sparkles } from 'lucide-react';
 import { useEffect, useState } from 'react';

@@ -3,7 +3,7 @@ import { User, LogIn, Sun, Moon } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export function MobileHeader() {
+export function NavLandingMobile() {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
