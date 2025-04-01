@@ -3,9 +3,10 @@ import { Moon, Sun, LogOut, Smile } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../../firebaseConfig";
-import Logo from "./Logo";
+import { auth } from "../../../firebaseConfig";
+
 import useDarkMode from '@hook/useDarkMode';
+import Logo from '@components/Logo';
 
 const navLinks = [
   {
@@ -36,7 +37,7 @@ const navLinks = [
   }
 ];
 
-export default function Header() {
+export default function NavigationDesktop() {
   const [isDarkMode, setIsDarkMode] = useDarkMode();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();

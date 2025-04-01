@@ -1,10 +1,9 @@
 import { motion } from 'framer-motion';
-import { BarChart, Crown, Plus, Skull, Users, Zap } from 'lucide-react';
+import { BarChart, Crown, Plus, Skull, Users } from 'lucide-react';
 import { useState } from 'react';
 
 const Group = () => {
   const [showCreateGroup, setShowCreateGroup] = useState(false);
-  const [isRichMode, setIsRichMode] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState('👥');
   const [selectedColor, setSelectedColor] = useState('purple');
   const [groupName, setGroupName] = useState('');
@@ -85,18 +84,7 @@ const Group = () => {
           </div>
           
           <div className="flex gap-3">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              onClick={() => setIsRichMode(!isRichMode)}
-              className={`px-4 py-2 rounded-full flex items-center gap-2 ${
-                isRichMode 
-                  ? 'bg-amber-500 text-white'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
-              }`}
-            >
-              <Zap className="w-5 h-5" />
-              <span>{isRichMode ? 'Modo Ricaço' : 'Ativar Modo Ricaço'}</span>
-            </motion.button>
+    
 
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -147,15 +135,7 @@ const Group = () => {
                       onChange={(e) => updateParticipant(index, 'name', e.target.value)}
                       className="flex-1 p-2 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600"
                     />
-                    {isRichMode && (
-                      <input
-                        type="number"
-                        placeholder="Salário"
-                        value={participant.salary}
-                        onChange={(e) => updateParticipant(index, 'salary', e.target.value)}
-                        className="flex-1 p-2 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600"
-                      />
-                    )}
+                  
                     <button
                       onClick={() => removeParticipant(index)}
                       className="px-3 py-2 bg-red-100 dark:bg-red-900/50 text-red-600 dark:text-red-400 rounded-lg hover:bg-red-200 dark:hover:bg-red-800/50"
@@ -174,21 +154,7 @@ const Group = () => {
                 </motion.button>
               </div>
 
-              {isRichMode && (
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-                    Despesas Totais
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Ex: R$ 1.500,00"
-                    value={totalExpenses}
-                    onChange={(e) => setTotalExpenses(e.target.value)}
-                    className="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 
-                              text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500"
-                  />
-                </div>
-              )}
+           
 
               <div>
                 <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
@@ -270,23 +236,12 @@ const Group = () => {
                 </div>
 
                 <div className="space-y-4">
-                  {isRichMode ? (
-                    <div className="space-y-3">
-                      {division.map((participant, i) => (
-                        <div key={i} className="p-3 bg-white dark:bg-gray-800 rounded-lg flex justify-between items-center">
-                          <span className="text-gray-900 dark:text-gray-100">{participant.name}</span>
-                          <span className="font-mono text-purple-700 dark:text-purple-400">
-                            R$ {participant.share.toFixed(2).replace('.', ',')}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
+                 
                     <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg">
                       <span className="text-gray-700 dark:text-gray-300">Total do Mês</span>
                       <span className="font-bold text-purple-700 dark:text-purple-400">{group.total}</span>
                     </div>
-                  )}
+        
 
                   <div className="grid grid-cols-2 gap-3">
                     <div className="p-3 bg-white dark:bg-gray-800 rounded-lg flex items-center gap-2">
