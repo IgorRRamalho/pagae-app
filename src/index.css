@@ -27,6 +27,12 @@
   touch-action: pan-y;
 }
 
+@media (max-width: 768px) {
+  * {
+      user-select: none;
+  }
+}
+
 /* ============ SCROLLBAR STYLES ============ */
 /* WebKit Browsers */
 ::-webkit-scrollbar {
