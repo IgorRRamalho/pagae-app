@@ -38,21 +38,11 @@ const pageVariants = {
   }
 };
 
-const containerStyle: React.CSSProperties = {
-  position: 'fixed',
-  marginTop: '6rem',
-  top: '0px',
-  left: '0px',
-  right: '0px',
-  bottom: '0px',
-  overflow: 'hidden'
-};
-
 export default function AnimatedRoutes() {
   const location = useLocation();
 
   return (
-    <div style={containerStyle}>
+    <div className='fixed inset-0 overflow-hidden md:mt-24 '>
       <AnimatePresence mode='wait'>
         <Routes location={location} key={location.pathname}>
           <Route index element={
@@ -110,9 +100,6 @@ export default function AnimatedRoutes() {
               <GroupScreen />
             </motion.div>
           } />
-          
-          
-          
         </Routes>
       </AnimatePresence>
     </div>

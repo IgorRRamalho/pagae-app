@@ -8,6 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "develop": "firebase emulators:start",
     "generate-pwa-assets": "pwa-asset-generator src/assets/pinky-promise.png public/pwa-assets --background 'linear-gradient(135deg, #7C3AED 0%, #DC2626 100%)' --opaque false --padding '15%' --color '#FFFFFF' --type png --quality 90 --icon-only --splash-only --favicon --mstile --maskable --portrait-only --log false --dark-mode 'linear-gradient(135deg, #111827 0%, #1F2937 100%)' --scrape false",
     "generate-ios-assets": "pwa-asset-generator src/assets/pinky-promise.png public/ios-assets --background '#111827' --opaque true --padding '20%' --color '#FFFFFF' --type png --quality 95 --icon-only --splash-only --portrait-only --log false --ios"
   },
