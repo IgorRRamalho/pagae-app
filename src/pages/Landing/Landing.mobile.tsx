@@ -8,7 +8,7 @@ import NavLanding from "@components/NavLanding";
 
 function LandingMobile() {
     return (
-        <div className="min-h-screen pb-14 bg-gradient-to-br from-gray-50/50 via-white to-gray-100/50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        <div className="min-h-screen pt-14 pb-14 bg-gradient-to-br from-gray-50/50 via-white to-gray-100/50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
 
             {/* Seção Hero Atualizada */}
             <section className="px-4 py-8 space-y-6 text-center">
