@@ -7,14 +7,13 @@ import PWAInstall from '@components/PWAInstaller';
 import AccessRequired from '@pages/AccessRequired';
 import Auth from '@pages/AuthPage';
 import CreateAccountViaToken from '@pages/CreateAccountViaToken';
-import Landing from '@pages/Landing/Landing';
+import Landing from '@pages/Landing';
+
 import NotFound from '@pages/NotFound';
 import { useEffect } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
 
 const routeConfig = [
   {
@@ -61,7 +60,7 @@ export default function App() {
     <Router>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={3000}
         theme="colored"
         newestOnTop
         closeOnClick

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -7,21 +7,25 @@
 /* ============ BASE STYLES ============ */
 @layer base {
   html {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: "Inter", system-ui, sans-serif;
     scroll-behavior: smooth;
     overscroll-behavior: none;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Poppins', sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Poppins", sans-serif;
     transition: all 0.7s ease;
   }
 }
 
 .elemento-touch {
-  touch-action: pan-y; 
+  touch-action: pan-y;
 }
-
 
 /* ============ SCROLLBAR STYLES ============ */
 /* WebKit Browsers */
@@ -63,7 +67,7 @@
   ::-webkit-scrollbar-track {
     background: #0f172a;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     background: linear-gradient(45deg, #7c3aed, #db2777);
     border-color: #0f172a;
@@ -76,27 +80,55 @@
 
 /* ============ ANIMATIONS ============ */
 @keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
 @keyframes pulse-scale {
-  0%, 100% { transform: scaleX(1); opacity: 1; }
-  50% { transform: scaleX(1.05); opacity: 0.8; }
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scaleX(1.05);
+    opacity: 0.8;
+  }
 }
 
 @keyframes shuffle {
-  0% { transform: rotate(0deg) scale(1); }
-  25% { transform: rotate(180deg) scale(0.8); }
-  50% { transform: rotate(90deg) scale(1.2); }
-  75% { transform: rotate(270deg) scale(0.9); }
-  100% { transform: rotate(360deg) scale(1); }
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(180deg) scale(0.8);
+  }
+  50% {
+    transform: rotate(90deg) scale(1.2);
+  }
+  75% {
+    transform: rotate(270deg) scale(0.9);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
 }
 
 @keyframes fadeInUp {
@@ -107,6 +139,28 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .shadow-purple-glow {
+    box-shadow: 0 8px 32px rgba(125, 92, 246, 0.3);
+  }
+  
+  .shadow-deep-xs {
+    box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .shadow-deep-sm {
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.15);
+  }
+
+  .shadow-deep-md {
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.2);
+  }
+
+  .dark .shadow-deep-md {
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
   }
 }
 
@@ -139,40 +193,107 @@
   transform: rotateX(0);
 }
 
+
 /* ============ THIRD-PARTY OVERRIDES ============ */
 /* Swiper Pagination */
 .swiper-pagination-bullet {
   @apply bg-gray-400 dark:bg-gray-600;
 }
 
-/* Toastify Customization */
+/* Toastify Minimalist Theme */
 .Toastify__toast {
   border-radius: 12px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid rgba(125, 92, 246, 0.15) !important;
   font-family: 'Inter', sans-serif !important;
-  padding: 16px !important;
+  padding: 14px 20px !important;
+  background: #ffffff !important;
+  color: #2d3748 !important;
+  position: relative;
+  min-height: 56px;
 }
 
-.Toastify__toast--success {
-  background-color: #6ECCAF !important;
-  color: #FFFFFF !important;
+/* Dark Mode */
+.dark .Toastify__toast {
+  background: #1e1b2d !important;
+  border-color: rgba(125, 92, 246, 0.2) !important;
+  color: #f8fafc !important;
 }
 
-.Toastify__toast--error {
-  background-color: #FF6B6B !important;
-  color: #FFFFFF !important;
+/* Status Indicator */
+.Toastify__toast::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #7C3AED, #DC2626);
 }
 
+/* Success Toast */
+.Toastify__toast--success::after {
+  background: #10b981 !important;
+}
+
+/* Error Toast */
+.Toastify__toast--error::after {
+  background: #ef4444 !important;
+}
+
+/* Close Button */
 .Toastify__close-button {
-  color: #FFFFFF !important;
-  opacity: 0.8 !important;
+  color: #64748b !important;
+  opacity: 0.75 !important;
+  align-self: center !important;
+  transition: all 0.2s ease !important;
+}
+
+.dark .Toastify__close-button {
+  color: #94a3b8 !important;
 }
 
 .Toastify__close-button:hover {
   opacity: 1 !important;
+  transform: scale(1.08) !important;
 }
-  
+
+/* Progress Bar */
+.Toastify__progress-bar {
+  height: 2px !important;
+  background: rgba(125, 92, 246, 0.2) !important;
+}
+
+/* Notification Icons */
+.Toastify__toast-icon svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.Toastify__toast--success .Toastify__toast-icon svg {
+  fill: #10b981 !important;
+}
+
+.Toastify__toast--error .Toastify__toast-icon svg {
+  fill: #ef4444 !important;
+}
+
+/* Animation */
+.Toastify__slide-enter--top-center {
+  animation: toast-slide-in 0.3s ease-out forwards;
+}
+
+@keyframes toast-slide-in {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 /* ============ HIDE SCROLLBAR (OPTIONAL) ============ */
 /* Uncomment if needed
 ::-webkit-scrollbar {
@@ -184,4 +305,3 @@ body {
   -ms-overflow-style: none;
 }
 */
-

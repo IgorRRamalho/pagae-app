@@ -3,9 +3,8 @@ import { NavLink } from "react-router-dom";
 import { Moon, Sun, LogOut, Users, Home, UserPlus, Calculator, Settings, Sliders } from "lucide-react";
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { signOut } from "firebase/auth";
-import { auth } from "../../../firebaseConfig";
 import useDarkMode from '@hook/useDarkMode';
+import useLogout from '@hook/useLogout';
 
 const navItems = [
   {
@@ -40,17 +39,8 @@ export default function NavigationMobile() {
   const [isDarkMode, setIsDarkMode] = useDarkMode();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const logout = useLogout();
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      navigate("/");
-    } catch (error) {
-      console.error("Erro ao fazer logout:", error);
-    }
-  };
-
-  // Fecha o menu ao navegar
   const handleNavigation = () => {
     setIsMenuOpen(false);
   };
@@ -58,8 +48,8 @@ export default function NavigationMobile() {
   return (
     <>
       {/* Main Navigation Bar */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-t border-gray-100 dark:border-gray-800 pb-safe">
-        <div className="flex justify-center items-center px-2 py-2 gap-1">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-top-lg pb-[env(safe-area-inset-bottom)] px-[max(env(safe-area-inset-left),1rem)]">
+        <div className="flex justify-center items-center py-2 gap-1">
           <div className="flex flex-1 justify-around items-center max-w-2xl">
             {navItems.map(({ path, icon: Icon, label }, index) => (
               <div key={path} className={`flex-1 ${index === 2 ? 'relative' : ''}`}>
@@ -70,7 +60,7 @@ export default function NavigationMobile() {
                       end={path === "/app"}
                       className="relative"
                       aria-current={path === window.location.pathname ? "page" : undefined}
-                      onClick={handleNavigation} // Adicionado aqui
+                      onClick={handleNavigation} 
                     >
                       {({ isActive }) => (
                         <motion.div
@@ -81,8 +71,8 @@ export default function NavigationMobile() {
                           <motion.div
                             className={`p-4 rounded-2xl relative ${
                               isActive 
-                                ? 'bg-gradient-to-br from-purple-500 to-purple-600 shadow-lg shadow-purple-500/30'
-                                : 'bg-white/50 dark:bg-gray-800/50 shadow-md'
+                                ? 'bg-gradient-to-br from-purple-500 to-purple-600 shadow-glow-purple shadow-lg'
+                                : 'bg-white/50 dark:bg-gray-800/50 shadow-md hover:shadow-lg'
                             }`}
                             whileHover={{ scale: 1.05 }}
                           >
@@ -105,7 +95,7 @@ export default function NavigationMobile() {
                     end={path === "/app"}
                     className="relative flex justify-center"
                     aria-current={path === window.location.pathname ? "page" : undefined}
-                    onClick={handleNavigation} // Adicionado aqui
+                    onClick={handleNavigation} 
                   >
                     {({ isActive }) => (
                       <motion.div
@@ -116,8 +106,8 @@ export default function NavigationMobile() {
                         <motion.div
                           className={`p-3 rounded-xl ${
                             isActive 
-                              ? 'bg-gradient-to-br from-purple-500 to-purple-600 shadow-md'
-                              : 'bg-transparent'
+                              ? 'bg-gradient-to-br from-purple-500 to-purple-600 shadow-glow-purple shadow-md'
+                              : 'bg-transparent shadow-sm hover:shadow-md'
                           }`}
                           whileHover={{ scale: 1.05 }}
                         >
@@ -153,8 +143,8 @@ export default function NavigationMobile() {
                 <motion.div
                   className={`p-3 rounded-xl ${
                     isMenuOpen 
-                      ? 'bg-gradient-to-br from-purple-500 to-purple-600 shadow-md'
-                      : 'bg-transparent'
+                      ? 'bg-gradient-to-br from-purple-500 to-purple-600 shadow-glow-purple shadow-md'
+                      : 'bg-transparent shadow-sm hover:shadow-md'
                   }`}
                   whileHover={{ scale: 1.05 }}
                 >
@@ -182,7 +172,7 @@ export default function NavigationMobile() {
             />
 
             <motion.div
-              className="fixed bottom-24 right-4 bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-2 space-y-2 z-50 min-w-[180px] border border-gray-100 dark:border-gray-700"
+              className="fixed bottom-[calc(4rem+env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-2 space-y-2 z-50 min-w-[180px] border border-gray-100 dark:border-gray-700 shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_32px_rgba(255,255,255,0.08)]"
               variants={menuVariants}
               initial="hidden"
               animate="visible"
@@ -197,7 +187,7 @@ export default function NavigationMobile() {
                 className="flex items-center gap-3 w-full p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
                 whileTap={{ scale: 0.95 }}
               >
-                <div className="p-2 rounded-lg bg-purple-100/50 dark:bg-gray-700">
+                <div className="p-2 rounded-lg bg-purple-100/50 dark:bg-gray-700 shadow-sm">
                   <Sliders className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                 </div>
                 <span className="text-sm font-medium dark:text-white">Configurações</span>
@@ -208,7 +198,7 @@ export default function NavigationMobile() {
                 className="flex items-center gap-3 w-full p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
                 whileTap={{ scale: 0.95 }}
               >
-                <div className="p-2 rounded-lg bg-purple-100/50 dark:bg-gray-700">
+                <div className="p-2 rounded-lg bg-purple-100/50 dark:bg-gray-700 shadow-sm">
                   {isDarkMode ? (
                     <Sun className="w-5 h-5 text-amber-400" />
                   ) : (
@@ -219,11 +209,11 @@ export default function NavigationMobile() {
               </motion.button>
 
               <motion.button
-                onClick={handleLogout}
+                onClick={logout}
                 className="flex items-center gap-3 w-full p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
                 whileTap={{ scale: 0.95 }}
               >
-                <div className="p-2 rounded-lg bg-red-100/50 dark:bg-red-900/20">
+                <div className="p-2 rounded-lg bg-red-100/50 dark:bg-red-900/20 shadow-sm">
                   <LogOut className="w-5 h-5 text-red-500 dark:text-red-400" />
                 </div>
                 <span className="text-sm font-medium dark:text-white">Sair da Conta</span>
@@ -232,6 +222,23 @@ export default function NavigationMobile() {
           </>
         )}
       </AnimatePresence>
+      <style>{`
+        @layer components {
+          .shadow-top-lg {
+            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.05), 
+                        0 -10px 15px -3px rgba(0, 0, 0, 0.08);
+          }
+          
+          .dark .shadow-top-lg {
+            box-shadow: 0 -4px 6px -1px rgba(255, 255, 255, 0.03), 
+                        0 -10px 15px -3px rgba(255, 255, 255, 0.05);
+          }
+
+          .shadow-glow-purple {
+            box-shadow: 0 4px 24px -2px rgba(124, 58, 237, 0.25);
+          }
+        }
+      `}</style>
     </>
   );
 }

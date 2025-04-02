@@ -1,17 +1,11 @@
-import { useEffect, useState } from "react";
-import LandingMobile from "./Landing/Landing.mobile";
+import useIsMobile from "@hook/useIsMobile";
 import LandingDesktop from "./Landing/Landing.desktop";
+import LandingMobile from "./Landing/Landing.mobile";
 
 
 
 const Landing = () => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const isMobile = useIsMobile();
 
   return isMobile ? <LandingMobile /> : <LandingDesktop />;
 };

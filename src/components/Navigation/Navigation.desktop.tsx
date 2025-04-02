@@ -7,6 +7,7 @@ import { auth } from "../../../firebaseConfig";
 
 import useDarkMode from '@hook/useDarkMode';
 import Logo from '@components/Logo';
+import useLogout from '@hook/useLogout';
 
 const navLinks = [
   {
@@ -40,7 +41,7 @@ const navLinks = [
 export default function NavigationDesktop() {
   const [isDarkMode, setIsDarkMode] = useDarkMode();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate();
+  const logout = useLogout();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -49,14 +50,7 @@ export default function NavigationDesktop() {
     return () => unsubscribe();
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      navigate("/");
-    } catch (error) {
-      console.error("Erro ao fazer logout:", error);
-    }
-  };
+
 
   return (
     <header
@@ -98,7 +92,7 @@ export default function NavigationDesktop() {
 
             {isLoggedIn ? (
               <motion.button
-                onClick={handleLogout}
+                onClick={logout}
                 className="p-3 rounded-full bg-red-600 hover:bg-red-700 transition-colors duration-300 relative
                            focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                 whileHover={{ scale: 1.1 }}

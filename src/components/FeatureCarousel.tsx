@@ -22,7 +22,6 @@ export const FeatureCarousel = () => {
       }}
       className="!pb-12 dark:[--swiper-theme-color:#a78bfa]"
     >
-      {/* Seus slides aqui */}
     </Swiper>
   );
 };
