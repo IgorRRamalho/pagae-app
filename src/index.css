@@ -23,6 +23,13 @@
   }
 }
 
+.twemoji {
+  display: inline-block; /* Garante alinhamento correto */
+  width: 1em; /* Faz com que o SVG tenha o mesmo tamanho da fonte */
+  height: 1em; /* Mantém a proporção original */
+  vertical-align: -0.1em; /* Ajuste fino para alinhamento */
+}
+
 .elemento-touch {
   touch-action: pan-y;
 }
