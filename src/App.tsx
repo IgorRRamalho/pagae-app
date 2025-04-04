@@ -8,7 +8,7 @@ import AccessRequired from '@pages/AccessRequired';
 import Auth from '@pages/AuthPage';
 import CreateAccountViaToken from '@pages/CreateAccountViaToken';
 import Landing from '@pages/Landing';
-
+import About from '@pages/About';
 import NotFound from '@pages/NotFound';
 import { useEffect } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
@@ -19,26 +19,36 @@ const routeConfig = [
   {
     path: '/',
     element: <Landing />,
+    hasTransition: true,
+  },
+  {
+    path: '/about',
+    element: <About />,
+    hasTransition: false,
   },
   {
     path: '/auth',
     element: <Auth />,
     public: true,
+    hasTransition: false,
   },
   {
     path: '/access-required',
     public: true,
     element: <AccessRequired />,
+    hasTransition: false,
   },
   {
     path: '/link-criar-conta/:token',
-    element: <CreateAccountViaToken />
+    element: <CreateAccountViaToken />,
+    hasTransition: true,
   },
   {
     path: '/app/*',
     private: true,
+    hasTransition: false,
     element: (
-      <div className="min-h-screen transform transition-all duration-300 bg-gradient-to-b from-purple-50 to-blue-50  dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <div className="min-h-screen transition-all duration-300 transform bg-gradient-to-b from-purple-50 to-blue-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <Header />
         <AnimatedRoutes />
       </div>
@@ -47,6 +57,7 @@ const routeConfig = [
   {
     path: '*',
     element: <NotFound />,
+    hasTransition: true,
   },
 ];
 
@@ -70,9 +81,9 @@ export default function App() {
 
       <Routes>
         {routeConfig.map((route, index) => {
-          const shouldTransition = !route.path?.includes('/app/*');
           let element = route.element;
-          if (shouldTransition) {
+          
+          if (route.hasTransition) {
             element = <PageTransition>{element}</PageTransition>;
           }
 

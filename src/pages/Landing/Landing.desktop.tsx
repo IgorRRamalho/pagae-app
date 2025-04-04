@@ -12,19 +12,19 @@ function LandingDesktop() {
             <HeaderLanding />
 
             {/* Seção Hero */}
-            <section className="max-w-7xl min-h-screen mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 text-center flex flex-col justify-center items-center">
-                <div className="animate-fade-in-up w-full max-w-3xl">
+            <section className="flex flex-col items-center justify-center min-h-screen px-4 py-12 mx-auto text-center max-w-7xl sm:px-6 lg:px-8 md:py-20">
+                <div className="w-full max-w-3xl animate-fade-in-up">
                     <div className="inline-flex items-center bg-red-100 dark:bg-red-900/80 px-4 py-1.5 md:px-6 md:py-2 rounded-full mb-4 md:mb-6">
-                        <Sparkles className="w-4 h-4 md:w-5 md:h-5 mr-2 text-red-600 dark:text-red-300" />
-                        <span className="text-sm md:text-base text-red-700 dark:text-red-300 font-medium">🚨 Beta aberto</span>
+                        <Sparkles className="w-4 h-4 mr-2 text-red-600 md:w-5 md:h-5 dark:text-red-300" />
+                        <span className="text-sm font-medium text-red-700 md:text-base dark:text-red-300">🚨 Beta aberto</span>
                     </div>
 
-                    <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 md:mb-6 px-2 dark:text-white">
+                    <h1 className="px-2 mb-4 text-3xl font-extrabold tracking-tight md:text-5xl lg:text-6xl md:mb-6 dark:text-white">
                         <span className="bg-gradient-to-r from-[#DC2626] to-[#7C3AED] bg-clip-text text-transparent">
                             Chega de ser banco de amigos! 💪
                         </span>
                         <br />
-                        <span className="text-2xl md:text-4xl text-gray-800 dark:text-gray-100 mt-4 inline-block">
+                        <span className="inline-block mt-4 text-2xl text-gray-800 md:text-4xl dark:text-gray-100">
                             O PagAê controla quem te deve e{' '}
                             <span className="underline decoration-wavy decoration-teal-500 dark:decoration-teal-300">
                                 cobra por você
@@ -32,13 +32,13 @@ function LandingDesktop() {
                         </span>
                     </h1>
 
-                    <p className="text-base mb-6 md:text-xl text-gray-800 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
+                    <p className="max-w-3xl px-4 mx-auto mb-6 text-base leading-relaxed text-gray-800 md:text-xl dark:text-gray-300">
                         O jeito{' '}
                         <span className="font-semibold text-[#7C3AED] dark:text-[#9B5DE5]">
                             descomplicado
                         </span>{' '}
                         de gerenciar
-                        <div className="px-2 py-1 mx-1 bg-red-100/50 dark:bg-red-900/20 rounded-lg mt-2 md:mt-0 md:inline-block">
+                        <div className="px-2 py-1 mx-1 mt-2 rounded-lg bg-red-100/50 dark:bg-red-900/20 md:mt-0 md:inline-block">
                             <Typewriter
                                 words={['💰 dinheiro entre amigos', '🍕 conta da pizza', '🍻 rodada do bar']}
                                 loop={true}
@@ -49,7 +49,7 @@ function LandingDesktop() {
                                 delaySpeed={5000}
                             />
                         </div>
-                        <span className="block md:inline mt-2 md:mt-0">
+                        <span className="block mt-2 md:inline md:mt-0">
                             sem perder a{' '}
                             <span className="border-b-2 border-teal-500 dark:border-teal-300">
                                 ✌️ paz
@@ -58,7 +58,7 @@ function LandingDesktop() {
                     </p>
                 </div>
 
-                <div className="animate-fade-in-up delay-100">
+                <div className="delay-100 animate-fade-in-up">
                     <button
                         className="group relative bg-gradient-to-r from-[#DC2626] to-[#7C3AED] text-white 
   px-6 py-3 md:px-8 md:py-4 rounded-full text-sm md:text-lg font-semibold 
@@ -73,12 +73,11 @@ function LandingDesktop() {
 
                     <SocialProof />
 
-                    <div className="flex flex-col  md:flex-row justify-center gap-3 md:gap-4 mt-8 px-4 dark:text-white">
+                    <div className="flex flex-col justify-center gap-3 px-4 mt-8 md:flex-row md:gap-4 dark:text-white">
                         {['🤙 100% Grátis', '🎉 Cadastro fácil', '📱 No celular'].map((item, i) => (
                             <div
                                 key={i}
-                                className="flex items-center gap-2 px-4 py-2 bg-white/90 dark:bg-gray-800/90 
-                border border-gray-200 dark:border-gray-700 rounded-full text-sm md:text-base"
+                                className="flex items-center gap-2 px-4 py-2 text-sm border border-gray-200 rounded-full bg-white/90 dark:bg-gray-800/90 dark:border-gray-700 md:text-base"
                             >
                                 <span className="text-xl">{item.split(' ')[0]}</span>
                                 <span>{item.split(' ').slice(1).join(' ')}</span>
@@ -91,21 +90,21 @@ function LandingDesktop() {
 
             <div className="relative bg-gradient-to-br from-purple-50/80 to-blue-50/80 dark:from-gray-900 dark:to-purple-900/10 overflow-hidden shadow-[0_10px_50px_rgba(0,0,0,0.6)]">
                 {/* Elementos decorativos compartilhados (APENAS ESTES) */}
-                <div className="absolute -top-40 -left-40 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl animate-float -z-10" />
-                <div className="absolute -bottom-60 -right-40 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl animate-float delay-1000 -z-10" />
+                <div className="absolute rounded-full -top-40 -left-40 w-96 h-96 bg-purple-400/20 blur-3xl animate-float -z-10" />
+                <div className="absolute delay-1000 rounded-full -bottom-60 -right-40 w-80 h-80 bg-blue-400/20 blur-3xl animate-float -z-10" />
                 <div className="absolute -top-1/4 left-1/2 w-[800px] h-[800px] bg-purple-400/10 rounded-full blur-3xl animate-float -z-10" />
                 <div className="absolute -bottom-1/3 right-1/4 w-[700px] h-[700px] bg-red-400/10 rounded-full blur-3xl animate-float delay-1000 -z-10" />
 
                 {/* Seção Demonstração */}
-                <section id="demo" className="relative py-24">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <section id="demo" className="relative py-24 scroll-mt-32">
+                    <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                         {/* Título com animação */}
-                        <div className="text-center mb-16">
-                            <h2 className="text-5xl font-bold mb-4 dark:text-white relative">
+                        <div className="mb-16 text-center">
+                            <h2 className="relative mb-4 text-5xl font-bold dark:text-white">
                                 <span className="bg-gradient-to-r from-[#7C3AED] to-[#DC2626] bg-clip-text text-transparent px-1">
                                     Na Prática
                                 </span>
-                                <div className="mt-4 text-2xl text-gray-600 dark:text-gray-300 flex items-center justify-center gap-3">
+                                <div className="flex items-center justify-center gap-3 mt-4 text-2xl text-gray-600 dark:text-gray-300">
                                     <span className="animate-pulse">✨</span>
                                     <span>Veja a mágica acontecer</span>
                                     <span className="animate-bounce">👇</span>
@@ -114,7 +113,7 @@ function LandingDesktop() {
                         </div>
 
                         {/* Container principal com efeito 3D */}
-                        <div className="relative group perspective-3000 transform transition-all duration-700 hover:perspective-2000">
+                        <div className="relative transition-all duration-700 transform group perspective-3000 hover:perspective-2000">
                             {/* Efeito de grid dinâmico */}
                             <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:40px_40px] opacity-30 dark:opacity-20" />
 
@@ -125,14 +124,13 @@ function LandingDesktop() {
                 hover:border-purple-500/30">
 
                                     {/* Cabeçalho estilizado */}
-                                    <div className="flex items-center px-6 py-3 bg-gray-50/50 dark:bg-gray-700/30 border-b border-gray-100 dark:border-gray-600">
+                                    <div className="flex items-center px-6 py-3 border-b border-gray-100 bg-gray-50/50 dark:bg-gray-700/30 dark:border-gray-600">
                                         <div className="flex space-x-2">
                                             {['#FF5F56', '#FFBD2E', '#27C93F'].map((color, i) => (
-                                                <div key={i} className="w-3 h-3 rounded-full shadow-sm transition-transform 
-                                hover:scale-125" style={{ backgroundColor: color }} />
+                                                <div key={i} className="w-3 h-3 transition-transform rounded-full shadow-sm hover:scale-125" style={{ backgroundColor: color }} />
                                             ))}
                                         </div>
-                                        <div className="flex-1 text-center text-sm text-gray-500 dark:text-gray-400 font-medium mx-4 truncate">
+                                        <div className="flex-1 mx-4 text-sm font-medium text-center text-gray-500 truncate dark:text-gray-400">
                                             pagae.app/demo
                                         </div>
                                     </div>
@@ -145,28 +143,23 @@ function LandingDesktop() {
                                             className="w-full h-full object-center scale-100 group-hover:scale-[1.03] transition-transform duration-700"
                                             loading="lazy"
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-white/40 to-transparent dark:from-gray-900/40 pointer-events-none" />
+                                        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-white/40 to-transparent dark:from-gray-900/40" />
                                     </div>
                                 </div>
                             </div>
 
                             {/* Elementos decorativos animados */}
-                            <div className="absolute -top-40 -left-40 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl 
-            animate-float -z-10" />
-                            <div className="absolute -bottom-60 -right-40 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl 
-            animate-float delay-1000 -z-10" />
+                            <div className="absolute rounded-full -top-40 -left-40 w-96 h-96 bg-purple-400/20 blur-3xl animate-float -z-10" />
+                            <div className="absolute delay-1000 rounded-full -bottom-60 -right-40 w-80 h-80 bg-blue-400/20 blur-3xl animate-float -z-10" />
                         </div>
 
                         {/* Rodapé interativo */}
-                        <div className="mt-16 text-center max-w-2xl mx-auto">
-                            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 font-medium">
-                                Interface <span className="bg-gradient-to-r from-purple-600 to-red-600 bg-clip-text text-transparent 
-    font-bold">fácil de usar</span>, sem manual de instruções necessário.
+                        <div className="max-w-2xl mx-auto mt-16 text-center">
+                            <p className="mb-8 text-xl font-medium text-gray-600 dark:text-gray-300">
+                                Interface <span className="font-bold text-transparent bg-gradient-to-r from-purple-600 to-red-600 bg-clip-text">fácil de usar</span>, sem manual de instruções necessário.
                             </p>
 
-                            <button className="relative overflow-hidden bg-gradient-to-r from-purple-600 to-red-600 text-white 
-            px-10 py-4 rounded-2xl font-semibold text-lg shadow-2xl hover:shadow-3xl transition-all duration-300
-            hover:-translate-y-1 hover:scale-105 group/button">
+                            <button className="relative px-10 py-4 overflow-hidden text-lg font-semibold text-white transition-all duration-300 shadow-2xl bg-gradient-to-r from-purple-600 to-red-600 rounded-2xl hover:shadow-3xl hover:-translate-y-1 hover:scale-105 group/button">
                                 <span className="relative z-10 flex items-center justify-center gap-2">
                                     <span className="animate-pulse">🚀</span>
                                     Experimentar Agora - É Grátis!
@@ -180,17 +173,17 @@ function LandingDesktop() {
                 </section>
 
                 {/* Seção Funcionalidades */}
-                <section id="vantagens" className="relative py-24 backdrop-blur-md">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+                <section id="recursos" className="relative py-24 backdrop-blur-md scroll-mt-32">
+                    <div className="relative px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                         {/* Titulo aprimorado */}
-                        <div className="text-center mb-20">
-                            <h2 className="text-5xl font-bold mb-4 dark:text-white relative inline-block">
+                        <div className="mb-20 text-center">
+                            <h2 className="relative inline-block mb-4 text-5xl font-bold dark:text-white">
                                 <span className="bg-gradient-to-r from-[#DC2626] to-[#7C3AED] bg-clip-text text-transparent px-1">
                                     Tudo Que Você Precisa (E Mais Um Pouco)
                                 </span>
                                 <div className="absolute -bottom-4 left-0 w-full h-1.5 bg-gradient-to-r from-red-500 via-purple-500 to-purple-600 rounded-full animate-pulse-scale opacity-90" />
                             </h2>
-                            <p className="text-xl text-gray-600 dark:text-gray-300 mt-8 max-w-2xl mx-auto leading-relaxed">
+                            <p className="max-w-2xl mx-auto mt-8 text-xl leading-relaxed text-gray-600 dark:text-gray-300">
                                 Tudo o que você precisa, e nada do que você não precisa. Simples assim!
                             </p>
                         </div>
@@ -256,21 +249,21 @@ function LandingDesktop() {
         animate-float delay-1000" />
             </div>
 
-            <section id="depoimentos" className="relative py-24 bg-gradient-to-br from-blue-50/50 to-teal-50/50 dark:from-gray-900 dark:to-blue-900/10 overflow-hidden">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-20">
-                        <h2 className="text-5xl font-bold mb-4 dark:text-white relative">
-                            <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+            <section id="depoimentos" className="relative py-24 overflow-hidden bg-gradient-to-br from-blue-50/50 to-teal-50/50 dark:from-gray-900 dark:to-blue-900/10 scroll-mt-32">
+                <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                    <div className="mb-20 text-center">
+                        <h2 className="relative mb-4 text-5xl font-bold dark:text-white">
+                            <span className="text-transparent bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text">
                                 Vozes da Comunidade
                             </span>
-                            <div className="mt-4 text-2xl text-gray-600 dark:text-gray-300 flex items-center justify-center gap-2">
+                            <div className="flex items-center justify-center gap-2 mt-4 text-2xl text-gray-600 dark:text-gray-300">
                                 <span>Quem usa recomenda de olhos fechados</span>
                                 <span className="animate-pulse">👌</span>
                             </div>
                         </h2>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-8 group/depo">
+                    <div className="grid gap-8 md:grid-cols-3 group/depo">
                         {[
                             {
                                 text: 'O app salvou nossa amizade! Nunca mais briguei por dinheiro',
@@ -302,23 +295,19 @@ function LandingDesktop() {
                                 <div className="absolute inset-0 rounded-[2rem] opacity-0 group-hover/depo:opacity-10 
                     bg-gradient-to-br from-teal-400/30 to-blue-500/30 transition-opacity duration-500" />
 
-                                <div className="absolute -top-6 right-6 w-16 h-16 rounded-2xl bg-gradient-to-br 
-                    from-teal-400 to-blue-500 flex items-center justify-center text-3xl shadow-xl">
+                                <div className="absolute flex items-center justify-center w-16 h-16 text-3xl shadow-xl -top-6 right-6 rounded-2xl bg-gradient-to-br from-teal-400 to-blue-500">
                                     {depo.emoji}
                                 </div>
 
-                                <p className="text-xl italic mb-8 dark:text-gray-200 font-medium leading-relaxed
-                    bg-gradient-to-r from-gray-800 to-gray-900 dark:from-gray-100 dark:to-gray-300 
-                    bg-clip-text text-transparent">
+                                <p className="mb-8 text-xl italic font-medium leading-relaxed text-transparent dark:text-gray-200 bg-gradient-to-r from-gray-800 to-gray-900 dark:from-gray-100 dark:to-gray-300 bg-clip-text">
                                     "{depo.text}"
                                 </p>
 
-                                <div className="border-t border-blue-100 dark:border-blue-900/50 pt-6">
-                                    <div className="font-bold text-lg bg-gradient-to-r from-teal-600 to-blue-600 
-                        dark:from-teal-400 dark:to-blue-400 bg-clip-text text-transparent">
+                                <div className="pt-6 border-t border-blue-100 dark:border-blue-900/50">
+                                    <div className="text-lg font-bold text-transparent bg-gradient-to-r from-teal-600 to-blue-600 dark:from-teal-400 dark:to-blue-400 bg-clip-text">
                                         {depo.author}
                                     </div>
-                                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-2 flex items-center gap-2">
+                                    <div className="flex items-center gap-2 mt-2 text-sm text-gray-500 dark:text-gray-400">
                                         <span className="text-lg">{depo.emoji}</span>
                                         {depo.role}
                                     </div>
@@ -342,15 +331,15 @@ function LandingDesktop() {
 
             {/* Jogo */}
 
-            <div className="relative bg-gradient-to-br from-purple-50/60 to-blue-50/60 dark:from-gray-800/50 dark:to-purple-900/10 shadow-2xl w-full backdrop-blur-sm transition-all duration-500 hover:shadow-3xl group/game pt-16 pb-0">
+            <div className="relative w-full pt-16 pb-0 transition-all duration-500 shadow-2xl bg-gradient-to-br from-purple-50/60 to-blue-50/60 dark:from-gray-800/50 dark:to-purple-900/10 backdrop-blur-sm hover:shadow-3xl group/game">
                 {/* Elementos decorativos */}
-                <div className="absolute -top-20 -left-20 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-float -z-10" />
-                <div className="absolute -bottom-28 -right-20 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl animate-float delay-1000 -z-10" />
+                <div className="absolute rounded-full -top-20 -left-20 w-96 h-96 bg-purple-400/10 blur-3xl animate-float -z-10" />
+                <div className="absolute delay-1000 rounded-full -bottom-28 -right-20 w-80 h-80 bg-blue-400/10 blur-3xl animate-float -z-10" />
                 {/* Container do conteúdo */}
-                <div className="max-w-3xl mx-auto p-4 sm:px-6 lg:px-8">
+                <div className="max-w-3xl p-4 mx-auto sm:px-6 lg:px-8">
                     {/* Título estilizado */}
-                    <div className="text-center mb-12">
-                        <h3 className="text-3xl font-bold mb-4 dark:text-white">
+                    <div className="mb-12 text-center">
+                        <h3 className="mb-4 text-3xl font-bold dark:text-white">
                             <span className="bg-gradient-to-r from-[#7C3AED] to-[#DC2626] bg-clip-text text-transparent">
                                 🧠 Treine sua memória enquanto se diverte
                             </span>
@@ -358,13 +347,13 @@ function LandingDesktop() {
                     </div>
 
                     {/* Container do jogo com borda interativa */}
-                    <div className="relative bg-white/90 dark:bg-gray-800/90 p-6 rounded-3xl shadow-xl border-2 border-purple-100/50 dark:border-gray-700/50 group-hover/game:border-purple-200/80 transition-all duration-300">
+                    <div className="relative p-6 transition-all duration-300 border-2 shadow-xl bg-white/90 dark:bg-gray-800/90 rounded-3xl border-purple-100/50 dark:border-gray-700/50 group-hover/game:border-purple-200/80">
                         <PagaeMemoryGame />
                     </div>
 
                     {/* Rodapé decorativo */}
                     <div className="mt-8 text-center">
-                        <p className="text-sm text-gray-600 dark:text-gray-400 italic">
+                        <p className="text-sm italic text-gray-600 dark:text-gray-400">
                             Dica: Lembre dos pares! Ajudei? 🚀
                         </p>
                     </div>

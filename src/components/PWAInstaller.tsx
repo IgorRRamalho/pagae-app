@@ -46,8 +46,7 @@ export default function PWAInstall() {
   if (!deferredPrompt) return null;
 
   return (
-    <div className="fixed top-0 left-0 w-full h-1/3 bg-black/80 backdrop-blur-lg z-[9999] flex flex-col items-center justify-center text-white p-4 animate-slide-in-down shadow-2xl">
-      <p className="text-lg font-semibold mb-3 text-center">Instale o App PagAê para uma melhor experiência! 🚀</p>
+    <div className="fixed bottom-4 right-4 z-[9999]">
       <button 
         onClick={installApp}
         className="group relative bg-gradient-to-r from-[#DC2626] to-[#7C3AED] dark:from-[#B91C1C] dark:to-[#6D28D9] 
@@ -61,8 +60,8 @@ export default function PWAInstall() {
         </span>
         <span className="hidden md:inline">Instalar App PagAê!</span>
         <span className="md:hidden">Instalar</span>
-        <span className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300">🚀</span>
-        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-20 rounded-full transition-opacity" />
+        <span className="ml-2 transition-all duration-300 opacity-0 group-hover:opacity-100">🚀</span>
+        <div className="absolute inset-0 transition-opacity rounded-full opacity-0 bg-white/10 group-hover:opacity-20" />
       </button>
     </div>
   );
