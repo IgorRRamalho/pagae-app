@@ -3,27 +3,19 @@ import { motion } from 'framer-motion';
 import { Bell, CircleFadingPlus, Lock, LogOut, Moon, Sun, User } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { useSettings } from './useSettings';
 
-interface UserData {
-    name: string;
-    email: string;
-    phone: string;
-}
-
-interface FormErrors {
-    name?: string;
-    email?: string;
-    phone?: string;
-}
 
 const SettingsMobile: React.FC = () => {
-    const [darkMode, setDarkMode] = useState(false);
-    const [userData, setUserData] = useState<UserData>({
-        name: 'Zé da Pizza',
-        email: 'zedapizza@exemplo.com',
-        phone: '(11) 98765-4321'
-    });
-    const [formErrors, setFormErrors] = useState<FormErrors>({});
+    const {
+        darkMode,
+        userData,
+        setUserData,
+        formErrors,
+        toggleDarkMode,
+        handleProfileUpdate
+    } = useSettings();
+    
     const [hasUpdate, setHasUpdate] = useState(false);
     const [registration, setRegistration] = useState<ServiceWorkerRegistration | null>(null);
     const [appVersion] = useState(import.meta.env.VITE_APP_VERSION || '1.0.0');
@@ -31,12 +23,7 @@ const SettingsMobile: React.FC = () => {
     const logout = useLogout();
 
     useEffect(() => {
-        // Configurar dark mode
-        const isDark = localStorage.getItem('darkMode') === 'true';
-        setDarkMode(isDark);
-        document.documentElement.classList.toggle('dark', isDark);
 
-        // Registrar Service Worker
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
                 .register('/sw.js')
@@ -83,29 +70,6 @@ const SettingsMobile: React.FC = () => {
         };
     }, []);
 
-    const toggleDarkMode = () => {
-        const newMode = !darkMode;
-        setDarkMode(newMode);
-        localStorage.setItem('darkMode', String(newMode));
-        document.documentElement.classList.toggle('dark', newMode);
-    };
-
-    const handleProfileUpdate = (e: React.FormEvent) => {
-        e.preventDefault();
-        const errors: FormErrors = {};
-
-        if (!userData.name.trim()) errors.name = 'Nome é obrigatório';
-        if (!/^\S+@\S+\.\S+$/.test(userData.email)) errors.email = 'Email inválido';
-        if (!/^\(\d{2}\) \d{5}-\d{4}$/.test(userData.phone)) errors.phone = 'Telefone inválido';
-
-        if (Object.keys(errors).length === 0) {
-            toast.success('Perfil atualizado! Seus dados estão safe 🛡️');
-            setFormErrors({});
-        } else {
-            setFormErrors(errors);
-        }
-    };
-
     const handleUpdateApp = () => {
         if (registration?.waiting) {
             registration.waiting.postMessage({ type: 'SKIP_WAITING' });
@@ -120,15 +84,20 @@ const SettingsMobile: React.FC = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 className="max-w-lg mx-auto"
+                className="max-w-lg mx-auto"
             >
                 {/* Cabeçalho Mobile */}
+                <div className="top-0 z-10 pt-4 mb-6">
                 <div className="top-0 z-10 pt-4 mb-6">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <User className="w-6 h-6 text-purple-700 dark:text-purple-300" />
+                            <User className="w-6 h-6 text-purple-700 dark:text-purple-300" />
                             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                                 Configurações
                                 {hasUpdate && (
+                                    <span className="relative ml-2">
+                                        <span className="absolute w-2 h-2 bg-red-500 rounded-full -top-1 -right-1 animate-pulse" />
                                     <span className="relative ml-2">
                                         <span className="absolute w-2 h-2 bg-red-500 rounded-full -top-1 -right-1 animate-pulse" />
                                         ⚙️
@@ -145,15 +114,20 @@ const SettingsMobile: React.FC = () => {
                         initial={{ scale: 0.95 }}
                         animate={{ scale: 1 }}
                         className="flex items-start gap-3 p-4 mb-6 bg-blue-50 dark:bg-blue-900/20 rounded-xl"
+                        className="flex items-start gap-3 p-4 mb-6 bg-blue-50 dark:bg-blue-900/20 rounded-xl"
                     >
                         <CircleFadingPlus className="flex-shrink-0 w-6 h-6 text-blue-600 dark:text-blue-400" />
+                        <CircleFadingPlus className="flex-shrink-0 w-6 h-6 text-blue-600 dark:text-blue-400" />
                         <div>
+                            <p className="mb-2 font-medium dark:text-white">Nova versão disponível!</p>
+                            <p className="mb-3 text-sm text-blue-700 dark:text-blue-300">
                             <p className="mb-2 font-medium dark:text-white">Nova versão disponível!</p>
                             <p className="mb-3 text-sm text-blue-700 dark:text-blue-300">
                                 Uma nova versão do aplicativo está pronta para instalação
                             </p>
                             <button
                                 onClick={handleUpdateApp}
+                                className="px-4 py-2 text-sm text-white transition-transform bg-blue-600 rounded-lg hover:bg-blue-700 active:scale-95"
                                 className="px-4 py-2 text-sm text-white transition-transform bg-blue-600 rounded-lg hover:bg-blue-700 active:scale-95"
                             >
                                 Instalar Atualização
@@ -167,7 +141,9 @@ const SettingsMobile: React.FC = () => {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     className="p-4 mb-6 bg-white border border-gray-200 shadow-lg dark:bg-gray-800 rounded-xl dark:border-gray-700"
+                    className="p-4 mb-6 bg-white border border-gray-200 shadow-lg dark:bg-gray-800 rounded-xl dark:border-gray-700"
                 >
+                    <h2 className="flex items-center gap-2 mb-4 text-lg font-bold dark:text-white">
                     <h2 className="flex items-center gap-2 mb-4 text-lg font-bold dark:text-white">
                         <User className="w-5 h-5 text-purple-600" />
                         <span>Seu Perfil</span>
@@ -176,6 +152,7 @@ const SettingsMobile: React.FC = () => {
                     <form onSubmit={handleProfileUpdate} className="space-y-4">
                         <div className="space-y-3">
                             <div>
+                                <label htmlFor="name" className="block mb-2 text-sm font-medium dark:text-gray-300">
                                 <label htmlFor="name" className="block mb-2 text-sm font-medium dark:text-gray-300">
                                     Nome Completo
                                 </label>
@@ -190,10 +167,12 @@ const SettingsMobile: React.FC = () => {
                                 />
                                 {formErrors.name && (
                                     <p className="mt-1 text-sm text-red-500">{formErrors.name}</p>
+                                    <p className="mt-1 text-sm text-red-500">{formErrors.name}</p>
                                 )}
                             </div>
 
                             <div>
+                                <label htmlFor="email" className="block mb-2 text-sm font-medium dark:text-gray-300">
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium dark:text-gray-300">
                                     Email
                                 </label>
@@ -208,10 +187,12 @@ const SettingsMobile: React.FC = () => {
                                 />
                                 {formErrors.email && (
                                     <p className="mt-1 text-sm text-red-500">{formErrors.email}</p>
+                                    <p className="mt-1 text-sm text-red-500">{formErrors.email}</p>
                                 )}
                             </div>
 
                             <div>
+                                <label htmlFor="phone" className="block mb-2 text-sm font-medium dark:text-gray-300">
                                 <label htmlFor="phone" className="block mb-2 text-sm font-medium dark:text-gray-300">
                                     Telefone
                                 </label>
@@ -225,6 +206,7 @@ const SettingsMobile: React.FC = () => {
                                     placeholder="(00) 00000-0000"
                                 />
                                 {formErrors.phone && (
+                                    <p className="mt-1 text-sm text-red-500">{formErrors.phone}</p>
                                     <p className="mt-1 text-sm text-red-500">{formErrors.phone}</p>
                                 )}
                             </div>
@@ -244,6 +226,7 @@ const SettingsMobile: React.FC = () => {
                 {/* Configurações Gerais Mobile */}
                 <div className="space-y-4">
                     {/* Modo Noturno */}
+                    <div className="p-4 bg-white border border-gray-200 shadow-lg dark:bg-gray-800 rounded-xl dark:border-gray-700">
                     <div className="p-4 bg-white border border-gray-200 shadow-lg dark:bg-gray-800 rounded-xl dark:border-gray-700">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
@@ -270,6 +253,8 @@ const SettingsMobile: React.FC = () => {
                     {/* Notificações */}
                     <div className="p-4 bg-white border border-gray-200 shadow-lg dark:bg-gray-800 rounded-xl dark:border-gray-700">
                         <h3 className="flex items-center gap-2 mb-3 text-lg font-medium dark:text-white">
+                    <div className="p-4 bg-white border border-gray-200 shadow-lg dark:bg-gray-800 rounded-xl dark:border-gray-700">
+                        <h3 className="flex items-center gap-2 mb-3 text-lg font-medium dark:text-white">
                             <Bell className="w-5 h-5 text-purple-600" />
                             Notificações
                         </h3>
@@ -285,7 +270,9 @@ const SettingsMobile: React.FC = () => {
                                         id={item.id}
                                         defaultChecked
                                         className="w-5 h-5 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+                                        className="w-5 h-5 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
                                     />
+                                    <label htmlFor={item.id} className="text-sm dark:text-gray-300">
                                     <label htmlFor={item.id} className="text-sm dark:text-gray-300">
                                         {item.label}
                                     </label>
@@ -296,8 +283,10 @@ const SettingsMobile: React.FC = () => {
 
                     {/* Ações Importantes */}
                     <div className="p-4 space-y-3 bg-white border border-gray-200 shadow-lg dark:bg-gray-800 rounded-xl dark:border-gray-700">
+                    <div className="p-4 space-y-3 bg-white border border-gray-200 shadow-lg dark:bg-gray-800 rounded-xl dark:border-gray-700">
                         <button
                             onClick={logout}
+                            className="flex items-center w-full gap-3 p-2 text-red-600 rounded-lg hover:bg-red-50 dark:hover:bg-gray-700 active:scale-95"
                             className="flex items-center w-full gap-3 p-2 text-red-600 rounded-lg hover:bg-red-50 dark:hover:bg-gray-700 active:scale-95"
                         >
                             <LogOut className="w-5 h-5" />
@@ -306,7 +295,10 @@ const SettingsMobile: React.FC = () => {
 
                         <div className="flex items-start gap-3 p-3 bg-yellow-100 rounded-lg dark:bg-yellow-900/20">
                             <Lock className="w-5 h-5 mt-1 text-yellow-600" />
+                        <div className="flex items-start gap-3 p-3 bg-yellow-100 rounded-lg dark:bg-yellow-900/20">
+                            <Lock className="w-5 h-5 mt-1 text-yellow-600" />
                             <div>
+                                <p className="text-sm font-medium dark:text-white">Segurança Avançada</p>
                                 <p className="text-sm font-medium dark:text-white">Segurança Avançada</p>
                                 <p className="text-xs text-yellow-700 dark:text-yellow-300">
                                     Criptografia de ponta a ponta e proteção contra fraudes

@@ -225,7 +225,7 @@ export default function HomeMobile() {
   }, [isFormVisible]);
 
   return (
-    <div className="fixed inset-0 flex flex-col bg-gray-50 dark:bg-gray-900">
+    <div className="fixed inset-0 flex flex-col">
       <main className="flex flex-col flex-1 overflow-hidden">
         {/* Card Total */}
         <motion.div
@@ -255,7 +255,7 @@ export default function HomeMobile() {
         </div>
 
         {/* Filtros */}
-        <div className="sticky top-0 z-10 px-4 py-2 mb-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
+        <div className="sticky top-0 z-10 px-4 py-2 mb-4">
           <div className="flex gap-2 pb-2 overflow-x-auto">
             {['all', 'pending', 'paid'].map((tab) => (
               <button
