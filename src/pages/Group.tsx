@@ -67,7 +67,7 @@ const Group = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-full">
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

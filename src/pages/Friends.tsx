@@ -38,7 +38,7 @@ const Friends = () => {
     ];
 
     return (
-        <div className="min-h-screen p-6">
+        <div className="min-h-full p-6">
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
