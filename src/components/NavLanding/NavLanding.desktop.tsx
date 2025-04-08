@@ -25,9 +25,8 @@ export default function NavLandingDesktop() {
     };
 
     return (
-        <header className={`fixed top-0 left-0 z-50 flex flex-wrap items-center justify-between w-full px-4 py-3 sm:py-4 sm:px-6 ${
-            isHomePage ? 'border-b-2 shadow-xl bg-gradient-to-r from-purple-50/90 to-blue-100/90 dark:from-gray-800/95 dark:to-gray-900/95 backdrop-blur-lg border-purple-300/30 dark:border-gray-700' : ''
-        }`}>
+        <header className={`fixed top-0 left-0 z-50 flex flex-wrap items-center justify-between w-full px-4 py-3 sm:py-4 sm:px-6 ${isHomePage ? 'border-b-2 shadow-xl bg-gradient-to-r from-purple-50/90 to-blue-100/90 dark:from-gray-800/95 dark:to-gray-900/95 backdrop-blur-lg border-purple-300/30 dark:border-gray-700' : ''
+            }`}>
             {/* Logo e Botão Menu Mobile */}
             <div className="flex items-center justify-between w-full md:w-auto">
                 <Logo />
@@ -158,7 +157,7 @@ export default function NavLandingDesktop() {
                     aria-label={`Alternar para modo ${isDarkMode ? 'claro' : 'escuro'}`}
                 >
                     <motion.div
-                        className="relative w-5 h-5"
+                        className="relative w-6 h-6"
                         animate={isDarkMode ? "day" : "night"}
                         variants={{
                             night: { rotate: 360 },
@@ -167,9 +166,9 @@ export default function NavLandingDesktop() {
                         transition={{ duration: 0.8, type: 'spring' }}
                     >
                         {isDarkMode ? (
-                            <Sun className="absolute inset-0 text-amber-500" />
+                            <Sun className="absolute inset-0 text-amber-500" aria-hidden="true" />
                         ) : (
-                            <Moon className="absolute inset-0 text-purple-700" />
+                            <Moon className="absolute inset-0 text-purple-600" aria-hidden="true" />
                         )}
                     </motion.div>
                 </motion.button>
