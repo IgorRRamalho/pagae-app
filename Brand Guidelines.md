@@ -37,12 +37,7 @@ Uma plataforma web que ajuda amigos a controlarem dívidas cotidianas (como pizz
 
 #### **3.1 Logo**  
 ![Logo PagAê!](link-para-imagem-da-logo)  
-- **Conceito:** Combina um ícone de carteira (💰) com tipografia gradiente, transmitindo movimento e energia.  
-- **Cores:** Gradiente de azul (#4A90E2) para verde (#6ECCAF)  
-- **Versões:**  
-  - Principal (colorida)  
-  - Monocromática (para fundos escuros)  
-  - Simplificada (apenas ícone)  
+- **Em desenvolvimento**
 
 **Regras de Uso:**  
 ✅ Usar sempre com espaço de respiro (20% do tamanho da logo)  
@@ -53,28 +48,51 @@ Uma plataforma web que ajuda amigos a controlarem dívidas cotidianas (como pizz
 #### **3.2 Paleta de Cores**  
 | Cor               | Hexadecimal | Uso Principal                   |  
 |--------------------|-------------|---------------------------------|  
-| Azul Energético    | `#4A90E2`   | Botões primários, destaques     |  
-| Verde Fresco       | `#6ECCAF`   | Elementos interativos, ícones   |  
-| Laranja Vibrante   | `#FF6B6B`   | Alertas, CTAs                   |  
-| Roxo Criativo      | `#9B5DE5`   | Hover effects, detalhes         |  
-| Cinza Suave        | `#F5F5F5`   | Fundos, espaços em branco       |  
-| Preto Profundo     | `#2D2D2D`   | Textos (modo claro)             |  
+| Roxo Primário      | `#7C3AED`   | Botões primários, destaques     |  
+| Roxo Secundário    | `#6D28D9`   | Hover states, elementos ativos  |  
+| Verde             | `#10B981`   | Status positivo, sucesso        |  
+| Vermelho          | `#EF4444`   | Status negativo, alertas        |  
+| Cinza Escuro      | `#1F2937`   | Textos, fundos dark mode        |  
+| Cinza Claro       | `#F3F4F6`   | Fundos, espaços em branco       |  
+| Branco            | `#FFFFFF`   | Fundos light mode               |  
+
+**Modo Escuro:**  
+| Cor               | Hexadecimal | Uso Principal                   |  
+|--------------------|-------------|---------------------------------|  
+| Roxo Primário      | `#8B5CF6`   | Botões primários, destaques     |  
+| Roxo Secundário    | `#7C3AED`   | Hover states, elementos ativos  |  
+| Verde             | `#34D399`   | Status positivo, sucesso        |  
+| Vermelho          | `#F87171`   | Status negativo, alertas        |  
+| Cinza Escuro      | `#111827`   | Fundos principais               |  
+| Cinza Médio       | `#374151`   | Cards, elementos                |  
+| Cinza Claro       | `#4B5563`   | Textos, bordas                  |  
+
+**Gradientes:**  
+- `from-purple-600 to-pink-600` - Botões principais  
+- `from-green-600 to-cyan-600` - Elementos secundários  
+- `from-orange-600 to-red-600` - Alertas e avisos  
+- `from-blue-600 to-indigo-600` - Elementos informativos  
 
 **Psicologia das Cores:**  
-- **Azul + Verde:** Transmitem confiança e frescor, equilibrando seriedade e diversão.  
-- **Laranja:** Estimula ação (ideal para lembretes).  
-- **Roxo:** Adiciona toque criativo e moderno.  
+- **Roxo:** Transmite criatividade e modernidade, usado para elementos principais e interativos  
+- **Verde:** Indica sucesso e transações positivas  
+- **Vermelho:** Usado para alertas e dívidas pendentes  
+- **Cinza:** Cria contraste e hierarquia visual, com variações para light/dark mode  
 
 ---
 
 #### **3.3 Tipografia**  
-**Poppins (Bold)**  
+**Poppins (Bold, Regular)**  
 - Uso: Títulos e destaques  
 - Por quê? Rounded e moderno, combina com a vibe "descolada".  
 
-**Inter (Regular)**  
+**Inter (Regular, Medium, SemiBold)**  
 - Uso: Textos corridos e botões  
 - Por quê? Legibilidade em telas, neutralidade equilibrada.  
+
+**Montserrat e Exo 2**  
+- Uso: Elementos específicos e alternativos  
+- Por quê? Adicionam variedade e personalidade quando necessário  
 
 **Exemplo de Hierarquia:**  
 ```plaintext
@@ -85,22 +103,33 @@ Corpo do Texto (Inter Regular 16px)
 
 ---
 
-#### **3.4 Ícones e Elementos Gráficos**  
-- **Ícones:** Estilo cartoon (Lucide + emojis)  
-- **Padrão:** Linhas grossas (2px) e cores sólidas  
-- **Elementos Lúdicos:**  
-  - Emojis integrados à interface  
-  - Bordas arredondadas (8px radius)  
-  - Efeito de "borbulhas" em hover  
+#### **3.4 Elementos de Interface**  
+- **Sombras:**  
+  - `shadow-purple-glow`: 0 8px 32px rgba(125, 92, 246, 0.3)  
+  - `shadow-deep-xs`: 0 2px 8px -1px rgba(0, 0, 0, 0.1)  
+  - `shadow-deep-sm`: 0 4px 12px -2px rgba(0, 0, 0, 0.15)  
+  - `shadow-deep-md`: 0 8px 24px -4px rgba(0, 0, 0, 0.2)  
+
+- **Animações:**  
+  - `animate-float`: Efeito de flutuação suave  
+  - `animate-pulse-scale`: Pulsação com escala  
+  - `animate-shuffle`: Rotação e escala dinâmica  
+  - `animate-fade-in-up`: Entrada suave de baixo para cima  
+
+- **Bordas e Cantos:**  
+  - Border radius padrão: 12px  
+  - Bordas com gradiente: linear-gradient(90deg, #7C3AED, #DC2626)  
 
 ---
 
-#### **3.5 Fotografia e Ilustração**  
-- **Estilo:** Ilustrações 2D planas com traços suaves  
-- **Temas:**  
-  - Amigos em situações cotidianas (ex.: dividindo conta no bar)  
-  - Objetos relacionados a dinheiro (com expressões humanizadas)  
-- **Tom:** Colorido, com exagero cômico (ex.: notas de dinheiro dançando)  
+#### **3.5 Modo Escuro**  
+- **Cores de Fundo:**  
+  - Background principal: #1e1b2d  
+  - Cards e elementos: #0f172a  
+
+- **Ajustes de Contraste:**  
+  - Textos: #f8fafc  
+  - Bordas: rgba(125, 92, 246, 0.2)  
 
 ---
 
@@ -112,15 +141,19 @@ Corpo do Texto (Inter Regular 16px)
   - Animações de confetti ao marcar dívida como paga  
   - Hover com tilt em cards  
   - Microcopy humorado (ex.: "Snitch on your buddy 😈")  
+  - Scrollbar personalizada com gradiente  
 
-#### **4.2 Redes Sociais**  
-- **Posts:** Mistura de dicas + memes (ex.: "5 desculpas esfarrapadas que todo caloteiro usa")  
-- **Cores:** Usar gradiente da marca como fundo em stories  
+#### **4.2 Componentes**  
+- **Toast Notifications:**  
+  - Bordas arredondadas (12px)  
+  - Sombras suaves  
+  - Indicador de status com gradiente  
+  - Animações de entrada suave  
 
-#### **4.3 Merchandising**  
-- **Produtos:** Canecas, adesivos e camisetas com frases icônicas:  
-  - "Pague o que deve, amigo!"  
-  - "Devedor profissional 👑"  
+- **Carrosséis e Sliders:**  
+  - Paginação personalizada  
+  - Transições suaves  
+  - Indicadores visuais claros  
 
 ---
 
@@ -129,25 +162,22 @@ Corpo do Texto (Inter Regular 16px)
 - Usar emojis para substituir ícones formais  
 - Manter tom coloquial ("Ei, você deve R$50 pro grupo! 😅")  
 - Priorizar ilustrações sobre fotos realistas  
+- Implementar modo escuro com as cores definidas  
 
 **O que evitar:**  
 - Cores fora da paleta (exceto em casos especiais)  
 - Jargões financeiros ("saldo devedor", "liquidação")  
 - Excesso de elementos em uma única tela  
+- Animações muito complexas ou pesadas  
 
 ---
 
-### **6. Exemplos de Aplicação**  
-![Exemplo de Tela](link-para-exemplo-de-tela)  
-*Tela principal do dashboard, mostrando cards de dívidas com ícones e status.*  
-
----
-
-### **7. Considerações Finais**  
+### **6. Considerações Finais**  
 A identidade do **PagAê!** reflete sua proposta única: **combinar organização financeira com diversão**. Todas as aplicações devem priorizar:  
 1. Clareza nas informações  
 2. Humor sutil (sem pieguice)  
 3. Experiência intuitiva  
+4. Acessibilidade e responsividade  
 
 **Última atualização:** [Data]  
 **Licença:** AGPLv3 (código aberto para modificações, com restrições de uso comercial).  

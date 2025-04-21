@@ -1,8 +1,11 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from '../pages/Home';
-import Configuracoes from '../pages/Settings';
-import DivisaoContas from '../pages/BillSplit';
+import DivisaoContas from '@pages/DivisaoContas/DivisaoContas';
+import Configuracoes from '@pages/Settings';
+import Friends from '@pages/Friends';
+import GroupScreen from '@pages/Group';
+
 
 const pageVariants = {
   initial: { 
@@ -35,20 +38,11 @@ const pageVariants = {
   }
 };
 
-const containerStyle = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  overflow: 'hidden'
-};
-
 export default function AnimatedRoutes() {
   const location = useLocation();
 
   return (
-    <div style={containerStyle}>
+    <div className='fixed inset-0 overflow-hidden md:mt-24 '>
       <AnimatePresence mode='wait'>
         <Routes location={location} key={location.pathname}>
           <Route index element={
@@ -82,6 +76,28 @@ export default function AnimatedRoutes() {
               className="absolute inset-0 overflow-y-auto"
             >
               <DivisaoContas />
+            </motion.div>
+          } />
+           <Route path="amigos" element={
+            <motion.div
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="absolute inset-0 overflow-y-auto"
+            >
+              <Friends />
+            </motion.div>
+          } />
+           <Route path="grupos" element={
+            <motion.div
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="absolute inset-0 overflow-y-auto"
+            >
+              <GroupScreen />
             </motion.div>
           } />
         </Routes>

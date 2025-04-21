@@ -1,63 +1,320 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ============ BASE STYLES ============ */
 @layer base {
   html {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: "Inter", system-ui, sans-serif;
+    scroll-behavior: smooth;
+    overscroll-behavior: none;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Poppins', sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Poppins", sans-serif;
     transition: all 0.7s ease;
   }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+.twemoji {
+  display: inline-block; /* Garante alinhamento correto */
+  width: 1em; /* Faz com que o SVG tenha o mesmo tamanho da fonte */
+  height: 1em; /* Mantém a proporção original */
+  vertical-align: -0.1em; /* Ajuste fino para alinhamento */
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+.elemento-touch {
+  touch-action: pan-y;
 }
 
-/* Custom Animations */
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+@media (max-width: 768px) {
+  * {
+      user-select: none;
+  }
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
+/* ============ SCROLLBAR STYLES ============ */
+/* WebKit Browsers */
 ::-webkit-scrollbar {
-  display: none;
+  width: 12px;
+  height: 12px;
 }
 
-/* Para Firefox */
-body {
-  scrollbar-width: none;
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+  border-radius: 20px;
+  margin: 4px;
 }
 
-/* Para IE e Edge */
-body {
-  -ms-overflow-style: none;
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #8b5cf6, #ec4899);
+  border: 3px solid #f8fafc;
+  border-radius: 20px;
+  background-size: 200% 200%;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #7c3aed, #db2777);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #8b5cf6 #f8fafc;
+}
+
+/* ============ DARK MODE STYLES ============ */
+@media (prefers-color-scheme: dark) {
+  /* Scrollbar */
+  ::-webkit-scrollbar-track {
+    background: #0f172a;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #7c3aed, #db2777);
+    border-color: #0f172a;
+  }
+
+  * {
+    scrollbar-color: #7c3aed #0f172a;
+  }
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse-scale {
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scaleX(1.05);
+    opacity: 0.8;
+  }
 }
 
 @keyframes shuffle {
-  0% { transform: rotate(0deg) scale(1); }
-  25% { transform: rotate(180deg) scale(0.8); }
-  50% { transform: rotate(90deg) scale(1.2); }
-  75% { transform: rotate(270deg) scale(0.9); }
-  100% { transform: rotate(360deg) scale(1); }
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(180deg) scale(0.8);
+  }
+  50% {
+    transform: rotate(90deg) scale(1.2);
+  }
+  75% {
+    transform: rotate(270deg) scale(0.9);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .shadow-purple-glow {
+    box-shadow: 0 8px 32px rgba(125, 92, 246, 0.3);
+  }
+  
+  .shadow-deep-xs {
+    box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .shadow-deep-sm {
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.15);
+  }
+
+  .shadow-deep-md {
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.2);
+  }
+
+  .dark .shadow-deep-md {
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* ============ UTILITY CLASSES ============ */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-scale {
+  animation: pulse-scale 2s ease-in-out infinite;
 }
 
 .animate-shuffle {
   animation: shuffle 0.8s ease-in-out;
 }
 
+.animate-fade-in-up {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.perspective-3000 {
+  perspective: 3000px;
+}
+
+.rotate-x-3 {
+  transform: rotateX(3deg);
+}
+
+.group:hover .rotate-x-3 {
+  transform: rotateX(0);
+}
+
+
+/* ============ THIRD-PARTY OVERRIDES ============ */
+/* Swiper Pagination */
+.swiper-pagination-bullet {
+  @apply bg-gray-400 dark:bg-gray-600;
+}
+
+/* Toastify Minimalist Theme */
+.Toastify__toast {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid rgba(125, 92, 246, 0.15) !important;
+  font-family: 'Inter', sans-serif !important;
+  padding: 14px 20px !important;
+  background: #ffffff !important;
+  color: #2d3748 !important;
+  position: relative;
+  min-height: 56px;
+}
+
+/* Dark Mode */
+.dark .Toastify__toast {
+  background: #1e1b2d !important;
+  border-color: rgba(125, 92, 246, 0.2) !important;
+  color: #f8fafc !important;
+}
+
+/* Status Indicator */
+.Toastify__toast::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #7C3AED, #DC2626);
+}
+
+/* Success Toast */
+.Toastify__toast--success::after {
+  background: #10b981 !important;
+}
+
+/* Error Toast */
+.Toastify__toast--error::after {
+  background: #ef4444 !important;
+}
+
+/* Close Button */
+.Toastify__close-button {
+  color: #64748b !important;
+  opacity: 0.75 !important;
+  align-self: center !important;
+  transition: all 0.2s ease !important;
+}
+
+.dark .Toastify__close-button {
+  color: #94a3b8 !important;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1 !important;
+  transform: scale(1.08) !important;
+}
+
+/* Progress Bar */
+.Toastify__progress-bar {
+  height: 2px !important;
+  background: rgba(125, 92, 246, 0.2) !important;
+}
+
+/* Notification Icons */
+.Toastify__toast-icon svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.Toastify__toast--success .Toastify__toast-icon svg {
+  fill: #10b981 !important;
+}
+
+.Toastify__toast--error .Toastify__toast-icon svg {
+  fill: #ef4444 !important;
+}
+
+/* Animation */
+.Toastify__slide-enter--top-center {
+  animation: toast-slide-in 0.3s ease-out forwards;
+}
+
+@keyframes toast-slide-in {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ============ HIDE SCROLLBAR (OPTIONAL) ============ */
+/* Uncomment if needed
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+*/
