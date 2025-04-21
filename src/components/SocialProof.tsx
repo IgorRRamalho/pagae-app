@@ -31,7 +31,7 @@ export const SocialProof = () => {
     return (
         <div className="mt-4 flex justify-center items-center gap-2 text-gray-500 dark:text-gray-400 text-sm">
             <div className="h-px w-8 bg-current opacity-30" />
-            <div className="flex items-center gap-2">
+            <div className="flex text-center items-center gap-2">
                 <span >{randomProof.emoji}</span>
                 {randomProof.text}
             </div>

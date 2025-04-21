@@ -6,10 +6,14 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+.env
 
+# Build e dependências
 node_modules
 dist
 dist-ssr
+dev-dist  # Adicionando dev-dist para não subir
+
 *.local
 
 # Editor directories and files

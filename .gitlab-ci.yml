@@ -1,0 +1,27 @@
+image: node:18  # Usa a imagem oficial do Node.js
+
+stages:
+  - build
+  - deploy
+
+cache:
+  key: npm-cache
+  paths:
+    - node_modules/
+
+build:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - dist/  # Garante que a pasta gerada pelo Vite seja mantida
+
+deploy:
+  stage: deploy
+  script:
+    - npm install -g firebase-tools
+    - firebase deploy --token "$FIREBASE_TOKEN"
+  only:
+    - develop  # Faz deploy apenas quando a branch main for atualizada
